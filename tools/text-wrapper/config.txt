@@ -1,0 +1,2 @@
+input:D:\MyGame\Now\customer-delivery-food\tools\text-wrapper\language_main.xlsx
+output:.\export

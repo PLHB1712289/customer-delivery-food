@@ -1,18 +1,28 @@
-function App() {
+import Localization from './config/LanguageMgr';
+import LangConfig from './config/LangConfig';
+import React, { useState } from 'react';
+
+function App () {
+  const [language, setLanguage] = useState(LangConfig.langType.VN);
+
+  const onButtonClick = function () {
+      if (language === LangConfig.langType.VN) {
+        Localization.changeLanguage(LangConfig.langType.EN);
+        setLanguage(LangConfig.langType.EN);
+      }
+      else {
+        Localization.changeLanguage(LangConfig.langType.VN);
+        setLanguage(LangConfig.langType.VN);
+      }
+  }
+
   return (
     <div className="App">
       <header className="App-header">
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+            Ngôn ngữ: {Localization.text("txt_language")}
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <button onClick={onButtonClick}>Đổi ngôn ngữ</button>
       </header>
     </div>
   );
