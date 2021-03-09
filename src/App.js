@@ -1,4 +1,4 @@
-import Localization from './config/LanguageMgr';
+import Localization from './config/Localization';
 import LangConfig from './config/LangConfig';
 import React, { useState } from 'react';
 
