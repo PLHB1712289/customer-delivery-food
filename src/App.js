@@ -1,30 +1,24 @@
-import Localization from './config/Localization';
-import LangConfig from './config/LangConfig';
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Header from './component/GroupHeader/Header';
 
-function App () {
-  const [language, setLanguage] = useState(LangConfig.langType.VN);
+import LangConfig from "./config/LangConfig.js";
+import Localization from "./config/Localization.js";
 
-  const onButtonClick = function () {
-      if (language === LangConfig.langType.VN) {
-        Localization.changeLanguage(LangConfig.langType.EN);
-        setLanguage(LangConfig.langType.EN);
-      }
-      else {
-        Localization.changeLanguage(LangConfig.langType.VN);
-        setLanguage(LangConfig.langType.VN);
-      }
-  }
+function App() {
+  const [language, setLanguage] = useState(LangConfig.DEFAULT_LANGUAGE);
+
+  const onChangeLanguage = (langType) => {
+    Localization.getInstance().changeLanguage(langType);
+    setLanguage(langType);
+};
+
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-            Ngôn ngữ: {Localization.text("txt_language")}
-        </p>
-        <button onClick={onButtonClick}>Đổi ngôn ngữ</button>
-      </header>
-    </div>
+    <Router>
+      <Header onChangeLanguage={onChangeLanguage}/>
+      <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br>ggdf
+    </Router>
   );
 }
 

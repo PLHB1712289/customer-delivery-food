@@ -1,6 +1,14 @@
 {
   "text": {
-    "txt_language": "Việt Nam"
+    "txt_language_vn": "Tiếng Việt",
+    "txt_language_en": "Tiếng Anh",
+    "txt_search": "Tìm kiếm món ăn, địa điểm…",
+    "txt_dish": "Thức ăn",
+    "txt_login": "Đăng nhập",
+    "txt_order_history": "Lịch sử đặt hàng",
+    "txt_my_vouchers": "Khuyến mãi của tôi",
+    "txt_update_account": "Cài đặt tài khoản",
+    "txt_logout": "Đăng xuất"
   },
   "img": {},
   "sound": {}

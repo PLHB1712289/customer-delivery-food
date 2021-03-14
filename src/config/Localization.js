@@ -2,6 +2,7 @@
 import LangConfig from './LangConfig';
 import LanguageVN from '../resources/lang/lang_VN.json';
 import LanguageEN from '../resources/lang/lang_EN.json';
+import { createContext } from 'react';
 
 
 var Localization = class {
@@ -45,6 +46,10 @@ var Localization = class {
         this._loadDone = true;
     }
 
+    getCurrentLanguage() {
+        return this._currLanguage;
+    }
+
     getStringForKey(key) {
         key = (typeof key === 'string') ? key : '';
         if (this._currLanguage === undefined || this._currLanguage === null) {
@@ -72,6 +77,7 @@ var Localization = class {
             return;
         }
 
+        LangConfig.changeLang(langType);
         this.setCurrentLanguage(langType, textData);
         return true;
     }
