@@ -5,6 +5,8 @@ import VietnamFlag from "../assets/img/Vietnam_Flag.png";
 import EnglandFlag from "../assets/img/England_Flag.png";
 // Logo
 import Logo from "../assets/img/app-logo.png";
+import LogoElip from "../assets/img/Logo-Elip.png";
+import Seals from "../assets/img/gov_seals.jpg";
 
  
 
@@ -25,5 +27,12 @@ ImageUtils.getLogo = function () {
     return Logo;
 };
 
+ImageUtils.getLogoElip = function () {
+    return LogoElip;
+};
+
+ImageUtils.getSeal = function () {
+    return Seals;
+};
 
 export default ImageUtils;

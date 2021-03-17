@@ -5,7 +5,7 @@ import {
     Popper, MenuList, MenuItem, Button, Avatar
 } from "@material-ui/core";
 import classNames from "classnames";
-import {AccountCircle, History, CardGiftcard, ExitToApp} from '@material-ui/icons';
+import { AccountCircle, History, CardGiftcard, ExitToApp } from '@material-ui/icons';
 import Localization from "../../../config/Localization";
 
 export default function SimpleMenu(props) {
@@ -63,19 +63,20 @@ export default function SimpleMenu(props) {
                             <ClickAwayListener onClickAway={handleCloseAway}>
                                 <MenuList role="menu" className={classes.menuList}>
                                     <MenuItem className={classes.itemFirst}>
-                                        <History className={classes.iconOrder}></History>
+                                        <History className={classes.iconOrder} />
                                         {Localization.text("txt_order_history")}
                                     </MenuItem>
                                     <MenuItem className={classes.item}>
-                                        <CardGiftcard className={classes.iconVoucher}></CardGiftcard>
+                                        <CardGiftcard className={classes.iconVoucher}
+                                            color="primary" />
                                         {Localization.text("txt_my_vouchers")}
                                     </MenuItem>
                                     <MenuItem className={classes.item}>
-                                        <AccountCircle className={classes.iconAccount}></AccountCircle>
+                                        <AccountCircle className={classes.iconAccount} />
                                         {Localization.text("txt_update_account")}
                                     </MenuItem>
                                     <MenuItem className={classes.item}>
-                                        <ExitToApp className={classes.iconLogout}></ExitToApp>
+                                        <ExitToApp className={classes.iconLogout}/>
                                         {Localization.text("txt_logout")}
                                     </MenuItem>
                                 </MenuList>

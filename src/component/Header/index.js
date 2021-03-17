@@ -6,18 +6,18 @@ import {
     Toolbar,
     Typography
 } from "@material-ui/core";
-import DropdownButton from "../../Common/CustomDropdown";
+import DropdownButton from "../Common/CustomDropdown";
 import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import useStyles from "./styles";
 import SearchIcon from "@material-ui/icons/Search";
 
-import Avatar from "../AvatarDropdown";
-import OptionLanguage from "../OptionLanguage";
-import ListArea from "../ListArea";
+import Avatar from "./AvatarDropdown";
+import OptionLanguage from "./OptionLanguage";
+import ListArea from "./ListArea";
 
-import ImageUtils from "../../../utils/ImageUtils";
-import Localization from "../../../config/Localization";
+import ImageUtils from "../../utils/ImageUtils";
+import Localization from "../../config/Localization";
 
 
 
