@@ -4,11 +4,16 @@
     "txt_language_en": "English",
     "txt_search": "Find item, place, address…",
     "txt_dish": "Dish",
-    "txt_login": "Login",
+    "txt_login": "Sign In",
     "txt_order_history": "Order History",
     "txt_my_vouchers": "My Vouchers",
     "txt_update_account": "Update Account",
-    "txt_logout": "Log Out"
+    "txt_logout": "Log Out",
+    "txt_phone": "PHONE NUMBER",
+    "txt_optionSignIn": "Or sign in with your account",
+    "txt_cacheSignIn": "Save login ",
+    "txt_forgotPassword": "Forgot password ?",
+    "txt_policy": "We do not use your information for any purpose. By logging in or signing up, you agree with Foody's policies and regulations."
   },
   "img": {},
   "sound": {}

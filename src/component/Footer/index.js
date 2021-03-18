@@ -29,8 +29,8 @@ const Footer = () => {
                 <Toolbar className={classes.toolbar}>
                     <Grid container>
                         <Grid item md={1} xs={0}></Grid>
-                        <Grid container item md={10} xs={12}>
-                            <Grid item md={2} xs={2}>
+                        <Grid container item md={12}>
+                            <Grid item  md={2}>
                                 <div className={classes.companyTitle}><b>Company</b></div>
                                 <div className={classes.companyText}><a href="#" className={classes.link}>About us</a></div>
                                 <div className={classes.companyText}><a href="#" className={classes.link}>Help Centre</a></div>
@@ -44,7 +44,7 @@ const Footer = () => {
                                 <div className={classes.companyText}><a href="#" className={classes.link}>App for merchant</a></div>
                             </Grid>
 
-                            <Grid item md={2} xs={2}>
+                            <Grid item  md={2}>
                                 <div className={classes.companyTitle}><b>Now App</b></div>
                                 <div className={classes.spanLink}>
                                     <FontAwesomeIcon icon={["fab", "apple"]} className={classes.spanIcon} size="2x"/>
@@ -57,7 +57,7 @@ const Footer = () => {
                             </Grid>
 
 
-                            <Grid item md={4} xs={4}>
+                            <Grid item  md={4}>
                                 <img className={classes.logo} src={ImageUtils.getLogoElip()}></img>
                                 <div className={classes.corporation}>© 2021 Now - A Foody Corporation</div>
                                 <div className={classes.corporation}>
@@ -67,7 +67,7 @@ const Footer = () => {
                                 </div>
                             </Grid>
 
-                            <Grid item md={4} xs={4}>
+                            <Grid item md={4}>
                                 <div className={classes.companyAddressTitle}><b>Company Address</b></div>
                                 <div className={classes.companyAddress}>Công Ty Cổ Phần Foody<br />
                                 Lầu G, Tòa nhà Jabes 1,<br />

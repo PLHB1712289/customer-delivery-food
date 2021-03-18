@@ -5,12 +5,9 @@ export default makeStyles((theme) => ({
     backgroundColor: "green"
   },
   appBar: {
-    backgroundColor: "#EEE",
+    backgroundColor: "#f2f2f2",
     height: "45vh",
-    position: "absolute",
     bottom: 0,
-    margin: 0,
-    padding: 0
   },
   toolbar: {
     margin: "20px 0px 0px 0px"

@@ -4,6 +4,7 @@ import "./libs/fontawesome";
 
 import Header from "./component/Header";
 import Footer from "./component/Footer";
+import SignIn from "./component/SignIn";
 
 import LangConfig from "./config/LangConfig.js";
 import Localization from "./config/Localization.js";
@@ -14,13 +15,20 @@ function App() {
   const onChangeLanguage = (langType) => {
     Localization.getInstance().changeLanguage(langType);
     setLanguage(langType);
-};
+  };
 
 
   return (
     <Router>
-      <Header onChangeLanguage={onChangeLanguage}/>
-      <Footer/>
+      <Header onChangeLanguage={onChangeLanguage} />
+
+      <Switch>
+        <Route path={"/sign-in"}>
+          <SignIn />
+        </Route>
+      </Switch>
+
+      <Footer />
     </Router>
   );
 }

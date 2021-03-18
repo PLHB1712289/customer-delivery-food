@@ -8,7 +8,12 @@
     "txt_order_history": "Lịch sử đặt hàng",
     "txt_my_vouchers": "Khuyến mãi của tôi",
     "txt_update_account": "Cài đặt tài khoản",
-    "txt_logout": "Đăng xuất"
+    "txt_logout": "Đăng xuất",
+    "txt_phone": "SỐ ĐIỆN THOẠI",
+    "txt_optionSignIn": "Hoặc đăng nhập bằng tài khoản của bạn",
+    "txt_cacheSignIn": "Lưu thông tin đăng nhập",
+    "txt_forgotPassword": "Quên mật khẩu?",
+    "txt_policy": "úng tôi không sử dụng thông tin của bạn với bất kỳ mục đích nào. Bằng cách đăng nhập hoặc đăng ký, bạn đồng ý với Chính sách quy định của Foody"
   },
   "img": {},
   "sound": {}
