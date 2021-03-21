@@ -27,7 +27,7 @@ const Navbar = (props) => {
     // React router hook
     const history = useHistory();
 
-    const {onChangeLanguage} = props;
+    const { onChangeLanguage } = props;
 
     // state
 
@@ -56,8 +56,8 @@ const Navbar = (props) => {
 
                             {/* Group Selection */}
                             <Grid item md={3} xs={3}>
-                                <ListArea/>
-                                <ListArea/>
+                                <ListArea />
+                                <ListArea />
                             </Grid>
 
                             {/* Group Search */}
@@ -76,8 +76,10 @@ const Navbar = (props) => {
                             </Grid>
 
                             <Grid item md={2} xs={2}>
-                                {/* <Button className={classes.button}>{Localization.text("txt_login")}</Button> */}
-                                <Avatar customStyle={avatarStyle}></Avatar>
+                                <Link to={"/sign-in"} style={{textDecoration: "none"}}>
+                                    <Button className={classes.button}>{Localization.text("txt_login")}</Button>
+                                </Link>
+                                {/* <Avatar customStyle={avatarStyle}></Avatar> */}
                             </Grid>
 
                             <Grid item md={1} xs={1}>

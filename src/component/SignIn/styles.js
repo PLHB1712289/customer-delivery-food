@@ -1,5 +1,3 @@
-import { ImportantDevices } from "@material-ui/icons";
-
 const { makeStyles } = require("@material-ui/core");
 
 export default makeStyles((theme) => ({
@@ -26,13 +24,28 @@ export default makeStyles((theme) => ({
     marginTop: theme.spacing(1)
   },
   buttonFacebook: {
+    border: "none",
     backgroundColor: "#187caa",
     "&:hover": {
       backgroundColor: "#187caa",
     }
   },
+  loginHidden: {
+    minWidth: "100%",
+    minHeight: "100%",
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    opacity: 0,
+    "&:hover": {
+      opacity: 0,
+      visibility: "hidden"
+    },
+  },
   buttonPhone: {
     backgroundColor: "#329900",
+    color: "white",
     "&:hover": {
       backgroundColor: "#329900",
     }
@@ -55,7 +68,7 @@ export default makeStyles((theme) => ({
     color: "white",
     left: theme.spacing(2),
     width: theme.spacing(3.5),
-    height: theme.spacing(3,5),
+    height: theme.spacing(3, 5),
   },
   buttonText: {
     color: "white",
@@ -93,11 +106,11 @@ export default makeStyles((theme) => ({
     marginTop: theme.spacing(1)
   },
   policy: {
-    width: "90%", 
-    marginLeft: "5%", 
+    width: "90%",
+    marginLeft: "5%",
     marginTop: theme.spacing(5),
-    textAlign: "center", 
-    fontFamily: "Arial", 
+    textAlign: "center",
+    fontFamily: "Arial",
     fontSize: "14px"
   },
   input: {

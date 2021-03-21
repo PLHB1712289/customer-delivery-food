@@ -1,0 +1,62 @@
+.container {
+    background-image: url("../../assets/img/homepage-background.jpg");
+    height: 840px
+  }
+
+.tag {
+  border-radius: 7px;
+  border: 1px solid white;
+  color: white;
+  display: inline;
+  float: left;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 10px 20px 10px 20px;
+  margin-right: 20px;
+  margin-bottom: 15px;
+}
+
+.list-tag {
+  margin-top: 50px;
+}
+
+.tag:hover {
+  background-color: white;
+  color: black
+}
+
+.card-title {
+  margin-top: 80px;
+}
+
+.orderTitle {
+  font-family: Noto Sans, Arial, sans-serif;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.orderTut {
+  font-family: Noto Sans, Arial, sans-serif;
+  font-size: 14px;
+  color: white;
+}
+
+.textGetApp {
+  display: inline-block;
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  color: white;
+  margin-top: 30px;
+}
+
+.list-app-image {
+  margin-top: 50px;
+}
+
+.app-image {
+  margin-right: 20px;
+  width: 219px;
+  height: 68px;
+}

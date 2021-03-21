@@ -7,8 +7,9 @@ import EnglandFlag from "../assets/img/England_Flag.png";
 import Logo from "../assets/img/app-logo.png";
 import LogoElip from "../assets/img/Logo-Elip.png";
 import Seals from "../assets/img/gov_seals.jpg";
-
- 
+// app download logo
+import GooglePlay from "../assets/img/google-play.png";
+import AppStore from "../assets/img/app-store.png";
 
 var ImageUtils = ImageUtils || {};
 
@@ -33,6 +34,14 @@ ImageUtils.getLogoElip = function () {
 
 ImageUtils.getSeal = function () {
     return Seals;
+};
+
+ImageUtils.getGooglePlay = function () {
+    return GooglePlay;
+};
+
+ImageUtils.getAppStore = function () {
+    return AppStore;
 };
 
 export default ImageUtils;

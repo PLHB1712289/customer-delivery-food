@@ -2,6 +2,7 @@ import Localization from "../config/Localization";
 import LangConfig from "../config/LangConfig";
 import ImageUtils from "./ImageUtils";
 import ArrayUtils from "./ArrayUtils";
+import CatConfig from "../config/CategoryConfig";
 import { CheckCircle } from "@material-ui/icons";
 
  
@@ -44,6 +45,19 @@ DataUtils.getDataUserSetting = function () {
     ]
 
     return listData;
+};
+
+DataUtils.getListTypeOfFoodHomePage = function (className) {
+    var listTypeCatName = [];
+    for (var index = CatConfig.INDEX_ID_FROM; index <= CatConfig.INDEX_ID_TO; index++) {
+        listTypeCatName.push(Localization.text("txt_type_food_homepage_" + index));
+    }
+
+    var listHTMLObject = listTypeCatName.map((text) => {
+        return <div className={className}>{text}</div>
+    })
+
+    return listHTMLObject;
 };
 
 export default DataUtils;

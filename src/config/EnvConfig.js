@@ -10,6 +10,11 @@ const PRO_ENV = {
   SERVER_URL: process.env.REACT_APP_SERVER_URL,
 };
 
+const APP_ID = {
+  FACEBOOK: 2176685299129039,
+  GOOGLE: 0
+}
+
 const CONFIG =
   process.env.REACT_APP_ENVIRONMENT === "DEVELOPMENT"
     ? { ...DEV_ENV }
