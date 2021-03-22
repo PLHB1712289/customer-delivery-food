@@ -1,15 +1,30 @@
 import React from 'react';
 import useStyles from "./styles";
 import {
-    Paper, Grow, Divider, Icon, ClickAwayListener,
+    Paper, Grow, ClickAwayListener,
     Popper, MenuList, MenuItem, Button, Avatar
 } from "@material-ui/core";
 import classNames from "classnames";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { AccountCircle, History, CardGiftcard, ExitToApp } from '@material-ui/icons';
+
+import action from "../../../storage/action";
+import StrUtils from "../../../utils/StrUtils";
 import Localization from "../../../config/Localization";
 
 export default function SimpleMenu(props) {
     const classes = useStyles();
+
+    // dispatch 
+    const dispatch = useDispatch();
+
+    // history
+    const history = useHistory();
+
+    // use Selector
+    const { token } = useSelector((state) => state.token);
+    const { fullName, id, avatarUrl} = useSelector((state) => state.profile);
 
     const { customStyle } = props;
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -29,6 +44,11 @@ export default function SimpleMenu(props) {
         setAnchorEl(null);
     };
 
+    const handleLogout = () => {
+        dispatch(action.tokenAction.signOut());
+        dispatch(action.profileAction.update("", null, ""));
+        history.push("/sign-in");
+    };
 
     return (
         <div>
@@ -37,8 +57,8 @@ export default function SimpleMenu(props) {
                 aria-haspopup="true"
                 onClick={handleClick}
                 style={customStyle}>
-                <div className={classes.titleText}>{"Tử Văn"}</div>
-                <Avatar className={classes.small}></Avatar>
+                <div className={classes.titleText}>{StrUtils.formatUsernameUI(fullName)}</div>
+                <Avatar className={classes.small} src={avatarUrl}></Avatar>
                 <b className={classes.caret} />
             </Button>
             <Popper
@@ -75,7 +95,7 @@ export default function SimpleMenu(props) {
                                         <AccountCircle className={classes.iconAccount} />
                                         {Localization.text("txt_update_account")}
                                     </MenuItem>
-                                    <MenuItem className={classes.item}>
+                                    <MenuItem className={classes.item} onClick={handleLogout}>
                                         <ExitToApp className={classes.iconLogout}/>
                                         {Localization.text("txt_logout")}
                                     </MenuItem>

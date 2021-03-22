@@ -7,7 +7,9 @@ const TAG = {
     LOADING: {
         TURN_ON: "LOADING_TURN_ON",
         TURN_OFF: "LOADING_TURN_OFF"
-    }
+    },
+
+    UPDATE: "UPDATE"
 };
 
 export default TAG;

@@ -53,8 +53,8 @@ DataUtils.getListTypeOfFoodHomePage = function (className) {
         listTypeCatName.push(Localization.text("txt_type_food_homepage_" + index));
     }
 
-    var listHTMLObject = listTypeCatName.map((text) => {
-        return <div className={className}>{text}</div>
+    var listHTMLObject = listTypeCatName.map((text, index) => {
+        return <div key={index} className={className}>{text}</div>
     })
 
     return listHTMLObject;

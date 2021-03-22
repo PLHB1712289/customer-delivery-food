@@ -8,6 +8,7 @@ import {
 } from "@material-ui/core";
 import DropdownButton from "../Common/CustomDropdown";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import useStyles from "./styles";
 import SearchIcon from "@material-ui/icons/Search";
@@ -30,6 +31,8 @@ const Navbar = (props) => {
     const { onChangeLanguage } = props;
 
     // state
+    const { token } = useSelector((state) => state.token);
+    console.log("tokennn: " + token);
 
     return (
         <>
@@ -76,10 +79,13 @@ const Navbar = (props) => {
                             </Grid>
 
                             <Grid item md={2} xs={2}>
-                                <Link to={"/sign-in"} style={{textDecoration: "none"}}>
-                                    <Button className={classes.button}>{Localization.text("txt_login")}</Button>
-                                </Link>
-                                {/* <Avatar customStyle={avatarStyle}></Avatar> */}
+                                {token === null ?
+                                    (<Link to={"/sign-in"} style={{ textDecoration: "none" }}>
+                                        <Button className={classes.button}>{Localization.text("txt_login")}</Button>
+                                    </Link>) 
+                                    :
+                                    (<Avatar customStyle={avatarStyle}></Avatar>)
+                                }
                             </Grid>
 
                             <Grid item md={1} xs={1}>

@@ -1,7 +1,7 @@
 const _url = {
     SIGN_IN: {
         FACEBOOK: "/auth/sign-in/facebook",
-        GOOGLE: "/auth/sign-in/google",
+        GOOGLE: "/customer/auth/google",
         PHONE: "/auth/sign-in/phone",
         NORMAL: "auth/sign-in"
     }

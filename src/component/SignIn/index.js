@@ -23,6 +23,8 @@ import useStyles from "./styles";
 import Localization from "../../config/Localization";
 import AppConfig from "../../config/AppConfig";
 
+import ArrayUtils from "../../utils/ArrayUtils";
+
 
 const Footer = () => {
     // React router hook
@@ -81,11 +83,38 @@ const Footer = () => {
     // handle login facebook
     const handleSignInFacebook = (res) => {
         console.log("on login facebook request");
+        console.log("userId: " + res.profileObj.googleId);
+        console.log("accessToken: " + res.profileObj.accessToken);
     }
 
     // handle Google facebook
-    const handleSignInGoogle = (res) => {
-        console.log("on login google request");
+    const handleSignInGoogle = async (res) => {
+        const id = res.tokenId;
+        const accessToken = res.accessToken;
+        console.log("data: " + JSON.stringify(id));
+        console.log("huhu: " + JSON.stringify(accessToken));
+
+        // const avatarUrl = res.profileObj["imageUrl"];
+        // const fullName = res.profileObj["name"];
+        // const id = res.profileObj["googleId"];
+
+        // dispatch(action.tokenAction.signIn(1, null));
+        // dispatch(action.profileAction.update(fullName, id, avatarUrl));
+        // history.push("/");
+
+        // request to server
+        const { success, message, data } = await apiService.signInWithGG(
+            id,
+            accessToken
+        );
+
+        if (success) {
+            console.log("data: " + JSON.stringify(data));
+            history.push("/");
+            return;
+        }
+
+        alert(message);
     }
 
     return (
@@ -136,7 +165,7 @@ const Footer = () => {
                                     className={classes.loginHidden}
                                     clientId={AppConfig.GOOGLE}
                                     onSuccess={handleSignInGoogle}
-                                    cookiePolicy="single_host_origin"
+                                    cookiePolicy={'single_host_origin'}
                                 />
                             </Button>
                             {/* Div notify error */}

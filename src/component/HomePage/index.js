@@ -60,7 +60,7 @@ const Footer = () => {
                         </div>
                     </Grid>
 
-                    <Grid item md={7}>
+                    <Grid item md={6}>
                         <div style={{ color: "white" }}>fsdfsdfsdfsfdsfdsf</div>
                     </Grid>
                 </Grid>
