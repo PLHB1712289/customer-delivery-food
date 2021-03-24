@@ -94,39 +94,39 @@ const Footer = () => {
 
   // handle login facebook
   const handleSignInFacebook = (res) => {
-    console.log("on login facebook request");
-    console.log("userId: " + res.profileObj.googleId);
-    console.log("accessToken: " + res.profileObj.accessToken);
+    try {
+      console.log("on login facebook request");
+      console.log("userId: " + res.profileObj.googleId);
+      console.log("accessToken: " + res.profileObj.accessToken);
+    } catch (e) {
+      console.log(`[HANDLE_SIGNIN_FB_FAILED]: ${e.message}`);
+    }
   };
 
   // handle Google facebook
   const handleSignInGoogle = async (res) => {
-    const id = res.tokenId;
-    const accessToken = res.accessToken;
-    console.log("data: " + JSON.stringify(id));
-    console.log("huhu: " + JSON.stringify(accessToken));
+    try {
+      const id = res.tokenId;
+      const accessToken = res.accessToken;
+      console.log("data: " + JSON.stringify(id));
+      console.log("huhu: " + JSON.stringify(accessToken));
 
-    // const avatarUrl = res.profileObj["imageUrl"];
-    // const fullName = res.profileObj["name"];
-    // const id = res.profileObj["googleId"];
+      // request to server
+      const { success, message, data } = await apiService.signInWithGG(
+        id,
+        accessToken
+      );
 
-    // dispatch(action.tokenAction.signIn(1, null));
-    // dispatch(action.profileAction.update(fullName, id, avatarUrl));
-    // history.push("/");
+      if (success) {
+        console.log("data: " + JSON.stringify(data));
+        history.push("/");
+        return;
+      }
 
-    // request to server
-    const { success, message, data } = await apiService.signInWithGG(
-      id,
-      accessToken
-    );
-
-    if (success) {
-      console.log("data: " + JSON.stringify(data));
-      history.push("/");
-      return;
+      alert(message);
+    } catch (e) {
+      console.log(`[HANDLE_SIGNIN_GG_FAILED]: ${e.message}`);
     }
-
-    alert(message);
   };
 
   return (
@@ -166,7 +166,6 @@ const Footer = () => {
                 )}
               />
               {/* Button Login With Google */}
-
               <GoogleLogin
                 clientId={AppConfig.GOOGLE}
                 onSuccess={handleSignInGoogle}
@@ -192,10 +191,12 @@ const Footer = () => {
                   Vui lòng nhập email hoặc số điện thoại
                 </div>
               </div>
+
               {/* Div Text Login */}
               <div className={classes.spanOptionLogin}>
                 {Localization.text("txt_optionSignIn")}
               </div>
+
               {/* Input Account */}
               <OutlinedInput
                 className={classes.input}
@@ -211,6 +212,7 @@ const Footer = () => {
                   </InputAdornment>
                 }
               />
+
               {/* Input Password */}
               <OutlinedInput
                 className={classes.input}
@@ -240,6 +242,7 @@ const Footer = () => {
                   </InputAdornment>
                 }
               />
+
               {/* Cache Sign In */}
               <FormControl className={classes.checkBoxCacheSignIn}>
                 <FormGroup row>
@@ -254,6 +257,7 @@ const Footer = () => {
                   />
                 </FormGroup>
               </FormControl>
+
               {/* Div Quên mật khẩu */}
               <div
                 style={{
@@ -266,6 +270,7 @@ const Footer = () => {
                   {Localization.text("txt_forgotPassword")}
                 </a>
               </div>
+
               {/* Button Login  */}
               <Button
                 className={[classes.buttonSignIn, classes.button].join(" ")}
@@ -275,6 +280,7 @@ const Footer = () => {
                   {Localization.text("txt_login").toUpperCase()}
                 </p>
               </Button>
+
               {/* Div Policy */}
               <div className={classes.policy}>
                 {Localization.text("txt_policy")}
