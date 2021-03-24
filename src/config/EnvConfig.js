@@ -1,8 +1,6 @@
-import { computeHeadingLevel } from "@testing-library/react";
-
 const DEV_ENV = {
   ENV: "DEVELOPMENT",
-  SERVER_URL: "http://localhost:8000"
+  SERVER_URL: "http://localhost:8000",
 };
 
 const PRO_ENV = {
@@ -17,8 +15,7 @@ const CONFIG =
 
 if (process.env.REACT_APP_ENVIRONMENT === "DEVELOPMENT") {
   console.log("Run on development environment");
-}
-else {
+} else {
   console.log("Run on host");
 }
 

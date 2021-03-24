@@ -13,6 +13,7 @@ import Error404 from "./component/Error/404";
 
 import LangConfig from "./config/LangConfig.js";
 import Localization from "./config/Localization.js";
+import Loading from "./component/Loading";
 
 function App() {
   const [language, setLanguage] = useState(LangConfig.DEFAULT_LANGUAGE);
@@ -22,9 +23,10 @@ function App() {
     setLanguage(langType);
   };
 
-
   return (
     <Provider store={store}>
+      <Loading />
+
       <Router>
         <Header onChangeLanguage={onChangeLanguage} />
 
@@ -36,7 +38,6 @@ function App() {
           <Route path={"/"}>
             <HomePage />
           </Route>
-
         </Switch>
 
         <Footer />
