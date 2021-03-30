@@ -3,14 +3,46 @@ orbs:
   docker: circleci/docker@1.4.0
 
 jobs:
-  say-hello:
+  build-and-push:
+    environment:
+      DOCKER_IMAGE: paopaophan/customer-delivery-food
+      DOCKER_TAG: latest
     executor: docker/docker
     steps:
+      - setup_remote_docker:
+          version: 19.03.13
+      - checkout
+      - docker/check:
+          docker-username: DOCKER_USER
+          docker-password: DOCKER_PASSWORD
+      - docker/build:
+          image: $DOCKER_IMAGE
+          tag: $DOCKER_TAG
+      - docker/push:
+          digest-path: /tmp/digest.txt
+          image: $DOCKER_IMAGE
+          tag: $DOCKER_TAG
       - run:
           command: |
-            echo "hello"
+            echo "Digest is: $(</tmp/digest.txt)"
+
+  deploy:
+    executor: docker/docker
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - $SSH_KEY_FINGERPRINT
+      - run: ssh -oStrictHostKeyChecking=no -p 24700 $DEPLOYED_USER@$DEPLOYED_SERVER_IP "cd /home/delivery/customer && sh deploy.sh"
 
 workflows:
-  node-tests:
+  my-first-cd:
     jobs:
-      - say-hello
+      - build-and-push:
+          filters:
+            branches:
+              only:
+                - master
+
+      - deploy:
+          requires:
+            - build-and-push
