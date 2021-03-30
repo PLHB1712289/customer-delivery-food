@@ -1,0 +1,23 @@
+.container-span-like {
+    background-color: #cf2127;
+    color: white;
+    float: left;
+    padding: 10px;
+    display: flex;  
+    flex-wrap: wrap;
+    padding: 3px 7px;
+}
+
+.icon-like {
+    float: left;
+    width: 1rem !important; 
+    height: 1rem !important;
+    transform: translateY(0%);
+    margin-right: 5px;
+}
+
+.text-like {
+    font-size: 0.8rem;
+    font-weight: 400;
+}
+
