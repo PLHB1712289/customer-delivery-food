@@ -1,0 +1,16 @@
+version: 2.1
+orbs:
+  docker: circleci/docker@1.4.0
+
+jobs:
+  say-hello:
+    executor: docker/docker
+    steps:
+      - run:
+          command: |
+            echo "hello"
+
+workflows:
+  node-tests:
+    jobs:
+      - say-hello
