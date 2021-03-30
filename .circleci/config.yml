@@ -1,6 +1,5 @@
 version: 2.1
 orbs:
-  node: circleci/node@3.0.0
   docker: circleci/docker@1.4.0
 
 jobs:
@@ -9,7 +8,7 @@ jobs:
     steps:
       - run:
           command: |
-            echo "Hello"
+            echo "hello"
 
 workflows:
   node-tests:
