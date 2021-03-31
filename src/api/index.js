@@ -17,7 +17,7 @@ import config from '../config/EnvConfig';
 const axiosClient = axios.create({
     baseURL: config.SERVER_URL,
     headers: {
-        "content-type": "application/json"
+        "content-type": "application/json; charset=utf-8",
     },
     paramsSerializer: (params) => queryString.stringify(params)
 });

@@ -1,0 +1,43 @@
+.index-card {
+    color: black;
+    padding: 10px 20px;
+    margin: 0px 5px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 14px;
+    display: inline;
+}
+
+.index-card:hover {
+    color: white;
+    background-color: #cf2127;
+}
+
+.active {
+    color: white !important;
+    background-color: #cf2127 !important;
+}
+
+.icon {
+    display: inline-block;
+    color: #cf2127;
+    background-color: white;
+    border: 2px solid #cf2127;
+    border-radius: 50%;
+    margin: 0px 10px;
+    width: 35px;
+    height: 35px;
+    transform: translateY(10%);
+    text-align: center;
+}
+
+.icon:hover {
+    background-color: #cf2127;
+    color: white;
+}
+
+.icon-content {
+    text-align: center;
+    margin: 0px;
+    transform: translateY(17%);
+}
