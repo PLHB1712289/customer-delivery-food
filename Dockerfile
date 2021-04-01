@@ -7,4 +7,7 @@ COPY . /app
 RUN npm run build
 
 FROM nginx:latest
+RUN rm -f /etc/nginx/conf.d/default.conf
+COPY /nginx/default.conf /etc/nginx/conf.d
+
 COPY --from=build /app/build /usr/share/nginx/html
