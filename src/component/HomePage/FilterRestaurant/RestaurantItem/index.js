@@ -12,7 +12,7 @@ const RestaurantItem = () => {
       <div className="restaurant-item__thumbnail">
         <img
           alt=""
-          src="https://images.foody.vn/res/g92/911715/prof/s280x175/foody-upload-api-foody-mobile-32-190508144839.jpg"
+          src="https://images.foody.vn/res/g32/316391/prof/s280x175/image-5d32b8ba-200908105705.jpeg"
         />
       </div>
       <div className="restaurant-item__information">
