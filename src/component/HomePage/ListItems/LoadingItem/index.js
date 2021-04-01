@@ -1,6 +1,6 @@
 import { Grid } from "@material-ui/core";
 import React from "react";
-import { Bones, View } from "react-bones/lib";
+import { Bones } from "react-bones/lib";
 import "./styles.css";
 
 const LoadingItem = () => {

@@ -1,16 +1,17 @@
-.card-container {
+.card-restaurant__container {
   padding: 10px;
+  font-family: "Noto Sans,Arial,sans-serif";
 }
 
-.card-custom {
+.card-restaurant__custom {
   position: relative;
 
-  height: 240px;
   width: 100%;
-  background-color: white;
-  border-radius: 5px;
 
-  border: 1px solid gray;
+  border-radius: 5px;
+  border: 1px solid #d7d7d7;
+  border-top: none;
+  background-color: white;
   cursor: pointer;
 }
 
@@ -24,40 +25,51 @@
   width: 20px;
 
   border-radius: 50%;
-  border: 1px solid white;
+  border: 1.5px solid white;
 }
 
-.card-custom:hover {
+.card-restaurant__custom:hover {
   transition: box-shadow 0.25s;
   box-shadow: 0 2px 2px 0 rgb(0 0 0 / 20%), 0 4px 15px 0 rgb(0 0 0 / 19%);
   text-decoration: none;
 }
+.card-restaurant__thumbnail {
+}
 
-.card-custom img {
-  /* width: 100%; */
-  height: 60%;
+.card-restaurant__thumbnail > img {
+  width: 100%;
+  height: 100%;
   border-radius: 5px 5px 0px 0px;
-  padding: 0px;
-  border: hidden;
 }
 
-.card-custom .title {
-  font-family: "Noto Sans,Arial,sans-serif";
+.card-restaurant__title {
   color: black;
-  margin: 0px 0px 0px 10px;
   padding: 0px;
-  line-height: 1rem;
+  text-align: center;
+  font-size: 1.2rem;
 }
 
-.card-custom .address {
-  font-family: "Noto Sans,Arial,sans-serif";
+.card-restaurant__address {
   color: gray;
-  margin: 0px 0px 0px 10px;
   padding: 0px;
-  line-height: 2rem;
+  text-align: center;
 }
 
-.card-voucher {
+.card-restaurant__voucher {
   height: 40px;
+  padding: 5px;
   border-top: 1px solid rgb(199, 199, 199);
+
+  font-family: Noto Sans, Arial, sans-serif;
+
+  color: #187caa;
+  font-weight: 700;
+
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+}
+
+.card-restaurant__info {
+  padding: 5px 0;
 }
