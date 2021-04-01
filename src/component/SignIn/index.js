@@ -108,8 +108,6 @@ const Footer = () => {
     try {
       const id = res.tokenId;
       const accessToken = res.accessToken;
-      console.log("data: " + JSON.stringify(id));
-      console.log("huhu: " + JSON.stringify(accessToken));
 
       // request to server
       const { success, message, data } = await apiService.signInWithGG(
@@ -118,9 +116,9 @@ const Footer = () => {
       );
 
       if (success) {
-        console.log("data: " + JSON.stringify(data));
-        history.push("/");
-        return;
+        const userID = data.userID;
+        localStorage.setItem('userID', userID);
+        history.push('/vertify-phone');
       }
 
       alert(message);

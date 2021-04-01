@@ -7,7 +7,9 @@ import "./libs/fontawesome";
 import Header from "./component/Header";
 import Footer from "./component/Footer";
 import SignIn from "./component/SignIn";
+import VertifyPhonge from "./component/VertifyPhone";
 import HomePage from "./component/HomePage";
+import ListRestaurant from "./component/ListRestaurant";
 
 import Error404 from "./component/Error/404";
 
@@ -35,8 +37,12 @@ function App() {
             <SignIn />
           </Route>
 
+          <Route path={"/vertify-phone"}>
+            <VertifyPhonge />
+          </Route>
+
           <Route path={"/"}>
-            <HomePage />
+            <ListRestaurant />
           </Route>
         </Switch>
 

@@ -7,8 +7,8 @@ export default makeStyles((theme) => ({
   panel: {
     backgroundColor: "white",
     width: "80%",
-    height: theme.spacing(80),
-    margin: "10px auto"
+    height: theme.spacing(40),
+    margin: "30px auto"
   },
   title: {
     fontSize: "20px",
@@ -68,7 +68,7 @@ export default makeStyles((theme) => ({
     color: "white",
     left: theme.spacing(2),
     width: theme.spacing(3.5),
-    height: theme.spacing(3.5),
+    height: theme.spacing(3, 5),
   },
   buttonText: {
     color: "white",
