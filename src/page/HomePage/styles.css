@@ -1,7 +1,7 @@
 .container {
-    background-image: url("../../assets/img/homepage-background.jpg");
-    height: 840px
-  }
+  background-image: url("../../assets/img/homepage-background.jpg");
+  height: 840px;
+}
 
 .tag {
   border-radius: 7px;
@@ -23,7 +23,7 @@
 
 .tag:hover {
   background-color: white;
-  color: black
+  color: black;
 }
 
 .card-title {
@@ -63,16 +63,26 @@
 
 .panel-scroll {
   margin-top: 30px;
-  overflow-y:inherit;
-  height: 90%;
+  overflow-y: scroll;
+  max-height: 100%;
+  min-height: 100%;
+  box-sizing: border-box;
+  padding: 40px 0;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.panel-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.panel-scroll {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .panel-food {
   background-color: white;
   border-radius: 5px;
-  overflow: hidden;
-  width: 95%;
-  padding: 30px;
-  margin-top: 50px;
-  margin-left: 5%;
+  padding: 30px 15px;
 }
