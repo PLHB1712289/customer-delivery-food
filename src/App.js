@@ -6,10 +6,10 @@ import "./libs/fontawesome";
 
 import Header from "./component/Header";
 import Footer from "./component/Footer";
-import SignIn from "./component/SignIn";
+import SignIn from "./page/SignIn";
 import VertifyPhonge from "./component/VertifyPhone";
-import HomePage from "./component/HomePage";
-import ListRestaurant from "./component/ListRestaurant";
+import HomePage from "./page/HomePage";
+import ListRestaurant from "./page/ListRestaurant";
 
 import Error404 from "./component/Error/404";
 
@@ -42,7 +42,8 @@ function App() {
           </Route>
 
           <Route path={"/"}>
-            <ListRestaurant />
+            {/* <ListRestaurant /> */}
+            <HomePage />
           </Route>
         </Switch>
 
