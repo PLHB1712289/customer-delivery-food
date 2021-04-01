@@ -1,5 +1,5 @@
 import { Grid } from "@material-ui/core";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 // import apiService from "./apiService";
@@ -9,12 +9,27 @@ import ImageUtils from "../../utils/ImageUtils";
 import CardSum from "../../component/HomePage/CardFoodSum";
 import Address from "../../component/HomePage/Address";
 import "./styles.css";
+import ListItems from "../../component/HomePage/ListItems";
 
 const Footer = () => {
   // React router hook
   const history = useHistory();
   // use dispatch
   const dispatch = useDispatch();
+
+  const [listItem, setListItem] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleLoadMoreItem = () => {
+    setIsLoading(true);
+
+    (async () => {
+      const arr = [10, 11, 12, 13, 14, 15, 16, 17, 18];
+      await new Promise((res) => setTimeout(res, 2000));
+      setIsLoading(false);
+      setListItem((prev) => prev.concat(arr));
+    })();
+  };
 
   // local state
   const listTypeCat = DataUtils.getListTypeOfFoodHomePage("tag");
@@ -50,15 +65,22 @@ const Footer = () => {
             <Grid container md={12}>
               <Address />
             </Grid>
-            <Grid container md={12} className="panel-food">
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((i) => {
+            <ListItems
+              shoudDisplayLoading={isLoading}
+              lable="Bán chạy"
+              onClickShowAll={() => {
+                alert("Show all");
+              }}
+              onClickShowMore={handleLoadMoreItem}
+            >
+              {listItem.map((i) => {
                 return (
                   <Grid item md={4} key={i}>
                     <CardSum />
                   </Grid>
                 );
               })}
-            </Grid>
+            </ListItems>
           </Grid>
         </Grid>
         {/* <Grid item md={1} xs={0}></Grid> */}

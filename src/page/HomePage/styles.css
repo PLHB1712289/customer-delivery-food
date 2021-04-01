@@ -80,9 +80,3 @@
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
-
-.panel-food {
-  background-color: white;
-  border-radius: 5px;
-  padding: 30px 15px;
-}
