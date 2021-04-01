@@ -16,11 +16,20 @@ import Error404 from "./component/Error/404";
 import LangConfig from "./config/LangConfig.js";
 import Localization from "./config/Localization.js";
 import Loading from "./component/Loading";
+import { LiveTv } from "@material-ui/icons";
 
 function App() {
-  const [language, setLanguage] = useState(LangConfig.DEFAULT_LANGUAGE);
+  let current_language = localStorage.getItem("langType");
+  current_language = current_language !== undefined && current_language !== null 
+  ? parseInt(current_language) : LangConfig.DEFAULT_LANGUAGE;
+
+  LangConfig.changeLang(current_language);
+
+  // state
+  const [language, setLanguage] = useState(current_language);
 
   const onChangeLanguage = (langType) => {
+    localStorage.setItem("langType", langType);
     Localization.getInstance().changeLanguage(langType);
     setLanguage(langType);
   };
