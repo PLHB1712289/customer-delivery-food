@@ -11,7 +11,10 @@ const _url = {
     },
 
     RESTAURANT: {
-        GET_LIST: "/restaurants"
+        GET_LIST_ALL: "/restaurants",
+        GET_LIST_NEW: "/restaurants/new",
+        GET_LIST_DISCOUNT: "/restaurants/best-discount",
+        GET_LIST_NEAREST: "/restaurants/nearest"
     }
 };
 

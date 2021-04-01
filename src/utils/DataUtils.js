@@ -75,7 +75,6 @@ DataUtils.mapDataListRestaurant = function (listData) {
   listData = listData.concat(listData);
 
   const html = listData.map(function (data, index) {
-    console.log("indexx: " + index);
 
     return (
       <Grid item md={2}>

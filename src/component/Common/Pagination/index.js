@@ -23,31 +23,17 @@ import { NavigateNext, NavigateBefore } from "@material-ui/icons";
 import { act } from "react-dom/test-utils";
 
 export default function Pagination(props) {
-  const { totalItemsCount, pageRangeDisplay, itemPerPage, onChange } = props;
+  const { 
+    totalItemsCount, 
+    pageRangeDisplay, 
+    itemPerPage, 
+    onChangePage, 
+    activePage,
+    onPreviousPage,
+    onNextPage
+ } = props;
 
   const countPage = Math.ceil(totalItemsCount / itemPerPage);
-  const [activePage, setActivePage] = useState(1);
-
-  const onChangePage = (key) => {
-    // e.preventDefault();
-    if (key !== activePage) {
-      setActivePage(key);
-    }
-  };
-
-  const onPreviousPage = () => {
-    const key = activePage - 1;
-    if (key > 0) {
-      setActivePage(key);
-    }
-  };
-
-  const onNextPage = () => {
-    const key = activePage + 1;
-    if (key <= countPage) {
-      setActivePage(key);
-    }
-  };
 
   let startPage = activePage - Math.ceil(itemPerPage / 2);
   startPage = startPage > 0 ? startPage : 1;
