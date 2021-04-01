@@ -3,9 +3,10 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Address from "../../component/HomePage/Address";
-import CardRestaurant from "../../component/HomePage/CardRestaurant";
+
 import CardVoucher from "../../component/HomePage/CardVoucher";
 import FilterRestaurant from "../../component/HomePage/FilterRestaurant";
+import ListRestaurantBestSeller from "../../component/HomePage/ListRestaurantBestSeller";
 import ListItems from "../../component/HomePage/ListItems";
 import Localization from "../../config/Localization";
 import DataUtils from "../../utils/DataUtils";
@@ -18,31 +19,9 @@ const Footer = () => {
   // use dispatch
   const dispatch = useDispatch();
 
-  const [listRestaurant, setListRestaurant] = useState([
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-  ]);
   const [listVoucher, setListVoucher] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9]);
-  const [isLoadingRestaurant, setIsLoadingRestaurant] = useState(false);
+
   const [isLoadingVoucher, setIsLoadingVoucher] = useState(false);
-
-  const handleLoadMoreRestaurant = () => {
-    setIsLoadingRestaurant(true);
-
-    (async () => {
-      const arr = [10, 11, 12, 13, 14, 15, 16, 17, 18];
-      await new Promise((res) => setTimeout(res, 2000));
-      setIsLoadingRestaurant(false);
-      setListRestaurant((prev) => prev.concat(arr));
-    })();
-  };
 
   const handleLoadMoreVoucher = () => {
     setIsLoadingVoucher(true);
@@ -89,23 +68,7 @@ const Footer = () => {
             <Address />
 
             <FilterRestaurant />
-
-            <ListItems
-              shoudDisplayLoading={isLoadingRestaurant}
-              lable="Bán chạy"
-              onClickShowAll={() => {
-                alert("Show all");
-              }}
-              onClickShowMore={handleLoadMoreRestaurant}
-            >
-              {listRestaurant.map((i) => {
-                return (
-                  <Grid item md={4} key={i}>
-                    <CardRestaurant />
-                  </Grid>
-                );
-              })}
-            </ListItems>
+            <ListRestaurantBestSeller />
 
             <ListItems
               shoudDisplayLoading={isLoadingVoucher}
