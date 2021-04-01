@@ -28,7 +28,7 @@ const Footer = () => {
             >
                 <Toolbar className={classes.toolbar}>
                     <Grid container>
-                        <Grid item md={1} xs={0}></Grid>
+                        <Grid item md={1}></Grid>
                         <Grid container item md={12}>
                             <Grid item  md={2}>
                                 <div className={classes.companyTitle}><b>Company</b></div>
@@ -81,7 +81,7 @@ const Footer = () => {
                                 <img className={classes.seal} src={ImageUtils.getSeal()}></img>
                             </Grid>
                         </Grid>
-                        <Grid item md={1} xs={0}></Grid>
+                        <Grid item md={1}></Grid>
                     </Grid>
                 </Toolbar>
             </AppBar>

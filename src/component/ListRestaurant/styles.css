@@ -15,16 +15,32 @@
 }
 
 .break-line {
-    width: 70% !important;
+    width: 82% !important;
     border-top: 1px solid #bbb;
     margin-bottom: 30px;
 }
 
 .list-card {
     margin-top: 50px;
+    margin-left: 0.5rem !important;
 }
 
 .pagination {
     text-align: center;
     margin-top: 30px;
+}
+
+.filter-dropdown {
+    text-align: right;
+    margin-right: 1em;
+}
+
+.filter-area {
+    text-align: left;
+    margin-left: 1em;
+    display: inline-block;
+}
+
+.card {
+    width: 24%;
 }

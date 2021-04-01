@@ -9,8 +9,8 @@ StrUtils.formatUsernameUI = function (name) {
 };
 
 StrUtils.formatAdressRestaurantCart = function (name) {
-    if (name.length > 20) {
-        name = name.substr(0, 22) + "...";
+    if (name.length > 30) {
+        name = name.substr(0, 31) + "...";
     }
 
     return name;

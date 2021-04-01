@@ -23,7 +23,7 @@ function App() {
   current_language = current_language !== undefined && current_language !== null 
   ? parseInt(current_language) : LangConfig.DEFAULT_LANGUAGE;
 
-  LangConfig.changeLang(current_language);
+  Localization.getInstance().changeLanguage(current_language);
 
   // state
   const [language, setLanguage] = useState(current_language);

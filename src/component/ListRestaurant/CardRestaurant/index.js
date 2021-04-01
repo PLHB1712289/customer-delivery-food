@@ -1,17 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+
+// UI component
 import {} from "@material-ui/core";
+
+// UI icon
 import { LocalOffer, VerifiedUser } from "@material-ui/icons";
 
+// UI custom
 import SpanLike from "../../Common/SpanLike";
 
-import ImageUtils from "../../../utils/ImageUtils";
-import DataUtils from "../../../utils/DataUtils";
+// Utils
 import StrUtils from "../../../utils/StrUtils";
 
+// action
 import action from "../../../storage/action";
 // import apiService from "./apiService";
+
+// config
 import Localization from "../../../config/Localization";
 
 import "./styles.css";

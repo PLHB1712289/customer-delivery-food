@@ -23,9 +23,24 @@ export default makeStyles((theme) => ({
         backgroundColor: "#fff",
         backgroundClip: "padding-box"
     },
+    dropdownFilter: {
+        borderRadius: "3px",
+        border: "0",
+        boxShadow: "0 2px 5px 0 rgba(0, 0, 0, 0.26)",
+        top: "100%",
+        zIndex: "1000",
+        minWidth: "150px",
+        padding: 0,
+        margin: " 0px",
+        fontSize: "14px",
+        textAlign: "left",
+        listStyle: "none",
+        backgroundColor: "#fff",
+        backgroundClip: "padding-box"
+    },
     menuList: {
-       padding: 0,
-       margin: 0,
+       padding: "0px",
+       left: 0
     },
     popperResponsive: {
         zIndex: "1200",

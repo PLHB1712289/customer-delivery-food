@@ -64,9 +64,9 @@ const Navbar = ({ onChangeLanguage }) => {
       >
         <Toolbar className={classes.toolbar}>
           <Grid container>
-            <Grid item md={1} xs={0}></Grid>
-            <Grid container item md={10} xs={12}>
-              <Grid item md={1} xs={1}>
+            <Grid item md={1}></Grid>
+            <Grid container item md={10}>
+              <Grid item md={1}>
                 <Typography className={classes.toolbarTitle}>
                   <Link to={"/"}>
                     <Button>
@@ -81,13 +81,13 @@ const Navbar = ({ onChangeLanguage }) => {
               </Grid>
 
               {/* Group Selection */}
-              <Grid item md={3} xs={3}>
+              <Grid item md={3}>
                 <ListArea />
                 <ListArea />
               </Grid>
 
               {/* Group Search */}
-              <Grid item md={5} xs={5}>
+              <Grid item md={5}>
                 <form className={classes.groupInput}>
                   <input
                     placeholder={Localization.text("txt_search")}
@@ -99,7 +99,7 @@ const Navbar = ({ onChangeLanguage }) => {
                 </form>
               </Grid>
 
-              <Grid item md={2} xs={2}>
+              <Grid item md={2}>
                 {token === null ? (
                   <Link to={"/sign-in"} style={{ textDecoration: "none" }}>
                     <Button className={classes.button}>
@@ -111,11 +111,11 @@ const Navbar = ({ onChangeLanguage }) => {
                 )}
               </Grid>
 
-              <Grid item md={1} xs={1}>
+              <Grid item md={1}>
                 <OptionLanguage onChangeLanguage={onChangeLanguage} />
               </Grid>
             </Grid>
-            <Grid item md={1} xs={0}></Grid>
+            <Grid item md={1}></Grid>
           </Grid>
         </Toolbar>
       </AppBar>
