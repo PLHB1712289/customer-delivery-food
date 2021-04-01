@@ -36,8 +36,6 @@
     "web-vitals": "^1.1.0"
   },
   "scripts": {
-    "build:docker": "docker build . -t customer-delivery-food-image",
-    "start:docker": "docker run -p 3001:5000 -v $(pwd)/build:/app/build --name customer-container customer-delivery-food-image",
     "start": "PORT=3001 react-scripts start",
     "devMac": "PORT=3001 REACT_APP_ENVIRONMENT=DEVELOPMENT react-scripts start",
     "devWin": "set PORT=3001 && set REACT_APP_ENVIRONMENT=DEVELOPMENT && react-scripts start",
