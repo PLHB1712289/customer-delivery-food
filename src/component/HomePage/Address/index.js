@@ -7,7 +7,8 @@ import "./styles.css";
 const Address = () => {
   return (
     <Grid
-      container
+      item
+      xs={12}
       className="Address"
       onClick={() => {
         alert("ADDRESS");

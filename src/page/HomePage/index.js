@@ -2,15 +2,15 @@ import { Grid } from "@material-ui/core";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-// import apiService from "./apiService";
+import Address from "../../component/HomePage/Address";
+import CardRestaurant from "../../component/HomePage/CardRestaurant";
+import CardVoucher from "../../component/HomePage/CardVoucher";
+import FilterRestaurant from "../../component/HomePage/FilterRestaurant";
+import ListItems from "../../component/HomePage/ListItems";
 import Localization from "../../config/Localization";
 import DataUtils from "../../utils/DataUtils";
 import ImageUtils from "../../utils/ImageUtils";
-import CardRestaurant from "../../component/HomePage/CardRestaurant";
-import CardVoucher from "../../component/HomePage/CardVoucher";
-import Address from "../../component/HomePage/Address";
 import "./styles.css";
-import ListItems from "../../component/HomePage/ListItems";
 
 const Footer = () => {
   // React router hook
@@ -60,8 +60,8 @@ const Footer = () => {
 
   return (
     <>
-      <Grid container className="container">
-        <Grid container item md={12} className="container">
+      <Grid container className="homepage__container">
+        <Grid container item md={12} className="homepage__container">
           <Grid item md={1}></Grid>
           <Grid item md={4}>
             <div className="card-title">
@@ -86,9 +86,10 @@ const Footer = () => {
           </Grid>
 
           <Grid item md={6} className="panel-scroll">
-            <Grid container md={12}>
-              <Address />
-            </Grid>
+            <Address />
+
+            <FilterRestaurant />
+
             <ListItems
               shoudDisplayLoading={isLoadingRestaurant}
               lable="Bán chạy"

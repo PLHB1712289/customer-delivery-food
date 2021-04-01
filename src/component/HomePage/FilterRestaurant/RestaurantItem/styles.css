@@ -1,0 +1,49 @@
+.restaurant-item {
+  margin: 10px 0;
+  display: flex;
+
+  cursor: pointer;
+}
+
+.restaurant-item__thumbnail {
+  width: 30%;
+  margin-right: 10px;
+}
+
+.restaurant-item__thumbnail img {
+  width: 100%;
+  height: 120px;
+  border-radius: 8px;
+}
+
+.restaurant-item__information {
+  padding: 10px;
+}
+
+.restaurant-item__name-restaurant {
+  font-weight: 700;
+  color: #252525;
+
+  display: flex;
+  align-items: center;
+}
+
+.restaurant-item__address-restaurant {
+  color: #959595;
+}
+
+.restaurant-item__quick-info-restaurant,
+.restaurant-item__deal-restaurant {
+  display: flex;
+  align-items: center;
+
+  margin: 10px 0;
+}
+
+.restaurant-item__min-price-restaurant,
+.restaurant-item__price-restaurant {
+  display: flex;
+  align-items: center;
+
+  margin-right: 10px;
+}
