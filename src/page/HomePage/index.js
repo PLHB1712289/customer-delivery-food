@@ -6,7 +6,8 @@ import { useHistory } from "react-router-dom";
 import Localization from "../../config/Localization";
 import DataUtils from "../../utils/DataUtils";
 import ImageUtils from "../../utils/ImageUtils";
-import CardSum from "../../component/HomePage/CardFoodSum";
+import CardRestaurant from "../../component/HomePage/CardRestaurant";
+import CardVoucher from "../../component/HomePage/CardVoucher";
 import Address from "../../component/HomePage/Address";
 import "./styles.css";
 import ListItems from "../../component/HomePage/ListItems";
@@ -17,17 +18,40 @@ const Footer = () => {
   // use dispatch
   const dispatch = useDispatch();
 
-  const [listItem, setListItem] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [listRestaurant, setListRestaurant] = useState([
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+  ]);
+  const [listVoucher, setListVoucher] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+  const [isLoadingRestaurant, setIsLoadingRestaurant] = useState(false);
+  const [isLoadingVoucher, setIsLoadingVoucher] = useState(false);
 
-  const handleLoadMoreItem = () => {
-    setIsLoading(true);
+  const handleLoadMoreRestaurant = () => {
+    setIsLoadingRestaurant(true);
 
     (async () => {
       const arr = [10, 11, 12, 13, 14, 15, 16, 17, 18];
       await new Promise((res) => setTimeout(res, 2000));
-      setIsLoading(false);
-      setListItem((prev) => prev.concat(arr));
+      setIsLoadingRestaurant(false);
+      setListRestaurant((prev) => prev.concat(arr));
+    })();
+  };
+
+  const handleLoadMoreVoucher = () => {
+    setIsLoadingVoucher(true);
+
+    (async () => {
+      const arr = [10, 11, 12, 13, 14, 15, 16, 17, 18];
+      await new Promise((res) => setTimeout(res, 2000));
+      setIsLoadingVoucher(false);
+      setListVoucher((prev) => prev.concat(arr));
     })();
   };
 
@@ -66,17 +90,34 @@ const Footer = () => {
               <Address />
             </Grid>
             <ListItems
-              shoudDisplayLoading={isLoading}
+              shoudDisplayLoading={isLoadingRestaurant}
               lable="Bán chạy"
               onClickShowAll={() => {
                 alert("Show all");
               }}
-              onClickShowMore={handleLoadMoreItem}
+              onClickShowMore={handleLoadMoreRestaurant}
             >
-              {listItem.map((i) => {
+              {listRestaurant.map((i) => {
                 return (
                   <Grid item md={4} key={i}>
-                    <CardSum />
+                    <CardRestaurant />
+                  </Grid>
+                );
+              })}
+            </ListItems>
+
+            <ListItems
+              shoudDisplayLoading={isLoadingVoucher}
+              lable="Bộ sưu tập"
+              onClickShowAll={() => {
+                alert("Show all");
+              }}
+              onClickShowMore={handleLoadMoreVoucher}
+            >
+              {listVoucher.map((i) => {
+                return (
+                  <Grid item md={4} key={i}>
+                    <CardVoucher />
                   </Grid>
                 );
               })}

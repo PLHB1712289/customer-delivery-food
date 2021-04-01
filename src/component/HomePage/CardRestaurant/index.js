@@ -1,14 +1,7 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
 import "./styles.css";
 
-const Card = () => {
-  // React router hook
-  const history = useHistory();
-  // use dispatch
-  const dispatch = useDispatch();
-
+const CardRestaurant = () => {
   return (
     <div className="card-container">
       <div className="card-custom">
@@ -26,4 +19,4 @@ const Card = () => {
   );
 };
 
-export default Card;
+export default CardRestaurant;

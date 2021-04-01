@@ -28,7 +28,9 @@
 }
 
 .card-custom:hover {
-  box-shadow: whitesmoke 2px 2px 2px 2px;
+  transition: box-shadow 0.25s;
+  box-shadow: 0 2px 2px 0 rgb(0 0 0 / 20%), 0 4px 15px 0 rgb(0 0 0 / 19%);
+  text-decoration: none;
 }
 
 .card-custom img {
