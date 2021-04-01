@@ -14,10 +14,10 @@ import DataUtils from "../../utils/DataUtils";
 import RestaurantConfig from "../../config/RestaurantConfig";
 
 // children component
-import Pagination from "../Common/Pagination";
-import FilterDropdown from "./FilerDropdown";
-import FilterArea from "./FilterArea";
-import FilterType from "./FilterType";
+import Pagination from "../../component/Common/Pagination";
+import FilterDropdown from "../../component/ListRestaurant/FilerDropdown";
+import FilterArea from "../../component/ListRestaurant/FilterArea";
+import FilterType from "../../component/ListRestaurant/FilterType";
 
 import "./styles.css";
 
@@ -162,7 +162,7 @@ const ListRestaurant = () => {
               </Grid>
 
               <Grid item md={1}>
-                <div className="filter-area">
+                <div className="listRes_filter-area">
                   <FilterArea
                     buttonText={Localization.text("txt_area")}
                     state={filterArea}

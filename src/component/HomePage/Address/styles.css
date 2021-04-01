@@ -1,0 +1,26 @@
+.Address {
+  margin: 20px 0 0 0;
+  padding: 0 20px;
+  height: 50px;
+  width: 100%;
+  border-radius: 5px;
+
+  background-color: white;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  cursor: pointer;
+}
+
+.Address__input-address {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Address__input-address > span {
+  color: #0288d1;
+  font-weight: 700;
+}

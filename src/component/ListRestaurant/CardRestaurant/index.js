@@ -32,24 +32,23 @@ const Card = (props) => {
 
   return (
     <>
-      <div className="card-custom">
-        <div className="reddot green"></div>
+      <div className="listRes_card-custom">
+        <div className="listRes_reddot listRes_green"></div>
         <img
-          className="image"
           src={data.Avatar}
           alt="image"
         ></img>
-        <div className="span-like">
+        <div className="listRes_span-like">
           <SpanLike />
         </div>
         <div>
-          <VerifiedUser className="vertify-icon" />
-          <h3 className="title">{data.Name}</h3>
+          <VerifiedUser className="listRes_vertify-icon" />
+          <h3 className="listRes_title">{data.Name}</h3>
         </div>
-        <p className="address">{StrUtils.formatAdressRestaurantCart(data.Address)}</p>
-        <hr className="break-line-card"></hr>
-        <LocalOffer className="icon-offer" />
-        <div className="text-offer">Giảm 50%</div>
+        <p className="listRes_address">{StrUtils.formatAdressRestaurantCart(data.Address)}</p>
+        <hr className="listRes_break-line-card"></hr>
+        <LocalOffer className="listRes_icon-offer" />
+        <div className="listRes_text-offer">Giảm 50%</div>
       </div>
     </>
   );

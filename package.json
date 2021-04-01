@@ -19,6 +19,7 @@
     "halogenium": "^2.3.0",
     "query-string": "^4.3.4",
     "react": "^17.0.1",
+    "react-bones": "^1.0.3",
     "react-bootstrap": "^1.5.2",
     "react-dom": "^17.0.1",
     "react-facebook-login": "^4.1.1",
@@ -36,11 +37,9 @@
     "web-vitals": "^1.1.0"
   },
   "scripts": {
-    "build:docker": "docker build . -t customer-delivery-food-image",
-    "start:docker": "docker run -p 3001:5000 -v $(pwd)/build:/app/build --name customer-container customer-delivery-food-image",
-    "start": "set PORT=3000 && react-scripts start",
-    "devMac": "PORT=3000 REACT_APP_ENVIRONMENT=DEVELOPMENT react-scripts start",
-    "devWin": "set PORT=3000 && set REACT_APP_ENVIRONMENT=DEVELOPMENT && react-scripts start",
+    "start": "set PORT=3001 && react-scripts start",
+    "devMac": "PORT=3001 REACT_APP_ENVIRONMENT=DEVELOPMENT react-scripts start",
+    "devWin": "set PORT=3001 && set REACT_APP_ENVIRONMENT=DEVELOPMENT && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -62,5 +61,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@iconify/icons-entypo": "^1.1.0",
+    "@iconify/icons-mdi": "^1.1.13",
+    "@iconify/icons-ri": "^1.1.0",
+    "@iconify/icons-uil": "^1.1.1",
+    "@iconify/react": "^1.1.4"
   }
 }

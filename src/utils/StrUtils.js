@@ -1,11 +1,11 @@
-var StrUtils = StrUtils || {};
+const StrUtils = {};
 
 StrUtils.formatUsernameUI = function (name) {
-    if (name.length > 9) {
-        name = name.substr(0, 7) + "...";
-    }
+  if (name.length > 9) {
+    name = name.substr(0, 7) + "...";
+  }
 
-    return name;
+  return name;
 };
 
 StrUtils.formatAdressRestaurantCart = function (name) {
@@ -13,7 +13,23 @@ StrUtils.formatAdressRestaurantCart = function (name) {
         name = name.substr(0, 31) + "...";
     }
 
-    return name;
+  return name;
+};
+
+StrUtils.formatAddressRestaurantCard = function (name) {
+  if (name.length > 20) {
+    name = name.substr(0, 22) + "...";
+  }
+
+  return name;
+};
+
+StrUtils.formatNameVoucherCard = function (name) {
+  if (name.length > 20) {
+    name = name.substr(0, 22) + "...";
+  }
+
+  return name;
 };
 
 export default StrUtils;

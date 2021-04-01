@@ -1,26 +1,9 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import { Paper, Grow, Divider, Icon, Popper } from "@material-ui/core";
 import "./styles.css";
 
-// core components
-import {
-  AppBar,
-  Button,
-  CssBaseline,
-  Grid,
-  IconButton,
-  Menu,
-  MenuList,
-  MenuItem,
-  Toolbar,
-  Typography,
-} from "@material-ui/core";
 
 import { NavigateNext, NavigateBefore } from "@material-ui/icons";
-import { act } from "react-dom/test-utils";
+
 
 export default function Pagination(props) {
   const { 
@@ -32,6 +15,8 @@ export default function Pagination(props) {
     onPreviousPage,
     onNextPage
  } = props;
+
+ console.log("active: " + activePage);
 
   const countPage = Math.ceil(totalItemsCount / itemPerPage);
 
