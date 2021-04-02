@@ -3,6 +3,7 @@ const service = {};
 const seed = [
   {
     id: "a",
+    isOpen: Math.floor(Math.random() * 10) % 2 === 0 ? true : false,
     urlImg:
       "https://images.foody.vn/res/g92/911715/prof/s280x175/foody-upload-api-foody-mobile-32-190508144839.jpg",
     nameRestaurant: "Quán Ăn Tisu - Nui & Mì Xào Bò - Shop Online",
@@ -11,6 +12,7 @@ const seed = [
   },
   {
     id: "b",
+    isOpen: Math.floor(Math.random() * 10) % 2 === 0 ? true : false,
     urlImg:
       "https://images.foody.vn/res/g100/991138/prof/s280x175/foody-upload-api-foody-mobile-hmzz-191218121126.jpg",
     nameRestaurant: "Món Quảng Xuyên Việt",
@@ -19,6 +21,7 @@ const seed = [
   },
   {
     id: "c",
+    isOpen: Math.floor(Math.random() * 10) % 2 === 0 ? true : false,
     urlImg:
       "https://images.foody.vn/res/g103/1022397/prof/s280x175/foody-upload-api-foody-mobile-9a-200525142151.jpg",
     nameRestaurant: "Sunny House - Sinh Tố & Nước Ép",
@@ -27,6 +30,7 @@ const seed = [
   },
   {
     id: "d",
+    isOpen: Math.floor(Math.random() * 10) % 2 === 0 ? true : false,
     urlImg:
       "https://images.foody.vn/res/g103/1020115/prof/s280x175/foody-upload-api-foody-mobile-hmzz-200421103141.jpg",
     nameRestaurant: "Bún Bò Đất Thánh - Shop Online",
@@ -35,6 +39,7 @@ const seed = [
   },
   {
     id: "e",
+    isOpen: Math.floor(Math.random() * 10) % 2 === 0 ? true : false,
     urlImg:
       "https://images.foody.vn/res/g102/1018583/prof/s280x175/foody-upload-api-foody-mobile-hmb-200410113701.jpg",
     nameRestaurant: "Quán Bún Dì Vân",
@@ -43,6 +48,7 @@ const seed = [
   },
   {
     id: "f",
+    isOpen: Math.floor(Math.random() * 10) % 2 === 0 ? true : false,
     urlImg:
       "https://images.foody.vn/res/g69/682061/prof/s280x175/foody-upload-api-foody-mobile-11a-jpg-180816143840.jpg",
     nameRestaurant: "Rules Of Tea - Trà Sữa Đế Vương - Nguyễn Văn Cừ",
