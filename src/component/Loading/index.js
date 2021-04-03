@@ -46,7 +46,7 @@ const Loading = () => {
             zIndex: 10000,
             justifyContent: "center",
             alignItems: "center",
-            background: "rgba(0,0,0,0.2)",
+            background: "rgba(0, 0, 0, 0.4)",
           }}
         >
           <div style={style}>

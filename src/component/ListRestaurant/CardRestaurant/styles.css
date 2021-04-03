@@ -88,4 +88,5 @@
     color: #ffc107;
     width: 1rem !important;
     height: 1rem !important;
+    transform: translateY(20%);
 }
