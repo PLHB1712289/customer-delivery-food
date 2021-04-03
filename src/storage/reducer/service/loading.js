@@ -1,6 +1,6 @@
 import TAG from "../../TAG";
 
-const INITIAL_STATE = false;
+const INITIAL_STATE = true;
 
 const loadingReducer = (isLoading = INITIAL_STATE, action) => {
     switch (action.type) {

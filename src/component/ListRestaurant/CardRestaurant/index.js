@@ -30,12 +30,20 @@ const Card = (props) => {
   // use dispatch
   const dispatch = useDispatch();
 
+  let classReddot = "listRes_reddot ";
+  if (data.isOpening === true) {
+    classReddot += "listRes_green";
+  }
+  else {
+    classReddot += "listRes_red";
+  }
+
   return (
     <>
       <div className="listRes_card-custom">
-        <div className="listRes_reddot listRes_green"></div>
+        <div className={classReddot}></div>
         <img
-          src={data.Avatar}
+          src={data.urlImg}
           alt="image"
         ></img>
         <div className="listRes_span-like">
@@ -43,12 +51,12 @@ const Card = (props) => {
         </div>
         <div>
           <VerifiedUser className="listRes_vertify-icon" />
-          <h3 className="listRes_title">{data.Name}</h3>
+          <h3 className="listRes_title">{StrUtils.formatNameRestaurantCart(data.nameRestaurant)}</h3>
         </div>
-        <p className="listRes_address">{StrUtils.formatAdressRestaurantCart(data.Address)}</p>
+        <p className="listRes_address">{StrUtils.formatAdressRestaurantCart(data.addressRestaurant)}</p>
         <hr className="listRes_break-line-card"></hr>
         <LocalOffer className="listRes_icon-offer" />
-        <div className="listRes_text-offer">Giảm 50%</div>
+        <div className="listRes_text-offer">{data.voucher}</div>
       </div>
     </>
   );

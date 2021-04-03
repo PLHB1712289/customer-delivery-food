@@ -7,7 +7,9 @@ export default makeStyles((theme) => ({
   appBar: {
     backgroundColor: "#f2f2f2",
     height: "45vh",
-    bottom: 0,
+    position: "relative",
+    clear: "both",
+    bottom: "-42vh"
   },
   toolbar: {
     margin: "20px 0px 0px 0px"

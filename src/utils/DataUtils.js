@@ -88,9 +88,6 @@ DataUtils.getListTypeOfFoodHomePage = function (className) {
 };
 
 DataUtils.mapDataListRestaurant = function (listData) {
-  listData = listData.concat(listData);
-  listData = listData.concat(listData);
-
   const html = listData.map(function (data, index) {
     return (
         <CardRestaurant data={data} key={index} className="card"/>
@@ -120,6 +117,30 @@ DataUtils.mapStateFitlerType = function () {
   }
 
   return state;
+};
+
+DataUtils.getFilterAreaRestaurant = function (filterArea) {
+  const chooseArea = [];
+
+  for (var key in filterArea) {
+    if (filterArea[key] === true) {
+      chooseArea.push(key);
+    }
+  }
+
+  return chooseArea;
+};
+
+DataUtils.getFilterTypeRestaurant = function (filterType) {
+  const chooseType = [];
+
+  for (var key in filterType) {
+    if (filterType[key] === true) {
+      chooseType.push(key);
+    }
+  }
+
+  return chooseType;
 };
 
 export default DataUtils;

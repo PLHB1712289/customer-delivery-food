@@ -16,8 +16,6 @@ export default function Pagination(props) {
     onNextPage
  } = props;
 
- console.log("active: " + activePage);
-
   const countPage = Math.ceil(totalItemsCount / itemPerPage);
 
   let startPage = activePage - Math.ceil(itemPerPage / 2);
