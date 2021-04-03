@@ -10,6 +10,8 @@ import Seals from "../assets/img/gov_seals.jpg";
 // app download logo
 import GooglePlay from "../assets/img/google-play.png";
 import AppStore from "../assets/img/app-store.png";
+// except
+import ResultNotFound from "../assets/img/no-results-found.png";
 
 var ImageUtils = ImageUtils || {};
 
@@ -42,6 +44,10 @@ ImageUtils.getGooglePlay = function () {
 
 ImageUtils.getAppStore = function () {
     return AppStore;
+};
+
+ImageUtils.getResultNotFound = function () {
+    return ResultNotFound;
 };
 
 export default ImageUtils;

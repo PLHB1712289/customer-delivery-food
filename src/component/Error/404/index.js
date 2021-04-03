@@ -1,33 +1,21 @@
-import React from "react";
-import { Grid } from "@material-ui/core";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import "./styles.css";
 
-import useStyles from "./styles";
+const NotFound = () => (
+    <div className="notfound-container">
+	<div id="notfound">
+		<div className="notfound">
+			<div>
+				<div className="notfound-404">
+					<h1>!</h1>
+				</div>
+				<h2>Error 404</h2>
+			</div>
+			<p>The page you are looking for might have been removed had its name changed or is temporarily unavailable. <Link to="/">Back to homepage</Link></p>
+		</div>
+	</div>
+    </div>
+);
 
-const Footer = () => {
-    const classes = useStyles();
-
-    return (
-        <>
-            <Grid container>
-                <Grid container item md={12}>
-                    <Grid item md={12}>
-
-                        <div id="notfound">
-                            <div class="notfound">
-                                <div>
-                                    <div className={classes.notfound_404}>
-                                        <h1 className={classes.notfoundSymbol}>!</h1>
-                                    </div>
-                                    <h2 className={classes.errorText}>Error 404</h2>
-                                    <p>The page you are looking for might have been removed had its name changed or is temporarily unavailable. <a href="#">Back to homepage</a></p>
-                                </div>
-                            </div>
-                        </div>
-                    </Grid>
-                </Grid>
-            </Grid>
-        </>
-    );
-};
-
-export default Footer;
+export default NotFound;

@@ -33,7 +33,8 @@ RestaurantConfig.AREA = {
     19: "Hóc Môn",
     20: "Bình Chánh",
     21: "Cần Giờ",
-    22: "Nhà Bè"
+    22: "Nhà Bè",
+    23: "Gò Vấp"
 };
 
 RestaurantConfig.FILTER_TYPE = {

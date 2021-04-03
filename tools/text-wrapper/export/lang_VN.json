@@ -60,6 +60,7 @@
     "txt_district_21": "Bình Chánh",
     "txt_district_22": "Cần Giờ",
     "txt_district_23": "Nhà Bè",
+    "txt_district_24": "Gò vấp",
     "label_restaurants": "Danh sách Quán ăn",
     "txt_categories": "Loại",
     "txt_cat_1": "Đồ ăn",
@@ -68,7 +69,8 @@
     "txt_cat_4": "Món chay",
     "txt_cat_5": "Món lẩu",
     "txt_cat_6": "Pizza/Burger",
-    "txt_cat_7": "Món gà"
+    "txt_cat_7": "Món gà",
+    "txt_no_result_found": "Không tìm thấy kết quả tìm kiếm!"
   },
   "img": {},
   "sound": {}

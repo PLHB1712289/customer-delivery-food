@@ -11,7 +11,7 @@ import VertifyPhonge from "./component/VertifyPhone";
 import HomePage from "./page/HomePage";
 import ListRestaurant from "./page/ListRestaurant";
 
-import Error404 from "./component/Error/404";
+import NotFound from "./component/Error/404";
 
 import LangConfig from "./config/LangConfig.js";
 import Localization from "./config/Localization.js";
@@ -50,12 +50,16 @@ function App() {
             <VertifyPhonge />
           </Route>
 
-          <Route path={"/"}>
+          <Route path={"/restaurants"}>
             <ListRestaurant />
-            {/* <HomePage /> */}
           </Route>
-        </Switch>
 
+          <Route exact path={"/"}>
+            <HomePage />
+          </Route>
+
+          <Route path="*" component={NotFound} />
+        </Switch>
         <Footer />
       </Router>
     </Provider>

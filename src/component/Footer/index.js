@@ -19,7 +19,7 @@ const Footer = () => {
     const classes = useStyles();
 
     return (
-        <>
+        <div className={classes.footer_global}>
             <AppBar
                 position="static"
                 color="default"
@@ -85,7 +85,7 @@ const Footer = () => {
                     </Grid>
                 </Toolbar>
             </AppBar>
-        </>
+        </div>
     );
 };
 

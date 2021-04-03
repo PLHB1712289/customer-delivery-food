@@ -10,6 +10,7 @@ import Localization from "../../config/Localization";
 
 // utils
 import DataUtils from "../../utils/DataUtils";
+import ImageUtils from "../../utils/ImageUtils";
 
 // config
 import RestaurantConfig from "../../config/RestaurantConfig";
@@ -127,11 +128,13 @@ const ListRestaurant = () => {
 
   const handleFilter = () => {
     if (cacheFilter.length !== 0) {
-      console.log("lengthhhh: " + cacheFilter.length);
       const cacheArea = cacheFilter[0];
       const cacheType = cacheFilter[1];
-      
-      if (ArrayUtils.compareTwoJSON(filterArea, cacheArea) && ArrayUtils.compareTwoJSON(filterType, cacheType)) {
+
+      if (
+        ArrayUtils.compareTwoJSON(filterArea, cacheArea) &&
+        ArrayUtils.compareTwoJSON(filterType, cacheType)
+      ) {
         return;
       }
     }
@@ -165,9 +168,14 @@ const ListRestaurant = () => {
     })();
   };
 
+  let globalClass = "listRes_global ";
+  if (listRes.length !== 0) {
+    globalClass += "listRes_haveResult";
+  }
+
   return (
     <>
-      <Grid container className="listRes_global">
+      <Grid container className={globalClass}>
         <Grid container item md={12}>
           <div className="listRes_panel">
             <Grid item md={12}>
@@ -220,9 +228,19 @@ const ListRestaurant = () => {
               </Grid>
               <Grid item md={1}></Grid>
               <Grid item md={10}>
-                <Grid container item md={12} className="listRes_list-card">
-                  {listRestaurant}
-                </Grid>
+                {listRes.length === 0 ? (
+                  <div>
+                    <img
+                      src={ImageUtils.getResultNotFound()}
+                      className="listRes_imgNotFound"
+                    ></img>
+                    <div className="listRes_txtNotFound">{Localization.text("txt_no_result_found")}</div>
+                  </div>
+                ) : (
+                  <Grid container item md={12} className="listRes_list-card">
+                    {listRestaurant}
+                  </Grid>
+                )}
               </Grid>
             </Grid>
             <Grid item md={12}>
@@ -239,8 +257,6 @@ const ListRestaurant = () => {
               </div>
             </Grid>
           </div>
-
-          <Grid item md={1}></Grid>
         </Grid>
       </Grid>
     </>
