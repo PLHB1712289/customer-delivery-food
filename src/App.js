@@ -7,7 +7,8 @@ import "./libs/fontawesome";
 import Header from "./component/Header";
 import Footer from "./component/Footer";
 import SignIn from "./page/SignIn";
-import VertifyPhonge from "./component/VertifyPhone";
+import VertifyPhonge from "./page/VertifyPhone";
+import InputOTP from "./page/VertifyOTP";
 import HomePage from "./page/HomePage";
 import ListRestaurant from "./page/ListRestaurant";
 
@@ -48,6 +49,10 @@ function App() {
 
           <Route path={"/vertify-phone"}>
             <VertifyPhonge />
+          </Route>
+
+          <Route path={"/input-otp"}>
+            <InputOTP />
           </Route>
 
           <Route path={"/restaurants"}>

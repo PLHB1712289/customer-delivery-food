@@ -44,7 +44,7 @@ export default makeStyles((theme) => ({
     color: "#464646",
     paddingLeft: 10,
     "&:hover": {
-      color: "green",
+      color: "#0288d1",
       border: "1px solid #0288d1",
     },
   },
