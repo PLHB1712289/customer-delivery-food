@@ -70,7 +70,12 @@
     "txt_cat_5": "Món lẩu",
     "txt_cat_6": "Pizza/Burger",
     "txt_cat_7": "Món gà",
-    "txt_no_result_found": "Không tìm thấy kết quả tìm kiếm!"
+    "txt_no_result_found": "Không tìm thấy kết quả tìm kiếm!",
+    "txt_invalid_otp": "Mã OTP không hợp lệ",
+    "txt_confirm": "Xác nhận",
+    "txt_enter_otp": "Nhập mã OTP",
+    "txt_vertify_phone_number": "Xác thực số điện thoại",
+    "txt_your_phone_number": "Số điện thoại của bạn"
   },
   "img": {},
   "sound": {}

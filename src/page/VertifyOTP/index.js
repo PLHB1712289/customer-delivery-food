@@ -9,9 +9,10 @@ import {
   Button,
 } from "@material-ui/core";
 import { Dialpad } from "@material-ui/icons";
-import OtpInput from 'react-otp-input';
+import OtpInput from "react-otp-input";
 // service
 import action from "../../storage/action";
+import service from "./service";
 // config
 import Localization from "../../config/Localization";
 import AppConfig from "../../config/AppConfig";
@@ -27,11 +28,43 @@ const InputOTP = () => {
   const dispatch = useDispatch();
   // use state
   const [otp, setOTP] = useState("");
+  const [isValidOTP, setIsValidOTP] = useState(true);
 
-  const handleChange = otp => {
-      console.log("otp: " + otp);
-      setOTP(otp);
-  }
+  // handle change OTP
+  const handleChange = (otp) => {
+    setOTP(otp.toString());
+  };
+
+  // handle submit OTP
+  const handleSubmit = () => {
+    if (otp.length !== 6) {
+      setIsValidOTP(false);
+    }
+    else {
+      dispatch(action.loadingAction.turnOn());
+      (async () => {
+        try {
+          const { success, message, data } = await service.sendLoginOTP(
+            otp
+          );
+  
+          dispatch(action.loadingAction.turnOff());
+          if (success) {
+              localStorage.setItem('token', data.token);
+              localStorage.setItem('userID', data.userID);
+              localStorage.setItem('avatar', data.avatar);
+              localStorage.setItem('fullName', data.fullName);
+              history.push("/");
+          } else {
+            alert(message);
+          }
+        } catch (e) {
+          alert("Không thể kết nối với server.");
+          console.error(`[LIST_RESTAURANT]: ${e.message}`);
+        }
+      })();
+    }
+  };
 
   return (
     <>
@@ -41,23 +74,38 @@ const InputOTP = () => {
 
           <Grid item md={6}>
             <div className="inputOPT_panel">
-              <p className="inputOPT_title">Nhập mã OTP</p>
+              <p className="inputOPT_title">{Localization.text("txt_enter_otp")}</p>
               {/* Button Login With Phone */}
 
               {/* Input OTP */}
               <div className="inputOPT_spanInput">
-                  <OtpInput 
+                <OtpInput
                   value={otp}
-                  inputStyle={{width: "1000%", height: "200%", marginRight: "10%", textAlign: "center", fontColor: "black", fontWeight: "bold", fontSize: "1rem"}} 
+                  inputStyle={{
+                    width: "1000%",
+                    height: "200%",
+                    marginRight: "10%",
+                    textAlign: "center",
+                    fontColor: "black",
+                    fontWeight: "bold",
+                    fontSize: "1rem",
+                  }}
                   onChange={handleChange}
-                  numInputs={6} 
+                  numInputs={6}
                   shouldAutoFocus={true}
                   isInputNum={true}
-                  separator={<span></span>} 
-                  />
+                  separator={<span></span>}
+                />
               </div>
-
-              <Button className="inputOPT_button">Xác nhận</Button>           
+              {isValidOTP ? (
+                <div className="inputOTP_error"></div>
+              ) : (
+                <div className="inputOTP_error">{Localization.text("txt_invalid_otp")}</div>
+              )}
+              <Button 
+              className="inputOPT_button"
+              onClick={handleSubmit}
+              >{Localization.text("txt_confirm")}</Button>
             </div>
           </Grid>
 

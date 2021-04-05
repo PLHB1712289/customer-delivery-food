@@ -34,7 +34,7 @@ const Navbar = ({ onChangeLanguage }) => {
     // IIFE tech
     (async () => {
       // 1. Get token from localStorage:
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
 
       try {
         // 2. If token is exist, send request for get account from server API:

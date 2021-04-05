@@ -74,7 +74,7 @@ const Footer = () => {
     // turnOnLoading();
 
     // test
-    history.push("/");
+    history.push("/vertify-phone");
     return;
 
     const { success, message, data } = await apiService.signInNormal(

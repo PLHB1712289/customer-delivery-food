@@ -26,10 +26,17 @@
   .inputOPT_input {
   
   }
-  
+
+  .inputOTP_error {
+    color: red;
+    text-align: center;
+    width: 100%;
+    margin-top: 2.5rem;
+    font-size: 1rem;
+  }
   
   .inputOPT_button {
-    margin: 5rem 35% !important;
+    margin: 2rem 35% !important;
     background-color: #cf2127 !important;
     text-align: center !important;
     width: 30%;
