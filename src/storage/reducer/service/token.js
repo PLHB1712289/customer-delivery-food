@@ -1,8 +1,7 @@
 import TAG from "../../TAG";
 
 const INITIAL_STATE = {
-  token: null,
-  user: null,
+  token: null
 };
 
 const tokenReducer = (token = INITIAL_STATE, action) => {
@@ -11,14 +10,12 @@ const tokenReducer = (token = INITIAL_STATE, action) => {
       return {
         ...token,
         token: action.payload.token,
-        user: action.payload.user,
       };
 
     case TAG.TOKEN.SIGN_OUT:
       return {
         ...token,
         token: null,
-        user: null,
       };
 
     default:

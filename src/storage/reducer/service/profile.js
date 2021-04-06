@@ -1,23 +1,30 @@
 import TAG from "../../TAG";
 
 const INITIAL_STATE = {
-    fullName: "",
-    id: -1,
-    avatarUrl: ""
+  userID: -1,
+  fullName: "",
+  avatarUrl: "",
 };
 
-const tokenReducer = (profile = INITIAL_STATE, action) => {
-    switch (action.type) {
-        case TAG.UPDATE:
-            return {
-                ...profile,
-                id: action.payload.id,
-                fullName: action.payload.fullName,
-                avatarUrl: action.payload.avatarUrl
-            };
-        default:
-            return profile;
-    }
+const profileReducer = (profile = INITIAL_STATE, action) => {
+  switch (action.type) {
+    case TAG.PROFILE.SIGN_IN:
+      return {
+        ...profile,
+        userID: action.payload.userID,
+        fullName: action.payload.fullName,
+        avatarUrl: action.payload.avatarUrl
+      };
+    case TAG.PROFILE.SIGN_OUT:
+      return {
+        ...profile,
+        userID: -1,
+        fullName: "",
+        avatarUrl: ""
+      };
+    default:
+      return profile;
+  }
 };
 
-export default tokenReducer;
+export default profileReducer;

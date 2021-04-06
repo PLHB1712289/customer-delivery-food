@@ -60,7 +60,7 @@ export default makeStyles((theme) => ({
     color: "#cf2127",
     fontSize: "15px",
     fontWeight: "bold",
-    transform: "translateY(10%)",
+    transform: "translateY(15%)",
     "&:hover": {
       backgroundColor: "#cf2127",
       color: "white"
@@ -76,7 +76,7 @@ export default makeStyles((theme) => ({
     fontSize: "12px",
     fontWeight: "bold",
     marginLeft: "5px",
-    transform: "translateY(10%)",
+    transform: "translateY(15%)",
   },
   groupInput: {
     backgroundColor: "#FFF",

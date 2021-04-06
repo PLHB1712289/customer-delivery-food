@@ -34,21 +34,14 @@ export default function SimpleMenu(props) {
   const history = useHistory();
 
   // use local storage
-  const { token } = useSelector((state) => state.token);
-  const  profile  = useSelector((state) => state.profile);
+  let  { token }  = useSelector((state) => state.token);
+  let  { userID, fullName, avatarUrl }  = useSelector((state) => state.profile);
 
-//   let userID = 1;
-//   let avatarUrl = "Martin";
-//   let fullName = "Martin";
-
-  let userID = profile.id;
-  let avatarUrl = profile.fullName;
-  let fullName = profile.avatarUrl;
-
-  if (userID === -1) {
-    userID = localStorage.getItem("userID");
-    avatarUrl = localStorage.getItem("avatar");
-    fullName = localStorage.getItem("fullName");
+  if (token === null) {
+    token = localStorage.getItem('token');
+    userID = localStorage.getItem('userID');
+    avatarUrl = localStorage.getItem('avatar');
+    fullName = localStorage.getItem('fullName');
   }
 
   const { customStyle } = props;
@@ -73,13 +66,11 @@ export default function SimpleMenu(props) {
 
   const handleLogout = () => {
     dispatch(action.tokenAction.signOut());
-    dispatch(action.profileAction.update(-1, "", ""));
-    localStorage.removeItem("token");
-    localStorage.setItem("userID", -1);
-    localStorage.setItem("avatar", "");
-    localStorage.setItem("fullName", "");
-    // dispatch(action.tokenAction.signOut());
-    // dispatch(action.profileAction.update("", null, ""));
+    dispatch(action.profileAction.signOut());
+    localStorage.removeItem('token');
+    localStorage.setItem('userID', -1);
+    localStorage.setItem('avatar', "");
+    localStorage.setItem('fullName', "");
     history.push("/sign-in");
   };
 
@@ -91,11 +82,9 @@ export default function SimpleMenu(props) {
         onClick={handleClick}
         style={customStyle}
       >
-        <div className={classes.titleText}>
-          {StrUtils.formatUsernameUI(fullName)}
-        </div>
         <Avatar className={classes.small} src={avatarUrl}></Avatar>
-        <b className={classes.caret} />
+        <div className={classes.name}>{StrUtils.formatUsernameUI(fullName)}</div>
+        {/* <b className={classes.caret} /> */}
       </Button>
       <Popper
         open={Boolean(anchorEl)}
@@ -117,7 +106,10 @@ export default function SimpleMenu(props) {
             <Paper className={classes.dropdown}>
               <ClickAwayListener onClickAway={handleCloseAway}>
                 <MenuList role="menu" className={classes.menuList}>
-                  <MenuItem className={classes.itemFirst}>
+                <MenuItem className={classes.itemFirst}>
+                    <div className={classes.username}>{"Hi, " + fullName}</div>
+                  </MenuItem>
+                  <MenuItem className={classes.item}>
                     <History className={classes.iconOrder} />
                     {Localization.text("txt_order_history")}
                   </MenuItem>

@@ -31,17 +31,24 @@ const Card = (props) => {
   const dispatch = useDispatch();
 
   let classReddot = "listRes_reddot ";
-  if (data.isOpening === true) {
+  let statusText = "";
+  if (data.isOpening === 0) {
     classReddot += "listRes_green";
+    statusText = Localization.text("txt_open");
+  }
+  else if (data.isOpening === 1) {
+    classReddot += "listRes_yellow";
+    statusText = Localization.text("txt_closed_soon");
   }
   else {
     classReddot += "listRes_red";
+    statusText = Localization.text("txt_closed");
   }
 
   return (
     <>
       <div className="listRes_card-custom">
-        <div className={classReddot}></div>
+        <div className={classReddot}>{statusText}</div>
         <img
           src={data.urlImg}
           alt="image"

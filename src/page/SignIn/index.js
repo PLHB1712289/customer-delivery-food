@@ -30,11 +30,15 @@ import { faFacebookSquare, faGoogle } from "@fortawesome/free-brands-svg-icons";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import GoogleLogin from "react-google-login";
 
+// serivce
 import action from "../../storage/action";
 import apiService from "./apiService";
+import service from "./service";
 import useStyles from "./styles";
+// config
 import Localization from "../../config/Localization";
 import AppConfig from "../../config/AppConfig";
+import SignInConfig from "../../config/SignInConfig";
 
 import ArrayUtils from "../../utils/ArrayUtils";
 
@@ -70,61 +74,184 @@ const Footer = () => {
 
   // handle event login normal
   const handleSubmitForm = async (e) => {
-    e.preventDefault();
-    // turnOnLoading();
+    const id = 1;
+    const accessToken = 1;
 
-    // test
-    history.push("/vertify-phone");
-    return;
+    dispatch(action.loadingAction.turnOn());
+    (async () => {
+      try {
+        // request to server
+        const { success, message, data } = await service.loginVetify(
+   
+        );
 
-    const { success, message, data } = await apiService.signInNormal(
-      username,
-      password
-    );
+        dispatch(action.loadingAction.turnOff());
 
-    if (success) {
-      dispatch(action.tokenAction.signIn(data.token, data.user));
-      // turnOffLoading();
-      history.push("/");
-      return;
-    }
-    // turnOffLoading();
-    alert(message);
+        if (success) {
+          let token = null;
+          let userID = null;
+          let fullName = null;
+          let avatarUrl = null;
+          const status = parseInt(data.status);
+
+          switch (status) {
+            case SignInConfig.STATUS.SUCESS:
+              token = data.token;
+              userID = data.userID;
+              fullName = data.fullName;
+              avatarUrl = data.avatarUrl;
+              // set token - profile
+              // redux
+              dispatch(action.tokenAction.signIn(token));
+              dispatch(action.profileAction.signIn(userID, fullName, avatarUrl));
+              // localstorage
+              localStorage.setItem('token', token);
+              localStorage.setItem('userID', userID);
+              localStorage.setItem('avatar', avatarUrl);
+              localStorage.setItem('fullName', fullName);
+              // push history
+              history.push("/");
+              return;
+            case SignInConfig.STATUS.VERTIFY:
+              userID = data.userID;
+              // redux
+              dispatch(action.profileAction.signIn(userID, "", ""));
+              // push history
+              history.push("/vertify-phone");
+              return;
+            case SignInConfig.STATUS.WRONG:
+              setErrMsg("Thông tin đăng nhập không chính xác");
+              return;
+          }
+        }
+
+        alert(message);
+      } catch (e) {
+        console.log(`[Login Failed]: ${e.message}`);
+      }
+    })();
   };
 
   // handle login facebook
   const handleSignInFacebook = (res) => {
-    try {
-      console.log("on login facebook request");
-      console.log("userId: " + res.profileObj.googleId);
-      console.log("accessToken: " + res.profileObj.accessToken);
-    } catch (e) {
-      console.log(`[HANDLE_SIGNIN_FB_FAILED]: ${e.message}`);
-    }
+    const id = res.profileObj.googleId;
+    const accessToken = res.profileObj.accessToken;
+
+    dispatch(action.loadingAction.turnOn());
+    (async () => {
+      try {
+        // request to server
+        const { success, message, data } = await service.loginVetify(
+          id,
+          accessToken
+        );
+
+        dispatch(action.loadingAction.turnOff());
+
+        if (success) {
+          let token = null;
+          let userID = null;
+          let fullName = null;
+          let avatarUrl = null;
+          const status = parseInt(data.status);
+
+          switch (status) {
+            case SignInConfig.STATUS.SUCESS:
+              token = data.token;
+              userID = data.userID;
+              fullName = data.fullName;
+              avatarUrl = data.avatarUrl;
+              // set token - profile
+              // redux
+              dispatch(action.tokenAction.signIn(token));
+              dispatch(
+                action.profileAction.update(userID, fullName, avatarUrl)
+              );
+              // localstorage
+              localStorage.setItem("token", token);
+              localStorage.setItem("profile", { userID, fullName, avatarUrl });
+              // push history
+              history.push("/");
+              return;
+            case SignInConfig.STATUS.VERTIFY:
+              userID = data.userID;
+              // redux
+              dispatch(action.profileAction.update(userID, "", ""));
+              // push history
+              history.push("/vertify-phone");
+              return;
+            case SignInConfig.STATUS.WRONG:
+              setErrMsg(Localization.text("txt_wrong_signin"));
+              return;
+          }
+        }
+
+        alert(message);
+      } catch (e) {
+        console.log(`[HANDLE_SIGNIN_GG_FAILED]: ${e.message}`);
+      }
+    })();
   };
 
   // handle Google facebook
-  const handleSignInGoogle = async (res) => {
-    try {
-      const id = res.tokenId;
-      const accessToken = res.accessToken;
+  const handleSignInGoogle = (res) => {
+    const id = res.tokenId;
+    const accessToken = res.accessToken;
 
-      // request to server
-      const { success, message, data } = await apiService.signInWithGG(
-        id,
-        accessToken
-      );
+    dispatch(action.loadingAction.turnOn());
+    (async () => {
+      try {
+        // request to server
+        const { success, message, data } = await apiService.login_Success(
+          id,
+          accessToken
+        );
 
-      if (success) {
-        const userID = data.userID;
-        localStorage.setItem('userID', userID);
-        history.push('/vertify-phone');
+        dispatch(action.loadingAction.turnOff());
+
+        if (success) {
+          const token = null;
+          const userID = null;
+          const fullName = null;
+          const avatarUrl = null;
+          const status = data.status;
+
+          switch (status) {
+            case SignInConfig.STATUS.SUCESS:
+              token = data.token;
+              userID = data.userID;
+              fullName = data.fullName;
+              avatarUrl = data.avatarUrl;
+              // set token - profile
+              // redux
+              dispatch(action.tokenAction.signIn(token));
+              dispatch(
+                action.profileAction.update(userID, fullName, avatarUrl)
+              );
+              // localstorage
+              localStorage.setItem("token", token);
+              localStorage.setItem("profile", { userID, fullName, avatarUrl });
+              // push history
+              history.push("/");
+              return;
+            case SignInConfig.STATUS.VERTIFY:
+              userID = data.userID;
+              // redux
+              dispatch(action.profileAction.update(userID, "", ""));
+              // push history
+              history.push("/vertify-phone");
+              return;
+            case SignInConfig.STATUS.WRONG:
+              setErrMsg("Thông tin đăng nhập không chính xác");
+              return;
+          }
+        }
+
+        alert(message);
+      } catch (e) {
+        console.log(`[HANDLE_SIGNIN_GG_FAILED]: ${e.message}`);
       }
-
-      alert(message);
-    } catch (e) {
-      console.log(`[HANDLE_SIGNIN_GG_FAILED]: ${e.message}`);
-    }
+    })();
   };
 
   return (

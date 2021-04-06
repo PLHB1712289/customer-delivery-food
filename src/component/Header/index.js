@@ -85,8 +85,7 @@ const Navbar = ({ onChangeLanguage }) => {
               </Grid>
 
               {/* Group Selection */}
-              <Grid item md={3}>
-                <ListArea />
+              <Grid item md={3} style={{paddingLeft: "5%"}}>
                 <ListArea />
               </Grid>
 
@@ -130,9 +129,9 @@ const Navbar = ({ onChangeLanguage }) => {
 export default Navbar;
 
 const avatarStyle = {
-  backgroundColor: "rgba(240, 240, 240, 0.7)",
+  backgroundColor: "rgba(220, 220, 220, 0.5)",
   borderRadius: "10px",
-  transform: "translateY(20%)",
+  transform: "translateY(10%)",
   "&:hover": {
     backgroundColor: "red",
     color: "white",

@@ -33,6 +33,7 @@ const ListRestaurant = () => {
   const [listRes, setListRes] = useState([]);
   const [countItem, setCountItem] = useState(0);
   const [pageIndex, setPageIndex] = useState(1);
+  const [sortType, setSortType] = useState(0);
   const [cacheFilter, setCacheFilter] = useState([]);
   const [filterArea, setFilterArea] = useState(DataUtils.mapStateFitlerArea());
   const [filterType, setFilterType] = useState(DataUtils.mapStateFitlerType());
@@ -47,7 +48,8 @@ const ListRestaurant = () => {
         const { success, message, data } = await service.getListRestaurant(
           1,
           list_area,
-          list_type
+          list_type,
+          sortType
         );
 
         dispatch(action.loadingAction.turnOff());
@@ -62,7 +64,7 @@ const ListRestaurant = () => {
         console.error(`[LIST_VOUCHER]: ${e.message}`);
       }
     })();
-  }, []);
+  }, [sortType]);
 
   const listRestaurant = DataUtils.mapDataListRestaurant(listRes);
 
@@ -81,7 +83,8 @@ const ListRestaurant = () => {
         const { success, message, data } = await service.getListRestaurant(
           index,
           list_area,
-          list_type
+          list_type,
+          sortType
         );
 
         dispatch(action.loadingAction.turnOff());
@@ -126,6 +129,7 @@ const ListRestaurant = () => {
     setFilterType({ ...filterType, [event.target.name]: event.target.checked });
   };
 
+  // handle filter common
   const handleFilter = () => {
     if (cacheFilter.length !== 0) {
       const cacheArea = cacheFilter[0];
@@ -148,7 +152,8 @@ const ListRestaurant = () => {
         const { success, message, data } = await service.getListRestaurant(
           1,
           list_area,
-          list_type
+          list_type,
+          sortType
         );
 
         dispatch(action.loadingAction.turnOff());
@@ -167,6 +172,11 @@ const ListRestaurant = () => {
       }
     })();
   };
+
+  // handle select sort
+  const handleSelectSort = (type) => {
+      setSortType(type);
+  }
 
   let globalClass = "listRes_global ";
   if (listRes.length !== 0) {
@@ -213,7 +223,9 @@ const ListRestaurant = () => {
 
               <Grid item md={8}>
                 <div className="listRes_filter-dropdown">
-                  <FilterDropdown />
+                  <FilterDropdown 
+                  handleSelect={handleSelectSort}
+                  />
                 </div>
               </Grid>
 

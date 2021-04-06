@@ -6,7 +6,7 @@ import profileReducer from "./service/profile";
 const reducer = combineReducers({
   token: tokenReducer,
   loading: loadingReducer,
-  profile: profileReducer,
+  profile: profileReducer
 });
 
 export default reducer;

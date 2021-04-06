@@ -8,9 +8,12 @@ export default makeStyles((theme) => ({
         },
     },
     small: {
-        width: theme.spacing(4),
-        height: theme.spacing(4),
-        marginLeft: theme.spacing(1)
+        width: theme.spacing(5),
+        height: theme.spacing(5),
+        marginRight: theme.spacing(2)
+    },
+    name: {
+        fontWeight: "bold"
     },
     caret: {
         transition: "all 150ms ease-in",
@@ -83,4 +86,8 @@ export default makeStyles((theme) => ({
         height: theme.spacing(4),
         marginRight: theme.spacing(1)
     },
+    username: {
+        marginLeft: theme.spacing(1),
+        fontWeight: "bold"
+    }
 }));

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {
   Grid,
@@ -16,6 +16,7 @@ import service from "./service";
 // config
 import Localization from "../../config/Localization";
 import AppConfig from "../../config/AppConfig";
+import SignInConfig from "../../config/SignInConfig";
 // utils
 import ArrayUtils from "../../utils/ArrayUtils";
 
@@ -30,6 +31,12 @@ const InputOTP = () => {
   const [otp, setOTP] = useState("");
   const [isValidOTP, setIsValidOTP] = useState(true);
 
+  // userID
+  let { userID } = useSelector((state) => state.profile);
+  if (userID === -1) {
+    userID = localStorage.getItem("userID");
+  }
+
   // handle change OTP
   const handleChange = (otp) => {
     setOTP(otp.toString());
@@ -39,26 +46,24 @@ const InputOTP = () => {
   const handleSubmit = () => {
     if (otp.length !== 6) {
       setIsValidOTP(false);
-    }
-    else {
+    } else {
       dispatch(action.loadingAction.turnOn());
       (async () => {
         try {
-          const { success, message, data } = await service.sendLoginOTP(
-            otp
-          );
-  
+          const { success, message, data } = await service.inputOTP(otp, 0);
+
           dispatch(action.loadingAction.turnOff());
+
           if (success) {
-              dispatch(action.tokenAction.signIn(data.token, null));
-              dispatch(action.profileAction.update(data.userID, data.fullName, data.avatar));
-              localStorage.setItem('token', data.token);
-              localStorage.setItem('userID', data.userID);
-              localStorage.setItem('avatar', data.avatar);
-              localStorage.setItem('fullName', data.fullName);
-              history.push("/");
-          } else {
-            alert(message);
+            const status = parseInt(data.status);
+            switch (status) {
+              case SignInConfig.VERTIFY_OTP_STATUS.SUCESS:
+                handleGetUserInfo(userID);
+                return;
+              case SignInConfig.VERTIFY_OTP_STATUS.WRONG:
+                setIsValidOTP(false);
+                return;
+            }
           }
         } catch (e) {
           alert("Không thể kết nối với server.");
@@ -66,6 +71,39 @@ const InputOTP = () => {
         }
       })();
     }
+  };
+
+  // handle get UserInfo
+  const handleGetUserInfo = () => {
+    dispatch(action.loadingAction.turnOn());
+    (async () => {
+      try {
+        const { success, message, data } = await service.getUserInfo(userID);
+
+        dispatch(action.loadingAction.turnOff());
+
+        if (success) {
+          const token = data.token;
+          const userID = data.userID;
+          const fullName = data.fullName;
+          const avatarUrl = data.avatarUrl;
+          // set token - profile
+          // redux
+          dispatch(action.tokenAction.signIn(token));
+          dispatch(action.profileAction.signIn(userID, fullName, avatarUrl));
+          // localstorage
+          localStorage.setItem("token", token);
+          localStorage.setItem("userID", userID);
+          localStorage.setItem("avatar", avatarUrl);
+          localStorage.setItem("fullName", fullName);
+          // push history
+          history.push("/");
+        }
+      } catch (e) {
+        alert("Không thể kết nối với server.");
+        console.error(`[LIST_RESTAURANT]: ${e.message}`);
+      }
+    })();
   };
 
   return (
@@ -76,7 +114,9 @@ const InputOTP = () => {
 
           <Grid item md={6}>
             <div className="inputOPT_panel">
-              <p className="inputOPT_title">{Localization.text("txt_enter_otp")}</p>
+              <p className="inputOPT_title">
+                {Localization.text("txt_enter_otp")}
+              </p>
               {/* Button Login With Phone */}
 
               {/* Input OTP */}
@@ -102,12 +142,13 @@ const InputOTP = () => {
               {isValidOTP ? (
                 <div className="inputOTP_error"></div>
               ) : (
-                <div className="inputOTP_error">{Localization.text("txt_invalid_otp")}</div>
+                <div className="inputOTP_error">
+                  {Localization.text("txt_invalid_otp")}
+                </div>
               )}
-              <Button 
-              className="inputOPT_button"
-              onClick={handleSubmit}
-              >{Localization.text("txt_confirm")}</Button>
+              <Button className="inputOPT_button" onClick={handleSubmit}>
+                {Localization.text("txt_confirm")}
+              </Button>
             </div>
           </Grid>
 

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {
   Grid,
@@ -9,13 +9,13 @@ import {
   Button,
 } from "@material-ui/core";
 import { Dialpad } from "@material-ui/icons";
-import OtpInput from "react-otp-input";
 // service
 import action from "../../storage/action";
 import apiService from "./apiService";
+import service from "./service";
 // config
 import Localization from "../../config/Localization";
-import AppConfig from "../../config/AppConfig";
+import SignInConfig from "../../config/SignInConfig";
 // utils
 import ArrayUtils from "../../utils/ArrayUtils";
 
@@ -27,7 +27,14 @@ const VertifyPhoneNumber = () => {
   // use dispatch
   const dispatch = useDispatch();
   // state
+  const [errorMsg, setErrorMsg] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+
+  // userID
+  let { userID } = useSelector((state) => state.profile);
+  if (userID === -1) {
+    userID = localStorage.getItem('userID');
+  }
 
   // handle event change input form
   const handleChangePhoneNumber = (e) => {
@@ -37,9 +44,35 @@ const VertifyPhoneNumber = () => {
 
   // handle submit
   const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Phone Number: " + phoneNumber);
-    history.push("/input-otp");
+    dispatch(action.loadingAction.turnOn());
+    (async () => {
+      try {
+        // request to server
+        const { success, message, data } = await service.vertifyPhoneNumber(
+          0
+        );
+
+        dispatch(action.loadingAction.turnOff());
+
+        if (success) {
+          const status = parseInt(data.status);
+          switch (status) {
+            case SignInConfig.VERTIFY_PHONE_NUMBER_STATUS.SUCESS:
+              // push history
+              history.push("/input-otp");
+              return;
+            case SignInConfig.VERTIFY_PHONE_NUMBER_STATUS.PHONE_NUMBER_USED:
+              setErrorMsg("txt_phone_number_used");
+              return;
+            case SignInConfig.VERTIFY_PHONE_NUMBER_STATUS.INVALID:
+              setErrorMsg("txt_invalid_phone_number");
+              return;
+          }
+        }
+      } catch (e) {
+        console.log(`[HandleVertifyPhoneNumber]: ${e.message}`);
+      }
+    })();
   };
 
   return (
@@ -70,6 +103,8 @@ const VertifyPhoneNumber = () => {
                   }
                 />
               </div>
+
+              <div className="vertifyPhoneNumber_error">{Localization.text(errorMsg)}</div>
 
               <Button
                 className="vertifyPhoneNumber_button"

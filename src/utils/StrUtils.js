@@ -1,8 +1,9 @@
 const StrUtils = {};
 
 StrUtils.formatUsernameUI = function (name) {
-  if (name.length > 9) {
-    name = name.substr(0, 7) + "...";
+  const indexSplit = name.toString().lastIndexOf(" ");
+  if (indexSplit > 0) {
+    name = name.substr(indexSplit + 1);
   }
 
   return name;

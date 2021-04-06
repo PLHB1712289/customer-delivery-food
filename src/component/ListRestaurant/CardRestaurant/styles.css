@@ -10,13 +10,13 @@
 
 .listRes_reddot {
   position: absolute;
-  top: -2.5%;
-  left: -2.5%;
-  border: 2px solid white;
-  border-radius: 50%;
-  width: 0.6%;
-  height: 0.6%;
-  padding: 3.5%;
+  top: 0%;
+  left: 0%;
+  border-radius: 5%;
+  padding: 0.1% 5%;
+  text-align: center;
+  font-size: 0.7rem;
+  color: white;
 }
 
 .listRes_span-like {
@@ -31,6 +31,10 @@
 
 .listRes_green {
   background-color: green;
+}
+
+.listRes_yellow {
+  background-color: #cca300;
 }
 
 .listRes_card-custom:hover {

@@ -11,12 +11,15 @@ export default function FilterDropdown(props) {
     const classes = useStyles();
     const data = DataUtils.getFilterRestaurant();
 
+    const { handleSelect } = props;
+
     // state
     let [index, setIndex] = useState(0);
 
     const handleItemClick = (i) => {
         if (index !== i) {
             setIndex(i);
+            handleSelect(i);
         }
     };
 
@@ -26,7 +29,8 @@ export default function FilterDropdown(props) {
             type="filter"
             buttonProps={dropdownButtonStyle}
             dropdownList={data}
-            handleItemClick={handleItemClick} />
+            handleItemClick={handleItemClick}
+             />
     );
 };
 
