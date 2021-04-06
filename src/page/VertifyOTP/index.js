@@ -50,6 +50,8 @@ const InputOTP = () => {
   
           dispatch(action.loadingAction.turnOff());
           if (success) {
+              dispatch(action.tokenAction.signIn(data.token, null));
+              dispatch(action.profileAction.update(data.userID, data.fullName, data.avatar));
               localStorage.setItem('token', data.token);
               localStorage.setItem('userID', data.userID);
               localStorage.setItem('avatar', data.avatar);

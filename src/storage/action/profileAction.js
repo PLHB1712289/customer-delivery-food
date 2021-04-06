@@ -1,9 +1,9 @@
 import TAG from "../TAG";
 
 const action = {
-    update: (fullName, id, avatarUrl) => ({
+    update: (id, fullName, avatarUrl) => ({
         type: TAG.UPDATE,
-        payload: { fullName, id, avatarUrl }
+        payload: { id, fullName, avatarUrl }
     })
 };
 

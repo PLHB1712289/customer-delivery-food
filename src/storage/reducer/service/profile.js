@@ -2,7 +2,7 @@ import TAG from "../../TAG";
 
 const INITIAL_STATE = {
     fullName: "",
-    id: null,
+    id: -1,
     avatarUrl: ""
 };
 
@@ -11,8 +11,8 @@ const tokenReducer = (profile = INITIAL_STATE, action) => {
         case TAG.UPDATE:
             return {
                 ...profile,
-                fullName: action.payload.fullName,
                 id: action.payload.id,
+                fullName: action.payload.fullName,
                 avatarUrl: action.payload.avatarUrl
             };
         default:

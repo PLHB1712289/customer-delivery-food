@@ -34,10 +34,22 @@ export default function SimpleMenu(props) {
   const history = useHistory();
 
   // use local storage
-  const token = localStorage.getItem('token');
-  const userID = localStorage.getItem('userID');
-  const avatarUrl = localStorage.getItem('avatar');
-  const fullName = localStorage.getItem('fullName');
+  const { token } = useSelector((state) => state.token);
+  const  profile  = useSelector((state) => state.profile);
+
+//   let userID = 1;
+//   let avatarUrl = "Martin";
+//   let fullName = "Martin";
+
+  let userID = profile.id;
+  let avatarUrl = profile.fullName;
+  let fullName = profile.avatarUrl;
+
+  if (userID === -1) {
+    userID = localStorage.getItem("userID");
+    avatarUrl = localStorage.getItem("avatar");
+    fullName = localStorage.getItem("fullName");
+  }
 
   const { customStyle } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -60,10 +72,12 @@ export default function SimpleMenu(props) {
   };
 
   const handleLogout = () => {
-    localStorage.setItem('token', null);
-    localStorage.setItem('userID', null);
-    localStorage.setItem('avatar', null);
-    localStorage.setItem('fullName', null);
+    dispatch(action.tokenAction.signOut());
+    dispatch(action.profileAction.update(-1, "", ""));
+    localStorage.removeItem("token");
+    localStorage.setItem("userID", -1);
+    localStorage.setItem("avatar", "");
+    localStorage.setItem("fullName", "");
     // dispatch(action.tokenAction.signOut());
     // dispatch(action.profileAction.update("", null, ""));
     history.push("/sign-in");
