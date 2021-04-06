@@ -81,9 +81,7 @@ const Footer = () => {
     (async () => {
       try {
         // request to server
-        const { success, message, data } = await service.loginVetify(
-   
-        );
+        const { success, message, data } = await service.loginVetify();
 
         dispatch(action.loadingAction.turnOff());
 
@@ -103,12 +101,14 @@ const Footer = () => {
               // set token - profile
               // redux
               dispatch(action.tokenAction.signIn(token));
-              dispatch(action.profileAction.signIn(userID, fullName, avatarUrl));
+              dispatch(
+                action.profileAction.signIn(userID, fullName, avatarUrl)
+              );
               // localstorage
-              localStorage.setItem('token', token);
-              localStorage.setItem('userID', userID);
-              localStorage.setItem('avatar', avatarUrl);
-              localStorage.setItem('fullName', fullName);
+              localStorage.setItem("token", token);
+              localStorage.setItem("userID", userID);
+              localStorage.setItem("avatar", avatarUrl);
+              localStorage.setItem("fullName", fullName);
               // push history
               history.push("/");
               return;
@@ -134,14 +134,14 @@ const Footer = () => {
 
   // handle login facebook
   const handleSignInFacebook = (res) => {
-    const id = res.profileObj.googleId;
-    const accessToken = res.profileObj.accessToken;
+    const id = res.id;
+    const accessToken = res.accessToken;
 
     dispatch(action.loadingAction.turnOn());
     (async () => {
       try {
         // request to server
-        const { success, message, data } = await service.loginVetify(
+        const { success, message, data } = await service.login_Success(
           id,
           accessToken
         );
@@ -165,18 +165,19 @@ const Footer = () => {
               // redux
               dispatch(action.tokenAction.signIn(token));
               dispatch(
-                action.profileAction.update(userID, fullName, avatarUrl)
+                action.profileAction.signIn(userID, fullName, avatarUrl)
               );
               // localstorage
               localStorage.setItem("token", token);
-              localStorage.setItem("profile", { userID, fullName, avatarUrl });
-              // push history
+              localStorage.setItem("userID", userID);
+              localStorage.setItem("avatar", avatarUrl);
+              localStorage.setItem("fullName", fullName);
               history.push("/");
               return;
             case SignInConfig.STATUS.VERTIFY:
               userID = data.userID;
               // redux
-              dispatch(action.profileAction.update(userID, "", ""));
+              dispatch(action.profileAction.signIn(userID, "", ""));
               // push history
               history.push("/vertify-phone");
               return;
@@ -202,7 +203,7 @@ const Footer = () => {
     (async () => {
       try {
         // request to server
-        const { success, message, data } = await apiService.login_Success(
+        const { success, message, data } = await service.login_Success(
           id,
           accessToken
         );
@@ -210,11 +211,11 @@ const Footer = () => {
         dispatch(action.loadingAction.turnOff());
 
         if (success) {
-          const token = null;
-          const userID = null;
-          const fullName = null;
-          const avatarUrl = null;
-          const status = data.status;
+          let token = null;
+          let userID = null;
+          let fullName = null;
+          let avatarUrl = null;
+          const status = parseInt(data.status);
 
           switch (status) {
             case SignInConfig.STATUS.SUCESS:
@@ -226,18 +227,20 @@ const Footer = () => {
               // redux
               dispatch(action.tokenAction.signIn(token));
               dispatch(
-                action.profileAction.update(userID, fullName, avatarUrl)
+                action.profileAction.signIn(userID, fullName, avatarUrl)
               );
               // localstorage
               localStorage.setItem("token", token);
-              localStorage.setItem("profile", { userID, fullName, avatarUrl });
+              localStorage.setItem("userID", userID);
+              localStorage.setItem("avatar", avatarUrl);
+              localStorage.setItem("fullName", fullName);
               // push history
               history.push("/");
               return;
             case SignInConfig.STATUS.VERTIFY:
               userID = data.userID;
               // redux
-              dispatch(action.profileAction.update(userID, "", ""));
+              dispatch(action.profileAction.signIn(userID, "", ""));
               // push history
               history.push("/vertify-phone");
               return;
