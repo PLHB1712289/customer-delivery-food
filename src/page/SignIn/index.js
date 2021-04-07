@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { CustomDialog, useDialog } from "react-st-modal";
 import {
   Button,
   Grid,
@@ -23,9 +24,7 @@ import {
   VisibilityOff,
 } from "@material-ui/icons";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignInAlt, faUserPlus } from "@fortawesome/free-solid-svg-icons";
-import { faFacebookSquare, faGoogle } from "@fortawesome/free-brands-svg-icons";
+import PopupSignInPhoneNumber from "../../component/SignIn/ButtonSignInPhoneNumber";
 
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import GoogleLogin from "react-google-login";
@@ -55,6 +54,20 @@ const Footer = () => {
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [errMsg, setErrMsg] = useState("");
+
+  // Token
+  let { token } = useSelector((state) => state.token);
+  if (token === null) {
+    token = localStorage.getItem("token");
+    if (token !== null) {
+      history.push("/");
+    }
+  }
+
+  // handle signin with phone number
+  const handleSignInPhoneNumber = async () => {
+    const result = await CustomDialog(<PopupSignInPhoneNumber />, {});
+  };
 
   // region local handle
   const handleClickShowPassword = () => {
@@ -269,6 +282,7 @@ const Footer = () => {
               <p className={classes.title}>{Localization.text("txt_login")}</p>
               {/* Button Login With Phone */}
               <Button
+                onClick={handleSignInPhoneNumber}
                 className={[classes.buttonPhone, classes.button].join(" ")}
               >
                 <PhoneAndroid className={classes.buttonIcon} />
@@ -276,6 +290,7 @@ const Footer = () => {
                   {Localization.text("txt_phone")}
                 </p>
               </Button>
+              {/* <ButtonPhone></ButtonPhone> */}
               {/* Button Login With Facebook */}
               <FacebookLogin
                 appId={AppConfig.FACEBOOK}
