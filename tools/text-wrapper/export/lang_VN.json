@@ -7,7 +7,7 @@
     "txt_login": "Đăng nhập",
     "txt_order_history": "Lịch sử đặt hàng",
     "txt_my_vouchers": "Khuyến mãi của tôi",
-    "txt_update_account": "Cài đặt tài khoản",
+    "txt_update_account": "Cập nhập tài khoản",
     "txt_logout": "Đăng xuất",
     "txt_phone": "SỐ ĐIỆN THOẠI",
     "txt_optionSignIn": "Hoặc đăng nhập bằng tài khoản của bạn",
@@ -82,7 +82,11 @@
     "txt_closed_soon": "Sắp đóng cửa",
     "txt_wrong_signin": "Thông tin đăng nhập không chính xác",
     "txt_phone_number_used": "Số điện thoại đã được sử dụng",
-    "txt_invalid_phone_number": "Số điện thoại không đúng định dạng"
+    "txt_invalid_phone_number": "Số điện thoại không đúng định dạng",
+    "txt_submit": "Xác nhận",
+    "txt_input_your_phone": "Nhập số điện thoại ",
+    "txt_resend_otp": "Gửi lại mã OTP",
+    "txt_payment_type": "Phương thức thanh toán"
   },
   "img": {},
   "sound": {}

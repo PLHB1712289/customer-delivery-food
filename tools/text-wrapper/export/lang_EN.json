@@ -82,7 +82,11 @@
     "txt_closed_soon": "Close soon",
     "txt_wrong_signin": "Sign in information is incorrect",
     "txt_phone_number_used": "Phone number already in use",
-    "txt_invalid_phone_number": "Phone number is not in the correct format"
+    "txt_invalid_phone_number": "Phone number is not in the correct format",
+    "txt_submit": "Submit",
+    "txt_input_your_phone": "Input your phone number",
+    "txt_resend_otp": "Resend OTP",
+    "txt_payment_type": "Payment methods"
   },
   "img": {},
   "sound": {}

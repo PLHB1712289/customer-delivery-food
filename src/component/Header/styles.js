@@ -7,7 +7,7 @@ export default makeStyles((theme) => ({
       padding: 0,
       listStyle: "none",
     },
-    position: "sticky",
+    position: "relative",
     top: 0
   },
 

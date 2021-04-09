@@ -11,6 +11,7 @@ import VertifyPhonge from "./page/VertifyPhone";
 import InputOTP from "./page/VertifyOTP";
 import HomePage from "./page/HomePage";
 import ListRestaurant from "./page/ListRestaurant";
+import Profile from "./page/profile";
 
 import NotFound from "./component/Error/404";
 
@@ -57,6 +58,10 @@ function App() {
 
           <Route path={"/restaurants"}>
             <ListRestaurant />
+          </Route>
+
+          <Route path={"/profile"}>
+            <Profile />
           </Route>
 
           <Route exact path={"/"}>

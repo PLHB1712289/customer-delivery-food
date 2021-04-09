@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector, Provider } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { CustomDialog, useDialog } from "react-st-modal";
 import {
@@ -34,6 +34,7 @@ import action from "../../storage/action";
 import apiService from "./apiService";
 import service from "./service";
 import useStyles from "./styles";
+import store from "../../storage";
 // config
 import Localization from "../../config/Localization";
 import AppConfig from "../../config/AppConfig";
@@ -58,15 +59,25 @@ const Footer = () => {
   // Token
   let { token } = useSelector((state) => state.token);
   if (token === null) {
-    token = localStorage.getItem("token");
+    token = localStorage.getItem('token');
     if (token !== null) {
       history.push("/");
     }
   }
 
+  // handle render home page
+  const renderHomPage = () => {
+    history.push("/");
+  };
+
   // handle signin with phone number
   const handleSignInPhoneNumber = async () => {
-    const result = await CustomDialog(<PopupSignInPhoneNumber />, {});
+    const result = await CustomDialog(
+      <Provider store={store}>
+        <PopupSignInPhoneNumber renderHomPage={renderHomPage}/>
+      </Provider>,
+      {}
+    );
   };
 
   // region local handle
@@ -346,7 +357,7 @@ const Footer = () => {
                 id="outlined-adornment-password"
                 placeholder="Username or email"
                 type="text"
-                onchange={handleChangeUsername}
+                onChange={handleChangeUsername}
                 startAdornment={
                   <InputAdornment position="end">
                     <IconButton edge="start">
@@ -362,7 +373,7 @@ const Footer = () => {
                 id="outlined-adornment-password"
                 placeholder="Password"
                 type={passwordVisible ? "text" : "password"}
-                onchange={handleChangePassword}
+                onChange={handleChangePassword}
                 startAdornment={
                   <InputAdornment position="end">
                     <IconButton
