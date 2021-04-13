@@ -27,7 +27,7 @@ const CardRestaurant = ({
         <div className="card-restaurant__info-container">
           <div className="card-restaurant__info">
             <div className="card-restaurant__title">
-              {StrUtils.formatNameRestaurantCard(nameRestaurant)}
+              {StrUtils.formatNameRestaurantCart(nameRestaurant)}
             </div>
             <div className="card-restaurant__address">
               {StrUtils.formatAddressRestaurantCard(addressRestaurant)}
