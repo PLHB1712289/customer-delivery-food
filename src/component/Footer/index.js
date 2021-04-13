@@ -1,9 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Grid } from "@material-ui/core";
+import { Grid, AppBar, Toolbar } from "@material-ui/core";
 import { Facebook, Instagram, Twitter } from "@material-ui/icons";
 import React from "react";
 import ImageUtils from "../../utils/ImageUtils";
 import useStyles from "./styles";
+// import "./styles.css";
 
 const Footer = () => {
   // Styles
