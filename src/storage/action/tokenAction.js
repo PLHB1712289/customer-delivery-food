@@ -1,9 +1,9 @@
 import TAG from "../TAG";
 
 const action = {
-  signIn: (token, user) => ({
+  signIn: (token) => ({
     type: TAG.TOKEN.SIGN_IN,
-    payload: { token, user },
+    payload: { token },
   }),
 
   signOut: () => ({ type: TAG.TOKEN.SIGN_OUT }),

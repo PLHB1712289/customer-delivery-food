@@ -1,0 +1,46 @@
+.inputOPT_global {
+    background-color: #f2f2f2;
+  }
+  
+  .inputOPT_panel {
+    background-color: white;
+    height: 20rem;
+    width: 70%;
+    margin: 5rem auto 8rem auto;
+  }
+  
+  .inputOPT_title {
+    text-align: center;
+    padding-top: 2rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .inputOPT_spanInput {
+    text-align: center;
+    margin-top: 3.5rem;
+    margin-left: 20%;
+    width: 60%;
+  }
+  
+  .inputOPT_input {
+  
+  }
+
+  .inputOTP_error {
+    color: red;
+    text-align: center;
+    width: 100%;
+    margin-top: 2.5rem;
+    font-size: 1rem;
+  }
+  
+  .inputOPT_button {
+    margin: 2rem 35% !important;
+    background-color: #cf2127 !important;
+    text-align: center !important;
+    width: 30%;
+    color: white !important;
+    font-weight: bold !important;
+  }
+  

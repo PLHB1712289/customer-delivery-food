@@ -1,13 +1,14 @@
 const { makeStyles } = require("@material-ui/core");
 
 export default makeStyles((theme) => ({
-  "@global": {
-    backgroundColor: "green"
+  footer_global: {
+    clear: "both",
+    position: "relative",
+    height: "45vh",
   },
   appBar: {
     backgroundColor: "#f2f2f2",
-    height: "45vh",
-    bottom: 0,
+    height: "100%"
   },
   toolbar: {
     margin: "20px 0px 0px 0px"
@@ -43,7 +44,7 @@ export default makeStyles((theme) => ({
     color: "#464646",
     paddingLeft: 10,
     "&:hover": {
-      color: "green",
+      color: "#0288d1",
       border: "1px solid #0288d1",
     },
   },

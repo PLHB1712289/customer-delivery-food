@@ -13,6 +13,9 @@ export default function SimpleMenu(props) {
     const classes = useStyles();
 
     // state
+    let current_language = localStorage.getItem("langType");
+    current_language = current_language !== undefined && current_language !== null ? current_language : LangConfig.DEFAULT_LANGUAGE;
+    LangConfig.changeLang(parseInt(current_language));
 
     return (
         <DropdownButton

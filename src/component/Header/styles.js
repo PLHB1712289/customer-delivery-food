@@ -7,7 +7,7 @@ export default makeStyles((theme) => ({
       padding: 0,
       listStyle: "none",
     },
-    position: "sticky",
+    position: "relative",
     top: 0
   },
 
@@ -56,13 +56,13 @@ export default makeStyles((theme) => ({
     width: "120px",
     height: "50px",
     borderRadius: "10px",
-    border: "2px solid red",
-    color: "red",
+    border: "2px solid #cf2127",
+    color: "#cf2127",
     fontSize: "15px",
     fontWeight: "bold",
-    transform: "translateY(10%)",
+    transform: "translateY(15%)",
     "&:hover": {
-      backgroundColor: "red",
+      backgroundColor: "#cf2127",
       color: "white"
     }
   },
@@ -71,17 +71,17 @@ export default makeStyles((theme) => ({
     width: "120px",
     height: "50px",
     borderRadius: "10px",
-    border: "2px solid red",
-    color: "red",
+    border: "2px solid #cf2127",
+    color: "#cf2127",
     fontSize: "12px",
     fontWeight: "bold",
     marginLeft: "5px",
-    transform: "translateY(10%)",
+    transform: "translateY(15%)",
   },
   groupInput: {
     backgroundColor: "#FFF",
     borderRadius: 12,
-    border: "2px solid red",
+    border: "2px solid #cf2127",
     color: "#000S",
     fontSize: 15,
     height: "50px",
@@ -103,7 +103,7 @@ export default makeStyles((theme) => ({
   searchButton: {
     position: "sticky",
     right: 0,
-    backgroundColor: "red", 
+    backgroundColor: "#cf2127", 
     width: "60px", 
     height: "105%", 
     marginBottom: "2px",     

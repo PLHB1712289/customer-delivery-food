@@ -24,35 +24,35 @@ const ListRestaurantBestSeller = () => {
           alert(message);
         }
       } catch (e) {
-        alert("Không thể kết nối với server.");
+        alert("[handleLoadMoreRestaurant] Không thể kết nối với server.");
         console.error(`[LIST_RESTAURANT_BEST_SELLER]: ${e.message}`);
       }
     })();
   };
 
-  useEffect(() => {
-    setIsLoading(true);
+  // useEffect(() => {
+  //   setIsLoading(true);
 
-    (async () => {
-      try {
-        const {
-          success,
-          message,
-          data,
-        } = await service.getListRestaurantBestSeller();
+  //   (async () => {
+  //     try {
+  //       const {
+  //         success,
+  //         message,
+  //         data,
+  //       } = await service.getListRestaurantBestSeller();
 
-        setIsLoading(false);
-        if (success) {
-          setListRestaurant(data.listRestaurant);
-        } else {
-          alert(message);
-        }
-      } catch (e) {
-        alert("Không thể kết nối với server.");
-        console.error(`[LIST_RESTAURANT_BEST_SELLER]: ${e.message}`);
-      }
-    })();
-  }, []);
+  //       setIsLoading(false);
+  //       if (success) {
+  //         setListRestaurant(data.listRestaurant);
+  //       } else {
+  //         alert(message);
+  //       }
+  //     } catch (e) {
+  //       alert("Không thể kết nối với server.");
+  //       console.error(`[LIST_RESTAURANT_BEST_SELLER]: ${e.message}`);
+  //     }
+  //   })();
+  // }, []);
 
   return (
     <ListItems

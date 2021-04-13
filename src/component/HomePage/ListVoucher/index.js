@@ -24,7 +24,7 @@ const ListVoucher = () => {
           alert(message);
         }
       } catch (e) {
-        alert("Không thể kết nối với server.");
+        alert("[handleLoadMoreVoucher] Không thể kết nối với server.");
         console.error(`[LIST_RESTAURANT_BEST_SELLER]: ${e.message}`);
       }
     })();

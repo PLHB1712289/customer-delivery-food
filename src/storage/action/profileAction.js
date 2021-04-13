@@ -1,9 +1,13 @@
 import TAG from "../TAG";
 
 const action = {
-    update: (fullName, id, avatarUrl) => ({
-        type: TAG.UPDATE,
-        payload: { fullName, id, avatarUrl }
+    signIn: (userID, fullName, avatarUrl) => ({
+        type: TAG.PROFILE.SIGN_IN,
+        payload: { userID, fullName, avatarUrl }
+    }),
+
+    signOut: () => ({
+        type: TAG.PROFILE.SIGN_OUT
     })
 };
 

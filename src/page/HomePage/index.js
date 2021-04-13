@@ -44,7 +44,7 @@ const Footer = () => {
             <Address />
             <FilterRestaurant />
             <ListRestaurantBestSeller />
-            <ListVoucher />
+            {/* <ListVoucher /> */}
           </Grid>
         </Grid>
         {/* <Grid item md={1} xs={0}></Grid> */}

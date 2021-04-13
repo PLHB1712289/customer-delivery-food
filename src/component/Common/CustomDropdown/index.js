@@ -56,6 +56,7 @@ export default function CustomDropdown(props) {
     noLiPadding,
     beforeImage,
     handleItemClick,
+    type
   } = props;
   const caretClasses = classNames({
     [classes.caret]: true,
@@ -131,7 +132,11 @@ export default function CustomDropdown(props) {
                 : { transformOrigin: "0 0 0" }
             }
           >
-            <Paper className={classes.dropdown}>
+            <Paper
+              className={
+                type === "filter" ? classes.dropdownFilter : classes.dropdown
+              }
+            >
               <ClickAwayListener onClickAway={handleCloseAway}>
                 <MenuList role="menu" className={classes.menuList}>
                   {dropdownHeader !== undefined ? (
@@ -166,6 +171,19 @@ export default function CustomDropdown(props) {
                           {prop.text}
                         </MenuItem>
                       );
+                    }
+
+                    if (type === "filter") {
+                        return (
+
+                            <MenuItem
+                                key={key}
+                                style={filterStyle}
+                                onClick={() => handleItemClick(prop.index)}
+                            >
+                                {prop.name}
+                            </MenuItem>
+                        );
                     }
 
                     return (
@@ -210,4 +228,11 @@ const itemMiddleStyle = {
   margin: 0,
   top: 0,
   right: 0,
+};
+
+const filterStyle = {
+  top: 0,
+  left: 0,
+  textAlign: "left",
+  lineHeight: "1",
 };

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector, Provider } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { CustomDialog, useDialog } from "react-st-modal";
 import {
   Button,
   Grid,
@@ -23,18 +24,21 @@ import {
   VisibilityOff,
 } from "@material-ui/icons";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignInAlt, faUserPlus } from "@fortawesome/free-solid-svg-icons";
-import { faFacebookSquare, faGoogle } from "@fortawesome/free-brands-svg-icons";
+import PopupSignInPhoneNumber from "../../component/SignIn/ButtonSignInPhoneNumber";
 
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import GoogleLogin from "react-google-login";
 
+// serivce
 import action from "../../storage/action";
 import apiService from "./apiService";
+import service from "./service";
 import useStyles from "./styles";
+import store from "../../storage";
+// config
 import Localization from "../../config/Localization";
 import AppConfig from "../../config/AppConfig";
+import SignInConfig from "../../config/SignInConfig";
 
 import ArrayUtils from "../../utils/ArrayUtils";
 
@@ -51,6 +55,30 @@ const Footer = () => {
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [errMsg, setErrMsg] = useState("");
+
+  // Token
+  let { token } = useSelector((state) => state.token);
+  if (token === null) {
+    token = localStorage.getItem('token');
+    if (token !== null) {
+      history.push("/");
+    }
+  }
+
+  // handle render home page
+  const renderHomPage = () => {
+    history.push("/");
+  };
+
+  // handle signin with phone number
+  const handleSignInPhoneNumber = async () => {
+    const result = await CustomDialog(
+      <Provider store={store}>
+        <PopupSignInPhoneNumber renderHomPage={renderHomPage}/>
+      </Provider>,
+      {}
+    );
+  };
 
   // region local handle
   const handleClickShowPassword = () => {
@@ -70,61 +98,187 @@ const Footer = () => {
 
   // handle event login normal
   const handleSubmitForm = async (e) => {
-    e.preventDefault();
-    // turnOnLoading();
+    const id = 1;
+    const accessToken = 1;
 
-    // test
-    history.push("/");
-    return;
+    dispatch(action.loadingAction.turnOn());
+    (async () => {
+      try {
+        // request to server
+        const { success, message, data } = await service.loginVetify();
 
-    const { success, message, data } = await apiService.signInNormal(
-      username,
-      password
-    );
+        dispatch(action.loadingAction.turnOff());
 
-    if (success) {
-      dispatch(action.tokenAction.signIn(data.token, data.user));
-      // turnOffLoading();
-      history.push("/");
-      return;
-    }
-    // turnOffLoading();
-    alert(message);
+        if (success) {
+          let token = null;
+          let userID = null;
+          let fullName = null;
+          let avatarUrl = null;
+          const status = parseInt(data.status);
+
+          switch (status) {
+            case SignInConfig.STATUS.SUCESS:
+              token = data.token;
+              userID = data.userID;
+              fullName = data.fullName;
+              avatarUrl = data.avatarUrl;
+              // set token - profile
+              // redux
+              dispatch(action.tokenAction.signIn(token));
+              dispatch(
+                action.profileAction.signIn(userID, fullName, avatarUrl)
+              );
+              // localstorage
+              localStorage.setItem("token", token);
+              localStorage.setItem("userID", userID);
+              localStorage.setItem("avatar", avatarUrl);
+              localStorage.setItem("fullName", fullName);
+              // push history
+              history.push("/");
+              return;
+            case SignInConfig.STATUS.VERTIFY:
+              userID = data.userID;
+              // redux
+              dispatch(action.profileAction.signIn(userID, "", ""));
+              // push history
+              history.push("/vertify-phone");
+              return;
+            case SignInConfig.STATUS.WRONG:
+              setErrMsg("Thông tin đăng nhập không chính xác");
+              return;
+          }
+        }
+
+        alert(message);
+      } catch (e) {
+        console.log(`[Login Failed]: ${e.message}`);
+      }
+    })();
   };
 
   // handle login facebook
   const handleSignInFacebook = (res) => {
-    try {
-      console.log("on login facebook request");
-      console.log("userId: " + res.profileObj.googleId);
-      console.log("accessToken: " + res.profileObj.accessToken);
-    } catch (e) {
-      console.log(`[HANDLE_SIGNIN_FB_FAILED]: ${e.message}`);
-    }
+    const id = res.id;
+    const accessToken = res.accessToken;
+
+    dispatch(action.loadingAction.turnOn());
+    (async () => {
+      try {
+        // request to server
+        const { success, message, data } = await service.login_Success(
+          id,
+          accessToken
+        );
+
+        dispatch(action.loadingAction.turnOff());
+
+        if (success) {
+          let token = null;
+          let userID = null;
+          let fullName = null;
+          let avatarUrl = null;
+          const status = parseInt(data.status);
+
+          switch (status) {
+            case SignInConfig.STATUS.SUCESS:
+              token = data.token;
+              userID = data.userID;
+              fullName = data.fullName;
+              avatarUrl = data.avatarUrl;
+              // set token - profile
+              // redux
+              dispatch(action.tokenAction.signIn(token));
+              dispatch(
+                action.profileAction.signIn(userID, fullName, avatarUrl)
+              );
+              // localstorage
+              localStorage.setItem("token", token);
+              localStorage.setItem("userID", userID);
+              localStorage.setItem("avatar", avatarUrl);
+              localStorage.setItem("fullName", fullName);
+              history.push("/");
+              return;
+            case SignInConfig.STATUS.VERTIFY:
+              userID = data.userID;
+              // redux
+              dispatch(action.profileAction.signIn(userID, "", ""));
+              // push history
+              history.push("/vertify-phone");
+              return;
+            case SignInConfig.STATUS.WRONG:
+              setErrMsg(Localization.text("txt_wrong_signin"));
+              return;
+          }
+        }
+
+        alert(message);
+      } catch (e) {
+        console.log(`[HANDLE_SIGNIN_GG_FAILED]: ${e.message}`);
+      }
+    })();
   };
 
   // handle Google facebook
-  const handleSignInGoogle = async (res) => {
-    try {
-      const id = res.tokenId;
-      const accessToken = res.accessToken;
+  const handleSignInGoogle = (res) => {
+    const id = res.tokenId;
+    const accessToken = res.accessToken;
 
-      // request to server
-      const { success, message, data } = await apiService.signInWithGG(
-        id,
-        accessToken
-      );
+    dispatch(action.loadingAction.turnOn());
+    (async () => {
+      try {
+        // request to server
+        const { success, message, data } = await service.login_Success(
+          id,
+          accessToken
+        );
 
-      if (success) {
-        const userID = data.userID;
-        localStorage.setItem('userID', userID);
-        history.push('/vertify-phone');
+        dispatch(action.loadingAction.turnOff());
+
+        if (success) {
+          let token = null;
+          let userID = null;
+          let fullName = null;
+          let avatarUrl = null;
+          const status = parseInt(data.status);
+
+          switch (status) {
+            case SignInConfig.STATUS.SUCESS:
+              token = data.token;
+              userID = data.userID;
+              fullName = data.fullName;
+              avatarUrl = data.avatarUrl;
+              // set token - profile
+              // redux
+              dispatch(action.tokenAction.signIn(token));
+              dispatch(
+                action.profileAction.signIn(userID, fullName, avatarUrl)
+              );
+              // localstorage
+              localStorage.setItem("token", token);
+              localStorage.setItem("userID", userID);
+              localStorage.setItem("avatar", avatarUrl);
+              localStorage.setItem("fullName", fullName);
+              // push history
+              history.push("/");
+              return;
+            case SignInConfig.STATUS.VERTIFY:
+              userID = data.userID;
+              // redux
+              dispatch(action.profileAction.signIn(userID, "", ""));
+              // push history
+              history.push("/vertify-phone");
+              return;
+            case SignInConfig.STATUS.WRONG:
+              setErrMsg("Thông tin đăng nhập không chính xác");
+              return;
+          }
+        }
+
+        alert(message);
+      } catch (e) {
+        console.log(`[HANDLE_SIGNIN_GG_FAILED]: ${e.message}`);
       }
-
-      alert(message);
-    } catch (e) {
-      console.log(`[HANDLE_SIGNIN_GG_FAILED]: ${e.message}`);
-    }
+    })();
   };
 
   return (
@@ -139,6 +293,7 @@ const Footer = () => {
               <p className={classes.title}>{Localization.text("txt_login")}</p>
               {/* Button Login With Phone */}
               <Button
+                onClick={handleSignInPhoneNumber}
                 className={[classes.buttonPhone, classes.button].join(" ")}
               >
                 <PhoneAndroid className={classes.buttonIcon} />
@@ -146,6 +301,7 @@ const Footer = () => {
                   {Localization.text("txt_phone")}
                 </p>
               </Button>
+              {/* <ButtonPhone></ButtonPhone> */}
               {/* Button Login With Facebook */}
               <FacebookLogin
                 appId={AppConfig.FACEBOOK}
@@ -201,7 +357,7 @@ const Footer = () => {
                 id="outlined-adornment-password"
                 placeholder="Username or email"
                 type="text"
-                onchange={handleChangeUsername}
+                onChange={handleChangeUsername}
                 startAdornment={
                   <InputAdornment position="end">
                     <IconButton edge="start">
@@ -217,7 +373,7 @@ const Footer = () => {
                 id="outlined-adornment-password"
                 placeholder="Password"
                 type={passwordVisible ? "text" : "password"}
-                onchange={handleChangePassword}
+                onChange={handleChangePassword}
                 startAdornment={
                   <InputAdornment position="end">
                     <IconButton

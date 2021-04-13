@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Localization from "../../config/Localization";
@@ -27,31 +27,35 @@ const Navbar = ({ onChangeLanguage }) => {
   const dispatch = useDispatch();
 
   // Token
-  const { token } = useSelector((state) => state.token);
+  let { token } = useSelector((state) => state.token);
+  if (token === null) {
+    token = localStorage.getItem('token');
+  }
+  const [isDisplayProfile, setIsDisplayProfile] = useState(false);
 
   // Sync account
-  useEffect(() => {
-    // IIFE tech
-    (async () => {
-      // 1. Get token from localStorage:
-      const token = localStorage.getItem("token");
+  // useEffect(() => {
+  //   // IIFE tech
+  //   (async () => {
+  //     // 1. Get token from localStorage:
+  //     const token = localStorage.getItem('token');
 
-      try {
-        // 2. If token is exist, send request for get account from server API:
-        const { success, data } = await APIService.syncAccount(token);
+  //     try {
+  //       // 2. If token is exist, send request for get account from server API:
+  //       const { success, data } = await APIService.syncAccount(token);
 
-        if (success) {
-          // 3. Dispatch data to save user:
-          dispatch(tokenAction.signIn(token, data.user));
-        } else {
-          // 3.1 Remove token:
-          localStorage.removeItem("token");
-        }
-      } catch (e) {
-        console.log(`[SYNC_ACCOUNT_FAILED]: ${e.message}`);
-      }
-    })();
-  }, []);
+  //       if (success) {
+  //         // 3. Dispatch data to save user:
+  //         dispatch(tokenAction.signIn(token, data.user));
+  //       } else {
+  //         // 3.1 Remove token:
+  //         localStorage.removeItem("token");
+  //       }
+  //     } catch (e) {
+  //       console.log(`[SYNC_ACCOUNT_FAILED]: ${e.message}`);
+  //     }
+  //   })();
+  // }, []);
 
   return (
     <>
@@ -64,9 +68,9 @@ const Navbar = ({ onChangeLanguage }) => {
       >
         <Toolbar className={classes.toolbar}>
           <Grid container>
-            <Grid item md={1} xs={0}></Grid>
-            <Grid container item md={10} xs={12}>
-              <Grid item md={1} xs={1}>
+            <Grid item md={1}></Grid>
+            <Grid container item md={10}>
+              <Grid item md={1}>
                 <Typography className={classes.toolbarTitle}>
                   <Link to={"/"}>
                     <Button>
@@ -81,13 +85,12 @@ const Navbar = ({ onChangeLanguage }) => {
               </Grid>
 
               {/* Group Selection */}
-              <Grid item md={3} xs={3}>
-                <ListArea />
+              <Grid item md={3} style={{paddingLeft: "5%"}}>
                 <ListArea />
               </Grid>
 
               {/* Group Search */}
-              <Grid item md={5} xs={5}>
+              <Grid item md={5}>
                 <form className={classes.groupInput}>
                   <input
                     placeholder={Localization.text("txt_search")}
@@ -99,8 +102,8 @@ const Navbar = ({ onChangeLanguage }) => {
                 </form>
               </Grid>
 
-              <Grid item md={2} xs={2}>
-                {token === null ? (
+              <Grid item md={2}>
+                {!token ? (
                   <Link to={"/sign-in"} style={{ textDecoration: "none" }}>
                     <Button className={classes.button}>
                       {Localization.text("txt_login")}
@@ -111,11 +114,11 @@ const Navbar = ({ onChangeLanguage }) => {
                 )}
               </Grid>
 
-              <Grid item md={1} xs={1}>
+              <Grid item md={1}>
                 <OptionLanguage onChangeLanguage={onChangeLanguage} />
               </Grid>
             </Grid>
-            <Grid item md={1} xs={0}></Grid>
+            <Grid item md={1}></Grid>
           </Grid>
         </Toolbar>
       </AppBar>
@@ -126,9 +129,9 @@ const Navbar = ({ onChangeLanguage }) => {
 export default Navbar;
 
 const avatarStyle = {
-  backgroundColor: "rgba(240, 240, 240, 0.7)",
+  backgroundColor: "rgba(220, 220, 220, 0.5)",
   borderRadius: "10px",
-  transform: "translateY(20%)",
+  transform: "translateY(10%)",
   "&:hover": {
     backgroundColor: "red",
     color: "white",

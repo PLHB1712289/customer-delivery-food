@@ -1,0 +1,75 @@
+.popupSignInPhoneNumber_panel {
+  width: 100%;
+  height: 20rem;
+  background-color: #f2f2f2;
+  padding-top: 1rem;
+}
+
+.popupSignInPhoneNumber_input {
+  width: 60%;
+  height: 3rem;
+  margin: 0 auto;
+  display: block;
+  border-radius: 2rem !important;
+  color: black;
+  font-size: 1rem;
+  padding-left: 2rem;
+  border: 1px solid #aaa !important;
+  opacity: 1;
+}
+
+.popupSignInPhoneNumber_input:active {
+  border: 1px solid #aaa;
+  border-radius: 2rem;
+}
+
+.popupSignInPhoneNumber_button {
+  width: 60% !important;
+  height: 3rem !important;
+  margin: 0 auto !important;
+  display: block !important;
+  background-color: #cf2127 !important;
+  border-radius: 2rem !important;
+  color: white !important;
+  font-size: 1.2rem !important;
+  font-weight: bold !important;
+  border: none !important;
+  margin-top: 1rem !important;
+  opacity: 1;
+}
+
+.popupSignInPhoneNumber_button:disabled {
+  opacity: 0.5;
+}
+
+.popupSignInPhoneNumber_logo {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 2rem auto !important;
+  display: block;
+}
+
+.popupSignInPhoneNumber_otp {
+  text-align: center;
+  margin-top: 2.5rem;
+  margin-left: 20%;
+  width: 60%;
+}
+
+.popupSignInPhoneNumber_resendOTP {
+  text-align: center;
+  color:blue;
+  text-decoration: underline;
+}
+
+.popupSignInPhoneNumber_error {
+  margin-top: 1.5rem;
+  margin-bottom: 0.7rem;
+  text-align: center;
+  color:red;
+}
+
+.popupSignInPhoneNumber_resendOTP:hover {
+  text-decoration: underline;
+}
+

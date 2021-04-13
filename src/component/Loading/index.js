@@ -1,11 +1,8 @@
 import React from "react";
-import useStyles from "./styles";
-import { ClipLoader } from "halogenium";
 import { useSelector } from "react-redux";
+import ReactLoading from 'react-loading';
 
 const Loading = () => {
-  var color = "#4DAF7C";
-
   var style = {
     display: "-webkit-flex",
     display: "flex",
@@ -27,11 +24,11 @@ const Loading = () => {
     justifyContent: "center",
   };
 
-  const { isdisplay } = useSelector((state) => state.loading);
+  const  isdisplay  = useSelector((state) => state.loading);
 
   return (
     <>
-      {isdisplay && (
+      {isdisplay === true ? (
         <div
           style={{
             position: "fixed",
@@ -49,13 +46,15 @@ const Loading = () => {
             zIndex: 10000,
             justifyContent: "center",
             alignItems: "center",
-            background: "rgba(0,0,0,0.2)",
+            background: "rgba(0, 0, 0, 0.4)",
           }}
         >
           <div style={style}>
-            <ClipLoader color={color} size="50px" margin="4px" />
+          <ReactLoading type="spinningBubbles" color="#cf2127" eight={'30%'} width={'30%'}/>
           </div>
         </div>
+      ) : (
+        <div></div>
       )}
     </>
   );

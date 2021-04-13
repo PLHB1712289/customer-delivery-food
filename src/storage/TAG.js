@@ -1,15 +1,19 @@
 const TAG = {
-    TOKEN: {
-        SIGN_IN: "TOKEN_SIGN_IN",
-        SIGN_OUT: "TOKEN_SIGN_OUT"
-    },
+  TOKEN: {
+    SIGN_IN: "TOKEN_SIGN_IN",
+    SIGN_OUT: "TOKEN_SIGN_OUT",
+  },
 
-    LOADING: {
-        TURN_ON: "LOADING_TURN_ON",
-        TURN_OFF: "LOADING_TURN_OFF"
-    },
+  LOADING: {
+    TURN_ON: "LOADING_TURN_ON",
+    TURN_OFF: "LOADING_TURN_OFF",
+  },
 
-    UPDATE: "UPDATE"
+  PROFILE: {
+    SIGN_IN: "PROFILE_ON_SIGN_IN",
+    SIGN_OUT: "PROFILE_ON_SIGN_OUT",
+    UPDATE: "PROFILE_UPDATE",
+  },
 };
 
 export default TAG;

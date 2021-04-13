@@ -1,17 +1,26 @@
 const StrUtils = {};
 
 StrUtils.formatUsernameUI = function (name) {
-  if (name.length > 9) {
-    name = name.substr(0, 7) + "...";
+  const indexSplit = name.toString().lastIndexOf(" ");
+  if (indexSplit > 0) {
+    name = name.substr(indexSplit + 1);
   }
 
   return name;
 };
 
-StrUtils.formatNameRestaurantCard = function (name) {
-  if (name.length > 20) {
-    name = name.substr(0, 22) + "...";
+StrUtils.formatNameRestaurantCart = function (name) {
+  if (name.length > 19) {
+      name = name.substr(0, 19) + "...";
   }
+
+return name;
+};
+
+StrUtils.formatAdressRestaurantCart = function (name) {
+    if (name.length > 30) {
+        name = name.substr(0, 31) + "...";
+    }
 
   return name;
 };
