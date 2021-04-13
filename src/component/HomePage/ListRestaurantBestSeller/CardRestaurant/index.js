@@ -5,6 +5,7 @@ import "./styles.css";
 import StrUtils from "../../../../utils/StrUtils";
 
 const CardRestaurant = ({
+  isOpen,
   urlImg,
   nameRestaurant,
   addressRestaurant,
@@ -19,7 +20,7 @@ const CardRestaurant = ({
     >
       <div className="card-restaurant__custom">
         <div className="card-restaurant__thumbnail">
-          <div className="status"></div>
+          {isOpen && <div className="status">Đang mở</div>}
           <img src={urlImg} alt="image" />
         </div>
 

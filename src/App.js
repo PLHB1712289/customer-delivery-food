@@ -18,12 +18,15 @@ import NotFound from "./component/Error/404";
 import LangConfig from "./config/LangConfig.js";
 import Localization from "./config/Localization.js";
 import Loading from "./component/Loading";
+import DetailRestaurant from "./page/DetailRestaurant";
 import { LiveTv } from "@material-ui/icons";
 
 function App() {
   let current_language = localStorage.getItem("langType");
-  current_language = current_language !== undefined && current_language !== null 
-  ? parseInt(current_language) : LangConfig.DEFAULT_LANGUAGE;
+  current_language =
+    current_language !== undefined && current_language !== null
+      ? parseInt(current_language)
+      : LangConfig.DEFAULT_LANGUAGE;
 
   Localization.getInstance().changeLanguage(current_language);
 
@@ -44,12 +47,16 @@ function App() {
         <Header onChangeLanguage={onChangeLanguage} />
 
         <Switch>
-          <Route path={"/sign-in"}>
+          <Route path="/sign-in">
             <SignIn />
           </Route>
 
-          <Route path={"/vertify-phone"}>
+          <Route path="/vertify-phone">
             <VertifyPhonge />
+          </Route>
+
+          <Route path="/restaurant/:id">
+            <DetailRestaurant />
           </Route>
 
           <Route path={"/input-otp"}>

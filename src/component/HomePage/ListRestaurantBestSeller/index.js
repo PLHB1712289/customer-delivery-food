@@ -67,6 +67,7 @@ const ListRestaurantBestSeller = () => {
         return (
           <Grid item md={4} key={restaurant.id}>
             <CardRestaurant
+              isOpen={restaurant.isOpen}
               urlImg={restaurant.urlImg}
               nameRestaurant={restaurant.nameRestaurant}
               addressRestaurant={restaurant.addressRestaurant}
