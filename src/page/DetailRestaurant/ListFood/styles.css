@@ -1,0 +1,26 @@
+.list-food__container {
+  background: #f2f2f2;
+}
+
+.list-food__category {
+  padding: 20px;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.list-food__category-item {
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  text-transform: uppercase;
+  color: grey;
+}
+
+.list-food__category-item-active {
+  background-color: grey;
+  color: white;
+}
+
+.list-food__list-food {
+  background-color: white;
+}

@@ -6,14 +6,18 @@ import coinsLine from "@iconify/icons-ri/coins-line";
 import labelPercent from "@iconify/icons-mdi/label-percent";
 import shieldIcon from "@iconify/icons-entypo/shield";
 
-const RestaurantItem = () => {
+const RestaurantItem = ({
+  urlImg,
+  nameRestaurant,
+  addressRestaurant,
+  minPrice,
+  avgPrice,
+  voucher,
+}) => {
   return (
     <div className="restaurant-item">
       <div className="restaurant-item__thumbnail">
-        <img
-          alt=""
-          src="https://images.foody.vn/res/g32/316391/prof/s280x175/image-5d32b8ba-200908105705.jpeg"
-        />
+        <img alt="" src={urlImg} />
       </div>
       <div className="restaurant-item__information">
         <div className="restaurant-item__name-restaurant">
@@ -21,10 +25,10 @@ const RestaurantItem = () => {
             icon={shieldIcon}
             style={{ color: "#ffc107", fontSize: "20px" }}
           />
-          Bích Phong - Gỏi cuốn
+          {nameRestaurant}
         </div>
         <div className="restaurant-item__address-restaurant">
-          58 Lê Thị Hồng, P.17, Gò Vấp, TP.HCM
+          {addressRestaurant}
         </div>
         <div className="restaurant-item__quick-info-restaurant">
           <div className="restaurant-item__min-price-restaurant">
@@ -32,14 +36,14 @@ const RestaurantItem = () => {
               icon={labelAlt}
               style={{ color: "#ffc107", fontSize: "20px" }}
             />
-            Tối thiểu 20k
+            Tối thiểu {minPrice}k
           </div>
           <div className="restaurant-item__price-restaurant">
             <Icon
               icon={coinsLine}
               style={{ color: "#ffc107", fontSize: "20px" }}
             />
-            Giá 40k
+            Giá {avgPrice}k
           </div>
         </div>
         <div className="restaurant-item__deal-restaurant">
@@ -47,7 +51,7 @@ const RestaurantItem = () => {
             icon={labelPercent}
             style={{ color: "#ff0000", fontSize: "20px" }}
           />
-          Giảm món
+          {voucher}
         </div>
       </div>
     </div>

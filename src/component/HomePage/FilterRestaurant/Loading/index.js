@@ -7,7 +7,7 @@ const LoadingItem = () => {
   const listLoading = [];
   for (let i = 0; i < 6; i++) {
     listLoading.push(
-      <Grid item xs={12} key={i}>
+      <Grid item xs={12}>
         <div style={{ padding: 10, display: "flex" }}>
           <Bones width={200} height={100} />
           <div style={{ width: "70%", marginLeft: 10 }}>

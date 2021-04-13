@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./styles.css";
 import DropdownButton from "../../Common/CustomDropdown";
 import RestaurantItem from "./RestaurantItem";
 import ReplayIcon from "@material-ui/icons/Replay";
 import LoadingItem from "./Loading";
+import service from "./service";
 
 const listFilter = [
   {
@@ -26,29 +27,60 @@ const listFilter = [
 
 const FilterRestaurant = () => {
   const [currentFilter, setCurrentFilter] = useState(listFilter[0].value);
-  const [listRestaurants, setListRestaurants] = useState([
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-  ]);
+  const [address, setAddress] = useState("");
+  const [listRestaurants, setListRestaurants] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleLoadMoreRestaurant = () => {
     setIsLoading(true);
-
     (async () => {
-      await new Promise((res) => setTimeout(res, 1500));
-      setIsLoading(false);
+      try {
+        const { success, message, data } = await service.getListRestaurant(
+          currentFilter,
+          address,
+          listRestaurants.length
+        );
+        setIsLoading(false);
 
-      setListRestaurants((prev) => prev.concat(prev));
+        if (success) {
+          setListRestaurants((prev) => prev.concat(data.listRestaurants));
+        } else {
+          alert(message);
+        }
+      } catch (e) {
+        setIsLoading(false);
+        alert("Không thể kết nối với server.");
+        console.log(`[FILTER_RESTAURANT]: ${e.message}`);
+      }
     })();
   };
+
+  useEffect(() => {
+    setIsLoading(true);
+    setListRestaurants([]);
+
+    (async () => {
+      try {
+        const { success, message, data } = await service.getListRestaurant(
+          currentFilter,
+          address,
+          0
+        );
+        setIsLoading(false);
+
+        if (success) {
+          console.log(data.listRestaurants);
+          setListRestaurants(data.listRestaurants);
+        } else {
+          alert(message);
+        }
+      } catch (e) {
+        setIsLoading(false);
+        alert("Không thể kết nối với server.");
+        console.log(`[FILTER_RESTAURANT]: ${e.message}`);
+      }
+    })();
+  }, [currentFilter, address]);
 
   return (
     <div className="filter-restaurant__container">
@@ -89,8 +121,18 @@ const FilterRestaurant = () => {
         </div>
       </div>
       <div className="filter-restaurant__result">
-        {listRestaurants.map((item) => {
-          return <RestaurantItem key={item} />;
+        {listRestaurants.map((restaurant) => {
+          return (
+            <RestaurantItem
+              key={restaurant.id}
+              urlImg={restaurant.urlImg}
+              addressRestaurant={restaurant.addressRestaurant}
+              nameRestaurant={restaurant.nameRestaurant}
+              minPrice={restaurant.minPrice}
+              avgPrice={restaurant.avgPrice}
+              voucher={restaurant.voucher}
+            />
+          );
         })}
         {isLoading && <LoadingItem />}
       </div>
