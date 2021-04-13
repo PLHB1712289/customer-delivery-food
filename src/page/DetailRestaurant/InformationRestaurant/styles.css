@@ -1,0 +1,69 @@
+.information-restaurant__container {
+  padding: 30px 0;
+}
+
+.information-restaurant__thumbnail {
+  width: 100%;
+}
+
+.information-restaurant__like {
+  background-color: red;
+  color: white;
+
+  width: 120px;
+  height: 30px;
+  margin: 10px 0;
+
+  font-weight: 600;
+  border-radius: 4px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.information-restaurant__name-restaurant {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.information-restaurant__address-restaurant {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.information-restaurant__vote-and-review-restaurant {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.information-restaurant__review-restaurant {
+  display: flex;
+  margin-left: 10px;
+  align-items: center;
+  font-weight: 600;
+}
+
+.information-restaurant__count-review {
+  background-color: #ffc107;
+  padding: 2px 4px;
+  border-radius: 5px;
+  color: white;
+  margin-right: 5px;
+}
+
+.information-restaurant__time-open-restaurant,
+.information-restaurant__price-restaurant {
+  margin: 20px 0;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.information-restaurant__time-open-restaurant > span {
+  color: green;
+}
+
+.information-restaurant__price-restaurant > span {
+  color: red;
+}

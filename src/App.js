@@ -16,6 +16,7 @@ import Error404 from "./component/Error/404";
 import LangConfig from "./config/LangConfig.js";
 import Localization from "./config/Localization.js";
 import Loading from "./component/Loading";
+import DetailRestaurant from "./page/DetailRestaurant";
 
 function App() {
   const [language, setLanguage] = useState(LangConfig.DEFAULT_LANGUAGE);
@@ -33,16 +34,19 @@ function App() {
         <Header onChangeLanguage={onChangeLanguage} />
 
         <Switch>
-          <Route path={"/sign-in"}>
+          <Route path="/sign-in">
             <SignIn />
           </Route>
 
-          <Route path={"/vertify-phone"}>
+          <Route path="/vertify-phone">
             <VertifyPhonge />
           </Route>
 
-          <Route path={"/"}>
-            {/* <ListRestaurant /> */}
+          <Route path="/restaurant/:id">
+            <DetailRestaurant />
+          </Route>
+
+          <Route path="/">
             <HomePage />
           </Route>
         </Switch>
