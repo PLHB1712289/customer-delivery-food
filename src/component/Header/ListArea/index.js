@@ -1,25 +1,39 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import useStyles from "./styles";
 import DropdownButton from "../../Common/CustomDropdown";
 
 import Localization from "../../../config/Localization";
 import LangConfig from "../../../config/LangConfig";
+import RestaurantConfig from "../../../config/RestaurantConfig";
 import ImageUtils from "../../../utils/ImageUtils";
-import DataUtils from "../../../utils/DataUtils";
+import ArrayUtils from "../../../utils/ArrayUtils";
 
-export default function SimpleMenu(props) {
-  const { onChangeLanguage } = props;
+import action from "../../../storage/action";
 
+
+export default function SimpleMenu() {
   const classes = useStyles();
 
+  const dispatch = useDispatch();
+
   // state
+  const data = ArrayUtils.jsonToArray(RestaurantConfig.CITY);
+  const [city, setCity] = useState(0);
+
+  // handle select
+  const handleSelect = (index) => {
+      setCity(index);
+      dispatch(action.cityAction.update(index));
+  };
 
   return (
     <DropdownButton
-      buttonText="TP. HCM"
+      buttonText={RestaurantConfig.CITY[city]}
       buttonProps={dropdownButtonStyle}
       hoverColor={"#000000"}
-      dropdownList={["a", "b"]}
+      dropdownList={data}
+      handleSelect={handleSelect}
     />
   );
 }

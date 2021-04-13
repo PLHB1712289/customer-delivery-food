@@ -1,5 +1,28 @@
 var ArrayUtils = ArrayUtils || {};
 
+
+ArrayUtils.cloneArray = function (array) {
+    var result = [];
+    for (var i = 0; i < array.length; i++)
+        result.push(array[i]);
+    return result;
+};
+
+ArrayUtils.customSplit = function (array, index, count) {
+    var result = [];
+    index = index < array.length ? index : array.length;
+
+    for (var i = 0; i < index; i++){
+        result.push(array[i]);
+    }
+
+    for (var i = index + count; i < array.length; i++) {
+        result.push(array[i]);
+    }
+
+    return result;
+};
+
 ArrayUtils.jsonToArray = function (jsonData) {
     var result = [];
     for (var i in jsonData)

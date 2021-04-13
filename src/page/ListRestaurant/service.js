@@ -12,6 +12,7 @@ const seed = [
     addressRestaurant: "25/2 Lý Tuệ, P. Tân Quý, Tân Phú, TP. HCM",
     voucher: "Mã giảm 10%",
     isOpening: 0,
+    city: 0,
     area: 16,
     type: [0],
   },
@@ -23,6 +24,7 @@ const seed = [
     addressRestaurant: "39/10/11 Hoàng Bật Đạt, P. 15, Tân Bình, TP. HCM",
     voucher: "Giảm hết 30%",
     isOpening: 1,
+    city: 0,
     area: 14,
     type: [0],
   },
@@ -34,6 +36,7 @@ const seed = [
     addressRestaurant: "499/24 Quang Trung, P. 10, Gò Vấp, TP. HCM",
     voucher: "Mã giảm 50%",
     isOpening: 1,
+    city: 0,
     area: 23,
     type: [1],
   },
@@ -45,6 +48,7 @@ const seed = [
     addressRestaurant: "221/16 Đất Thánh, P. 6, Tân Bình, TP. HCM",
     voucher: "Giảm món",
     isOpening: 0,
+    city: 0,
     area: 14,
     type: [0],
   },
@@ -56,6 +60,7 @@ const seed = [
     addressRestaurant: "66/32 Trần Văn Quang, P. 10, Tân Bình, TP. HCM",
     voucher: "Giảm hết 10%",
     isOpening: 2,
+    city: 0,
     area: 14,
     type: [0],
   },
@@ -67,6 +72,7 @@ const seed = [
     addressRestaurant: "213D Nguyễn Văn Cừ, P. 3, Quận 5, TP. HCM",
     voucher: "Mã giảm 15%",
     isOpening: 2,
+    city: 0,
     area: 4,
     type: [1],
   },
@@ -79,6 +85,7 @@ const seed = [
       "435/47/27 Huỳnh Tấn Phát, P. Tân Thuận Đông, Quận 7, TP. HCM",
     voucher: "Mã giảm 15%",
     isOpening: 1,
+    city: 0,
     area: 6,
     type: [1],
   },
@@ -91,6 +98,7 @@ const seed = [
       "435/53/15 Huỳnh Tấn Phát, P. Tân Thuận Đông, Quận 7, TP. HCM",
     voucher: "Mã giảm 15%",
     isOpening: 0,
+    city: 0,
     area: 6,
     type: [2],
   },
@@ -103,6 +111,7 @@ const seed = [
       "391, 16/7B Huỳnh Tấn Phát, P.Tân Thuận Đông, Quận 7, TP. HCM",
     voucher: "Mã giảm 15%",
     isOpening: 0,
+    city: 0,
     area: 6,
     type: [1],
   },
@@ -115,6 +124,7 @@ const seed = [
       "391/16/7B Huỳnh Tấn Phát, P. Tân Thuận Đông, Quận 7, TP. HCM",
     voucher: "Mã giảm 15%",
     isOpening: 0,
+    city: 0,
     area: 6,
     type: [0],
   },
@@ -126,6 +136,7 @@ const seed = [
     addressRestaurant: "341 Huỳnh Tấn Phát, P. Tân Thuận Đông, Quận 7, TP. HCM",
     voucher: "Mã giảm 15%",
     isOpening: 1,
+    city: 0,
     area: 6,
     type: [0],
   },
@@ -138,6 +149,7 @@ const seed = [
       "12 Đường Số 10, KDC Nam Long, P. Tân Thuận Đông, Quận 7, TP. HCM",
     voucher: "Mã giảm 15%",
     isOpening: 1,
+    city: 0,
     area: 6,
     type: [1],
   },
@@ -149,6 +161,7 @@ const seed = [
     addressRestaurant: "427 Huỳnh Tấn Phát, P. Tân Thuận Đông, Quận 7, TP. HCM",
     voucher: "Mã giảm 15%",
     isOpening: 2,
+    city: 0,
     area: 6,
     type: [1],
   },
@@ -161,6 +174,7 @@ const seed = [
       "17/13B Khu Phố 1, Tân Thuận Tây, P. Bình Thuận, Quận 7, TP. HCM",
     voucher: "Mã giảm 15%",
     isOpening: 2,
+    city: 0,
     area: 6,
     type: [2],
   },
@@ -172,6 +186,7 @@ const seed = [
     addressRestaurant: "444 Huỳnh Tấn Phát, P. Bình Thuận, Quận 7, TP. HCM",
     voucher: "Mã giảm 15%",
     isOpening: 0,
+    city: 0,
     area: 6,
     type: [6],
   },
@@ -183,6 +198,7 @@ const seed = [
     addressRestaurant: "28 Trần Trọng Cung, Quận 7, TP. HCM",
     voucher: "Mã giảm 15%",
     isOpening: 0,
+    city: 0,
     area: 6,
     type: [1],
   },
@@ -195,6 +211,7 @@ const seed = [
       "509A Huỳnh Tấn Phát, P. Tân Thuận Đông, Quận 7, TP. HCM",
     voucher: "Mã giảm 15%",
     isOpening: 1,
+    city: 0,
     area: 6,
     type: [0],
   },
@@ -206,6 +223,7 @@ const seed = [
     addressRestaurant: "213D Nguyễn Văn Cừ, P. 3, Quận 5, TP. HCM",
     voucher: "Mã giảm 15%",
     isOpening: 1,
+    city: 0,
     area: 6,
     type: [1],
   },
@@ -217,6 +235,7 @@ const seed = [
     addressRestaurant: "10 Trần Trọng Cung, P. Tân Thuận Đông, Quận 7, TP. HCM",
     voucher: "Mã giảm 15%",
     isOpening: 0,
+    city: 0,
     area: 6,
     type: [1],
   },
@@ -228,6 +247,7 @@ const seed = [
     addressRestaurant: "23 Trần Trọng Cung, P. Tân Thuận Đông, Quận 7, TP. HCM",
     voucher: "Mã giảm 15%",
     isOpening: 1,
+    city: 0,
     area: 6,
     type: [1],
   },
@@ -239,6 +259,7 @@ const seed = [
     addressRestaurant: "2 Lý Phục Man, P. Bình Thuận, Quận 7, TP. HCM",
     voucher: "Mã giảm 15%",
     isOpening: 0,
+    city: 0,
     area: 6,
     type: [6],
   },
@@ -250,6 +271,7 @@ const seed = [
     addressRestaurant: "486 Huỳnh Tấn Phát, P. Bình Thuận, Quận 7, TP. HCM",
     voucher: "Mã giảm 15%",
     isOpening: 1,
+    city: 0,
     area: 6,
     type: [1],
   },
@@ -261,6 +283,7 @@ const seed = [
     addressRestaurant: "2 Lý Phục Man, P. Bình Thuận, Quận 7, TP. HCM",
     voucher: "Mã giảm 15%",
     isOpening: 2,
+    city: 0,
     area: 6,
     type: [6],
   },
@@ -273,6 +296,7 @@ const seed = [
       "38 Đường D7, Khu Dân Cư Tân Thuận Tây, P. Tân Thuận Tây, Quận 7, TP. HCM",
     voucher: "Mã giảm 15%",
     isOpening: 1,
+    city: 0,
     area: 6,
     type: [0],
   },
@@ -285,31 +309,73 @@ const seed = [
       "Chung Cư An Khang, Đường Số 3, P. Tân Thuận Đông, Quận 7, TP. HCM",
     voucher: "Mã giảm 15%",
     isOpening: 0,
+    city: 0,
     area: 6,
+    type: [0],
+  },
+  {
+    id: 26,
+    urlImg:
+      "https://images.foody.vn/res/g102/1014457/prof/s640x400/image-e684e378-200908105300.jpeg",
+    nameRestaurant: "Hoàng Huệ - Cơm Rang & Bún Bò Trộn - Triều Khúc 14",
+    addressRestaurant:
+      "14 Ngõ 66A Triều Khúc, P. Tân Triều, Thanh Xuân, Hà Nội",
+    voucher: "Mã giảm 15%",
+    isOpening: 0,
+    city: 1,
+    area: 10,
+    type: [0],
+  },
+  {
+    id: 27,
+    urlImg:
+      "https://images.foody.vn/res/g100/993044/prof/s640x400/image-b046e112-210118135546.jpeg",
+    nameRestaurant: "Master Tea 美茶 - Yên Lãng",
+    addressRestaurant:
+      "23 Ngõ 82 Yên Lãng, Đống Đa, Hà Nội",
+    voucher: "Mã giảm 15%",
+    isOpening: 0,
+    city: 1,
+    area: 3,
     type: [0],
   },
 ];
 
 const ITEM_PER_PAGE = 20;
 
-service.getListRestaurant = async (page, filterArea, filterType) => {
+service.getListRestaurant = async (page, city, filterArea, filterType) => {
   let listRestaurant = [];
   let countItem = seed.length;
   // get all
   if (filterArea.length === 0 && filterType.length === 0) {
+    let seed_city = [];
+    for (var i = 0; i < seed.length; i++) {
+     if (seed[i].city === city) {
+       seed_city.push(seed[i]);
+     }
+   }
+
     var startIndex = (page - 1) * ITEM_PER_PAGE;
     var endIndex =
-      startIndex + ITEM_PER_PAGE < seed.length
+      startIndex + ITEM_PER_PAGE < seed_city.length
         ? startIndex + ITEM_PER_PAGE
-        : seed.length;
+        : seed_city.length;
+
     for (var i = startIndex; i < endIndex; i++) {
-      listRestaurant.push(seed[i]);
+        listRestaurant.push(seed_city[i]);
     }
   } else {
+    let seed_city = [];
+     for (var i = 0; i < seed.length; i++) {
+      if (seed[i].city === city) {
+        seed_city.push(seed[i]);
+      }
+    }
+
     let temp = [];
     // get filter area
-    for (var i = 0; i < seed.length; i++) {
-      if (ArrayUtils.isInArray(seed[i].area, filterArea) === true) {
+    for (var i = 0; i < seed_city.length; i++) {
+      if (ArrayUtils.isInArray(seed_city[i].area, filterArea) === true) {
         temp.push(seed[i]);
       }
     }
@@ -322,7 +388,6 @@ service.getListRestaurant = async (page, filterArea, filterType) => {
         if (ArrayUtils.isHaveCommonElement(temp[i].type, filterType)) {
           listRestaurant.push(temp[i]);
         } else {
-       
         }
       }
     }
@@ -331,9 +396,12 @@ service.getListRestaurant = async (page, filterArea, filterType) => {
     var result = [];
     countItem = temp.length;
     var startIndex = (page - 1) * ITEM_PER_PAGE;
-    var endIndex = (startIndex + ITEM_PER_PAGE) < listRestaurant.length ? (startIndex + ITEM_PER_PAGE) : (listRestaurant.length);
-    for (var i = startIndex; i < endIndex; i++){
-        result.push(listRestaurant[i]);
+    var endIndex =
+      startIndex + ITEM_PER_PAGE < listRestaurant.length
+        ? startIndex + ITEM_PER_PAGE
+        : listRestaurant.length;
+    for (var i = startIndex; i < endIndex; i++) {
+      result.push(listRestaurant[i]);
     }
 
     listRestaurant = result;
@@ -349,6 +417,5 @@ service.getListRestaurant = async (page, filterArea, filterType) => {
     }, 1500);
   });
 };
-
 
 export default service;
