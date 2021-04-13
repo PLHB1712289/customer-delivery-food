@@ -11,16 +11,16 @@ StrUtils.formatUsernameUI = function (name) {
 
 StrUtils.formatNameRestaurantCart = function (name) {
   if (name.length > 19) {
-      name = name.substr(0, 19) + "...";
+    name = name.substr(0, 19) + "...";
   }
 
-return name;
+  return name;
 };
 
 StrUtils.formatAdressRestaurantCart = function (name) {
-    if (name.length > 30) {
-        name = name.substr(0, 31) + "...";
-    }
+  if (name.length > 30) {
+    name = name.substr(0, 31) + "...";
+  }
 
   return name;
 };
@@ -39,6 +39,22 @@ StrUtils.formatNameVoucherCard = function (name) {
   }
 
   return name;
+};
+
+StrUtils.formatMoneyString = function (money) {
+  var str = money.toString();
+  var count = 0;
+
+  for (var i = str.length - 1; i >= 0; i--) {
+    count++;
+    if (count === 3) {
+      str = str.substr(0, i) + "." + str.substr(i);
+      count = 0;
+      i--;
+    }
+  }
+
+  return str;
 };
 
 export default StrUtils;

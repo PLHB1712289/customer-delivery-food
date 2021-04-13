@@ -1,20 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector, Provider } from "react-redux";
-import { useHistory, useLocation } from "react-router-dom";
-import { CustomDialog, useDialog } from "react-st-modal";
-import { Button, Grid, Avatar } from "@material-ui/core";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Grid, Avatar } from "@material-ui/core";
 import { Person, ArrowForwardRounded } from "@material-ui/icons";
 
 // serivce
 import "./styles.css";
 // config
 import Localization from "../../../config/Localization";
+import action from "../../../storage/action";
 // utils
 
 const SideBar = () => {
-  // React router hook
-  const history = useHistory();
-  const location = useLocation();
   // use dispatch
   const dispatch = useDispatch();
 
@@ -30,11 +26,13 @@ const SideBar = () => {
   }
 
   // use State
-  let index = 0;
-  if (location.state) {
-    index = location.state.index;
-  }
-  const [key, setKey] = useState(index ? index : 0);
+  const indexProfile = useSelector((state) => state.indexProfile);
+  // handle select
+  const handleSelect = (k) => {
+    if (indexProfile !== k) {
+      dispatch(action.indexProfileAction.update(k));
+    }
+  };
 
   // local
   const itemStyle = [
@@ -42,15 +40,7 @@ const SideBar = () => {
     "profile_sidebar_item",
     "profile_sidebar_item",
   ];
-
-  // handle select
-  const handleSelect = (k) => {
-    if (key !== k) {
-      setKey(k);
-    }
-  };
-
-  itemStyle[key] += " profile_sidebar_item_active";
+  itemStyle[indexProfile] += " profile_sidebar_item_active";
 
   return (
     <div className="profile_sidebar_global">
@@ -74,7 +64,7 @@ const SideBar = () => {
           <div className={itemStyle[1]} onClick={() => handleSelect(1)}>
             <Person className="profile_sidebar_icon"></Person>
             <div className="profile_sidebar_item_title">
-              {Localization.text("txt_payment_type")}
+              {Localization.text("txt_order_history")}
             </div>
             <ArrowForwardRounded className="profile_sidebar_icon_2"></ArrowForwardRounded>
           </div>
@@ -83,7 +73,7 @@ const SideBar = () => {
           <div className={itemStyle[2]} onClick={() => handleSelect(2)}>
             <Person className="profile_sidebar_icon"></Person>
             <div className="profile_sidebar_item_title">
-              {Localization.text("txt_order_history")}
+              {Localization.text("txt_payment_type")}
             </div>
             <ArrowForwardRounded className="profile_sidebar_icon_2"></ArrowForwardRounded>
           </div>

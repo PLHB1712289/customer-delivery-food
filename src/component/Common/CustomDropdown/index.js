@@ -56,6 +56,7 @@ export default function CustomDropdown(props) {
     noLiPadding,
     beforeImage,
     handleItemClick,
+    handleSelect,
     type
   } = props;
   const caretClasses = classNames({
@@ -189,7 +190,7 @@ export default function CustomDropdown(props) {
                     return (
                       <MenuItem
                         key={key}
-                        onClick={() => handleClose(prop)}
+                        onClick={() => handleSelect(key)}
                         style={key == 0 ? itemAboveStyle : itemMiddleStyle}
                       >
                         {prop}

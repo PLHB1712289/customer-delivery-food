@@ -14,6 +14,14 @@ const TAG = {
     SIGN_OUT: "PROFILE_ON_SIGN_OUT",
     UPDATE: "PROFILE_UPDATE",
   },
+
+  CITY: {
+    UPDATE: "CITY_UPDATE"
+  },
+
+  INDEX_PROFILE: {
+    UPDATE: "INDEX_PROFILE_UPDATE"
+  }
 };
 
 export default TAG;

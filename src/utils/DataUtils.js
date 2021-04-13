@@ -5,7 +5,9 @@ import ImageUtils from "./ImageUtils";
 import ArrayUtils from "./ArrayUtils";
 
 import CatConfig from "../config/CategoryConfig";
+import ProfileConfig from "../config/ProfileConfig";
 import RestaurantConfig from "../config/RestaurantConfig";
+import OrderConfig from "../config/OrderConfig";
 
 import { CheckCircle } from "@material-ui/icons";
 
@@ -142,5 +144,55 @@ DataUtils.getFilterTypeRestaurant = function (filterType) {
 
   return chooseType;
 };
+
+
+DataUtils.mapCityProfile = function () {
+  const cities = ArrayUtils.jsonToArray(RestaurantConfig.CITY);
+
+  const data = cities.map((city, key) => {
+    return (
+      <option value={key}>{city}</option>
+    )
+  });
+
+  return data;
+};
+
+DataUtils.mapAreaProfile = function (city) {
+  const areas = ArrayUtils.jsonToArray(RestaurantConfig.AREA[city]);
+
+  const data = areas.map((area, key) => {
+    return (
+      <option value={key}>{area}</option>
+    )
+  });
+
+  return data;
+};
+
+DataUtils.mapGenderProfile = function (city) {
+  const genders = ArrayUtils.jsonToArray(ProfileConfig.GENDER);
+
+  const data = genders.map((gender, key) => {
+    return (
+      <option value={key}>{Localization.text("txt_gender_" + key)}</option>
+    )
+  });
+
+  return data;
+};
+
+DataUtils.mapOrderStatus = function () {
+  const status = ArrayUtils.jsonToArray(OrderConfig.STATUS);
+
+  const data = status.map((value, key) => {
+    return (
+      <option value={key}>{Localization.text("txt_order_status_" + key)}</option>
+    )
+  });
+
+  return data;
+};
+
 
 export default DataUtils;

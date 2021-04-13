@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Grid } from "@material-ui/core";
 
@@ -29,6 +29,8 @@ const ListRestaurant = () => {
   const history = useHistory();
   // use dispatch
   const dispatch = useDispatch();
+  // use Selector
+  const city = useSelector((state) => state.city);
   // use state
   const [listRes, setListRes] = useState([]);
   const [countItem, setCountItem] = useState(0);
@@ -47,6 +49,7 @@ const ListRestaurant = () => {
       try {
         const { success, message, data } = await service.getListRestaurant(
           1,
+          city,
           list_area,
           list_type,
           sortType
@@ -64,7 +67,7 @@ const ListRestaurant = () => {
         console.error(`[LIST_VOUCHER]: ${e.message}`);
       }
     })();
-  }, [sortType]);
+  }, [sortType, city]);
 
   const listRestaurant = DataUtils.mapDataListRestaurant(listRes);
 
@@ -82,6 +85,7 @@ const ListRestaurant = () => {
       try {
         const { success, message, data } = await service.getListRestaurant(
           index,
+          city,
           list_area,
           list_type,
           sortType
@@ -151,6 +155,7 @@ const ListRestaurant = () => {
       try {
         const { success, message, data } = await service.getListRestaurant(
           1,
+          city,
           list_area,
           list_type,
           sortType
@@ -175,8 +180,8 @@ const ListRestaurant = () => {
 
   // handle select sort
   const handleSelectSort = (type) => {
-      setSortType(type);
-  }
+    setSortType(type);
+  };
 
   let globalClass = "listRes_global ";
   if (listRes.length !== 0) {
@@ -223,9 +228,7 @@ const ListRestaurant = () => {
 
               <Grid item md={8}>
                 <div className="listRes_filter-dropdown">
-                  <FilterDropdown 
-                  handleSelect={handleSelectSort}
-                  />
+                  <FilterDropdown handleSelect={handleSelectSort} />
                 </div>
               </Grid>
 
@@ -246,7 +249,9 @@ const ListRestaurant = () => {
                       src={ImageUtils.getResultNotFound()}
                       className="listRes_imgNotFound"
                     ></img>
-                    <div className="listRes_txtNotFound">{Localization.text("txt_no_result_found")}</div>
+                    <div className="listRes_txtNotFound">
+                      {Localization.text("txt_no_result_found")}
+                    </div>
                   </div>
                 ) : (
                   <Grid container item md={12} className="listRes_list-card">

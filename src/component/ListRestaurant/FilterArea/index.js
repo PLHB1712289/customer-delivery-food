@@ -1,4 +1,5 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import clsx from "clsx";
 import classNames from "classnames";
 
@@ -17,10 +18,8 @@ import {
 
 // config
 import RestaurantConfig from "../../../config/RestaurantConfig";
-
 // utils
 import ArrayUtils from "../../../utils/ArrayUtils";
-
 // use style
 import useStyles from "./styles";
 import Localization from "../../../config/Localization";
@@ -29,6 +28,9 @@ export default function FilterArea(props) {
   const { buttonText, buttonProps, handleSelect, handleFilter, state } = props;
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
+
+  // use Selector
+  const city  = useSelector((state) => state.city);
 
   // handle click
   const handleClick = (event) => {
@@ -54,7 +56,7 @@ export default function FilterArea(props) {
   });
 
   // map data
-  const listArea = ArrayUtils.jsonToArray(RestaurantConfig.AREA);
+  const listArea = ArrayUtils.jsonToArray(RestaurantConfig.AREA[city]);
   const data = listArea.map(function (area, index) {
     return (
       <Grid item md={4} key={index}>
@@ -70,7 +72,7 @@ export default function FilterArea(props) {
               icon={<span className={classes.icon} />}
             />
           }
-          label={Localization.text("txt_district_" + (index + 1))}
+          label={Localization.text("txt_district_" + + city + "_" + (index + 1))}
         />
       </Grid>
     );

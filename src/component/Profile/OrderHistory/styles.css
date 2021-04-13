@@ -1,0 +1,86 @@
+.profile_orderHistory_global {
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    margin: 0 2rem;
+}
+
+.profile_orderHistory_title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 10px auto 5px 30px;
+    float: left;
+}
+
+.profile_orderHistory_totalOrder {
+    font-size: 1rem;
+    font-weight: normal;
+    clear: bold;
+    text-align: right;
+    margin: 20px 30px 5px auto;
+}
+
+.profile_orderHistory_subTitile {
+    margin: 5px 0px 5px 30px;
+    font-weight: bold;
+}
+
+.profile_orderHistory_breakLine {
+    border-top: 1px solid black;
+    opacity: 1;
+}
+
+.profile_orderHistory_form {
+    margin: 5px 50px 10px 50px;
+}
+
+.profile_orderHistory_input {
+    width: 15%;
+    height: 30px;
+    border-radius: 2px;
+    border: 1px solid black;
+    margin-right: 6%;
+    margin-left: 2%;
+}
+
+.profile_orderHistory_button {
+    width: 10%;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: #2196F3;
+}
+
+.profile_orderHistory_table {
+    width: 96%;
+    margin: 10px 2%;
+    text-align: center;
+}
+
+.profile_orderHistory_table > tr > th {
+    color: red;
+    font-weight: bold;
+    height: 3rem;
+}
+
+.profile_orderHistory_table > tr > td {
+    height: 2.5rem;
+    margin: auto 100px !important;
+}
+
+.profile_orderHistory_buttonRed{
+    width: 70%;
+    background-color: red;
+    color: white;
+    height: 75%;
+    border: none;
+    border-radius: 5px;
+    margin: auto;
+}
+
+.profile_orderHistory_pagination {
+    width: 100%;
+    padding-left: 35%;
+    margin-top: 10px;
+}
