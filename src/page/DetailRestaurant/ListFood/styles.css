@@ -23,4 +23,26 @@
 
 .list-food__list-food {
   background-color: white;
+  padding: 20px;
+}
+
+.list-food__category > span,
+.list-food__list-food > span,
+.list-food__cart span {
+  color: red;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.list-food__cart {
+  background-color: white;
+  padding: 20px;
+}
+
+.list-food__lable-category {
+  /* font-size: 1rem; */
+  text-transform: uppercase;
+  color: #6d6f71;
+  padding: 5px 0 0 0;
+  margin: 20px 0;
 }

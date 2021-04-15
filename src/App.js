@@ -1,25 +1,23 @@
 import React, { useState } from "react";
-import { Provider, useDispatch } from "react-redux";
+import { Provider } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import store from "./storage";
-import "./libs/fontawesome";
-
-import Header from "./component/Header";
-import Footer from "./component/Footer";
-import SignIn from "./page/SignIn";
-import VertifyPhonge from "./page/VertifyPhone";
-import InputOTP from "./page/VertifyOTP";
-import HomePage from "./page/HomePage";
-import ListRestaurant from "./page/ListRestaurant";
-import Profile from "./page/profile";
-
 import NotFound from "./component/Error/404";
-
+import Footer from "./component/Footer";
+import Header from "./component/Header";
+import Loading from "./component/Loading";
 import LangConfig from "./config/LangConfig.js";
 import Localization from "./config/Localization.js";
-import Loading from "./component/Loading";
+import "./libs/fontawesome";
 import DetailRestaurant from "./page/DetailRestaurant";
-import { LiveTv } from "@material-ui/icons";
+import HomePage from "./page/HomePage";
+import ListRestaurant from "./page/ListRestaurant";
+import Profile from "./page/Profile";
+import SignIn from "./page/SignIn";
+import InputOTP from "./page/VertifyOTP";
+import VertifyPhonge from "./page/VertifyPhone";
+import store from "./storage";
+
+// import { LiveTv } from "@material-ui/icons";
 
 function App() {
   let current_language = localStorage.getItem("langType");

@@ -1,0 +1,54 @@
+.detail-restaurant-item-food__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+
+  margin-bottom: 10px;
+  border-bottom: 1px solid whitesmoke;
+}
+
+.detail-restaurant-item-food__food {
+  display: flex;
+}
+
+.detail-restaurant-item-food__thumbnail {
+  min-width: 80px;
+  margin-right: 10px;
+}
+.detail-restaurant-item-food__thumbnail > img {
+  width: 80px;
+  height: 80px;
+}
+
+.detail-restaurant-item-food__info-name {
+  font-size: 1rem;
+  font-weight: 600;
+}
+.detail-restaurant-item-food__info-price {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0288d1;
+}
+
+.detail-restaurant-item-food__add-to-cart {
+  width: 26px;
+  height: 26px;
+  background-color: #cf2127;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-weight: 800;
+  font-size: 19px;
+  color: white;
+
+  cursor: pointer;
+
+  border-radius: 5px;
+}
+
+.detail-restaurant-item-food__add-to-cart:hover {
+  background-color: #a30a0f;
+}
