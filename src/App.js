@@ -11,7 +11,7 @@ import VertifyPhonge from "./page/VertifyPhone";
 import InputOTP from "./page/VertifyOTP";
 import HomePage from "./page/HomePage";
 import ListRestaurant from "./page/ListRestaurant";
-import Profile from "./page/profile";
+import Profile from "./page/Profile";
 
 import NotFound from "./component/Error/404";
 
