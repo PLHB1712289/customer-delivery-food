@@ -5,84 +5,22 @@ import ItemFood from "./ItemFood";
 import ItemMenu from "./ItemMenu";
 import "./styles.css";
 
-// const defaultListCategory = [
-//   {
-//     title: "Món 1",
-//     value: "category1",
-//   },
-//   {
-//     title: "Món 2",
-//     value: "category2",
-//   },
-// ];
-
-const ListFood = () => {
-  const [listFood, setListFood] = useState([
-    {
-      lable: "Cơm",
-      value: "rice",
-      listFood: [
-        {
-          _id: "123",
-          thumbnail:
-            "https://images.foody.vn/res/g32/317044/prof/s640x400/foody-mobile-phomui-jpg-691-636219719791166170.jpg",
-          name: "Bún bò viên",
-          price: 45000,
-        },
-        {
-          _id: "124",
-          thumbnail:
-            "https://images.foody.vn/res/g32/317044/prof/s640x400/foody-mobile-phomui-jpg-691-636219719791166170.jpg",
-          name: "Bún bò tái",
-          price: 45000,
-        },
-        {
-          _id: "125",
-          thumbnail:
-            "https://images.foody.vn/res/g32/317044/prof/s640x400/foody-mobile-phomui-jpg-691-636219719791166170.jpg",
-          name: "Phở tái nạm",
-          price: 45000,
-        },
-      ],
-    },
-    {
-      lable: "Món thêm",
-      value: "subfood",
-      listFood: [
-        {
-          _id: "126",
-          thumbnail:
-            "https://images.foody.vn/res/g32/317044/prof/s640x400/foody-mobile-phomui-jpg-691-636219719791166170.jpg",
-          name: "Bún thêm",
-          price: 10000,
-        },
-        {
-          _id: "127",
-          thumbnail:
-            "https://images.foody.vn/res/g32/317044/prof/s640x400/foody-mobile-phomui-jpg-691-636219719791166170.jpg",
-          name: "Bánh thêm",
-          price: 10000,
-        },
-      ],
-    },
-  ]);
+const ListFood = ({ data }) => {
   const [currentCategory, setCurrentCategory] = useState("all");
   const [listOrder, setListOrder] = useState([]);
-  const [listFoodFilter, setListFoodFilter] = useState(listFood);
+  const [listFoodFilter, setListFoodFilter] = useState(data);
 
   useEffect(() => {
     if (currentCategory === "all") {
-      setListFoodFilter(listFood);
+      setListFoodFilter(data);
       return;
     }
 
-    setListFoodFilter(
-      listFood.filter((item) => item.value === currentCategory)
-    );
+    setListFoodFilter(data.filter((item) => item.value === currentCategory));
   }, [currentCategory]);
 
   const addToCart = (_id) => {
-    const listFoodTemp = listFood.reduce((arrayFood, currCategory) => {
+    const listFoodTemp = data.reduce((arrayFood, currCategory) => {
       return arrayFood.concat(currCategory.listFood);
     }, []);
 
@@ -120,7 +58,7 @@ const ListFood = () => {
             setCurrentCategory("all");
           }}
         />
-        {listFood.map((category) => (
+        {data.map((category) => (
           <ItemMenu
             category={category}
             currentCategory={currentCategory}
