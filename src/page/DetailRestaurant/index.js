@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
-import InformationRestaurant from "./InformationRestaurant";
-import ListFood from "./ListFood";
+import InformationRestaurant from "../../component/DetailRestaurant/InformationRestaurant";
+import ListFood from "../../component/DetailRestaurant/ListFood";
 
 const DetailRestaurant = () => {
   return (
