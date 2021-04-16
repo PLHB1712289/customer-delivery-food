@@ -125,6 +125,7 @@ const FilterRestaurant = () => {
           return (
             <RestaurantItem
               key={restaurant.id}
+              id={restaurant.id}
               urlImg={restaurant.urlImg}
               addressRestaurant={restaurant.addressRestaurant}
               nameRestaurant={restaurant.nameRestaurant}
