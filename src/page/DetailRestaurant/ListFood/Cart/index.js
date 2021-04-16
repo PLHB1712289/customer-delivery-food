@@ -9,21 +9,6 @@ const displayPrice = (price) => {
 };
 
 const Cart = ({ listOrder, changeQuantity }) => {
-  // const [listOrder, setListOrder] = useState([
-  //   { _id: "12345", name: "Phở tái chanh", quantity: 1, price: "65000" },
-  //   { _id: "12346", name: "Phở bò viên", quantity: 1, price: "65000" },
-  // ]);
-
-  // const changeQuantity = (id, quantity) => {
-  //   const indexItemOrder = listOrder.map((item) => item._id).indexOf(id);
-  //   if (indexItemOrder <= -1) return;
-
-  //   const newListOrder = listOrder.slice();
-  //   newListOrder[indexItemOrder].quantity = quantity;
-
-  //   setListOrder(newListOrder);
-  // };
-
   const totalPrice = listOrder.reduce((sum, currOrder) => {
     sum += currOrder.quantity * currOrder.price;
     return sum;

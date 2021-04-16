@@ -13,18 +13,30 @@
 }
 
 .detail-restaurant-item-food__thumbnail {
-  min-width: 80px;
   margin-right: 10px;
-}
-.detail-restaurant-item-food__thumbnail > img {
+
   width: 80px;
   height: 80px;
+  overflow: hidden;
+  position: relative;
+}
+.detail-restaurant-item-food__thumbnail > img {
+  min-width: 100%;
+  min-height: 100%;
+
+  max-width: 150px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
 }
 
 .detail-restaurant-item-food__info-name {
   font-size: 1rem;
   font-weight: 600;
 }
+
 .detail-restaurant-item-food__info-price {
   font-size: 1rem;
   font-weight: 600;

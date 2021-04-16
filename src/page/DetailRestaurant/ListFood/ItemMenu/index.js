@@ -13,7 +13,7 @@ const ItemMenu = ({ currentCategory, category, onClick }) => {
       ].join(" ")}
       onClick={onClick}
     >
-      {category.title}
+      {category.lable}
     </div>
   );
 };

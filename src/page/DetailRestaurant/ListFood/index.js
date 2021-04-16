@@ -1,28 +1,26 @@
 import { Grid } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Cart from "./Cart";
 import ItemFood from "./ItemFood";
 import ItemMenu from "./ItemMenu";
 import "./styles.css";
 
-const defaultListCategory = [
-  {
-    title: "Món 1",
-    value: "category1",
-  },
-  {
-    title: "Món 2",
-    value: "category2",
-  },
-];
+// const defaultListCategory = [
+//   {
+//     title: "Món 1",
+//     value: "category1",
+//   },
+//   {
+//     title: "Món 2",
+//     value: "category2",
+//   },
+// ];
 
 const ListFood = () => {
-  const [listCategory, setListCategory] = useState(defaultListCategory);
-  const [currentCategory, setCurrentCategory] = useState(listCategory[0].value);
-
   const [listFood, setListFood] = useState([
     {
       lable: "Cơm",
+      value: "rice",
       listFood: [
         {
           _id: "123",
@@ -49,6 +47,7 @@ const ListFood = () => {
     },
     {
       lable: "Món thêm",
+      value: "subfood",
       listFood: [
         {
           _id: "126",
@@ -67,8 +66,20 @@ const ListFood = () => {
       ],
     },
   ]);
-
+  const [currentCategory, setCurrentCategory] = useState("all");
   const [listOrder, setListOrder] = useState([]);
+  const [listFoodFilter, setListFoodFilter] = useState(listFood);
+
+  useEffect(() => {
+    if (currentCategory === "all") {
+      setListFoodFilter(listFood);
+      return;
+    }
+
+    setListFoodFilter(
+      listFood.filter((item) => item.value === currentCategory)
+    );
+  }, [currentCategory]);
 
   const addToCart = (_id) => {
     const listFoodTemp = listFood.reduce((arrayFood, currCategory) => {
@@ -102,7 +113,14 @@ const ListFood = () => {
     <Grid className="list-food__container" item container xs={12}>
       <Grid className="list-food__category" item xs={3}>
         <span>THỰC ĐƠN</span>
-        {listCategory.map((category) => (
+        <ItemMenu
+          category={{ value: "all", lable: "Tất cả" }}
+          currentCategory={currentCategory}
+          onClick={() => {
+            setCurrentCategory("all");
+          }}
+        />
+        {listFood.map((category) => (
           <ItemMenu
             category={category}
             currentCategory={currentCategory}
@@ -115,10 +133,12 @@ const ListFood = () => {
       <Grid className="list-food__list-food" item xs={5}>
         <span>DANH SÁCH MÓN ĂN</span>
 
-        {listFood.map((item, index) => {
+        {listFoodFilter.map((item, index) => {
           return (
             <div className="list-food__lable-category" key={index}>
-              <span>{item.lable}</span>
+              <span>
+                {item.lable}({item.listFood.length})
+              </span>
               {item.listFood.map((food) => (
                 <ItemFood
                   thumbnail={food.thumbnail}
