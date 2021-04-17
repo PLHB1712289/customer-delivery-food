@@ -1,0 +1,19 @@
+.dialog-change-address__title {
+}
+
+.dialog-change-address__input-location {
+  display: grid;
+  grid-template-columns: 0.2fr 9fr 0.2fr;
+
+  border: 1px solid #d7d7d7;
+  padding: 5px;
+  border-radius: 2px;
+}
+.dialog-change-address__input-location > input {
+  border: none;
+  outline: none;
+  padding: 0;
+}
+.dialog-change-address__input-location-icon {
+  font-size: 12px;
+}
