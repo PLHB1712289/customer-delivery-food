@@ -5,8 +5,10 @@ import labelAlt from "@iconify/icons-uil/label-alt";
 import coinsLine from "@iconify/icons-ri/coins-line";
 import labelPercent from "@iconify/icons-mdi/label-percent";
 import shieldIcon from "@iconify/icons-entypo/shield";
+import { useHistory } from "react-router-dom";
 
 const RestaurantItem = ({
+  id,
   urlImg,
   nameRestaurant,
   addressRestaurant,
@@ -14,8 +16,13 @@ const RestaurantItem = ({
   avgPrice,
   voucher,
 }) => {
+  const history = useHistory();
+
   return (
-    <div className="restaurant-item">
+    <div
+      className="restaurant-item"
+      onClick={() => history.push(`/restaurant/${id}`)}
+    >
       <div className="restaurant-item__thumbnail">
         <img alt="" src={urlImg} />
       </div>

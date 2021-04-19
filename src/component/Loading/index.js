@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import ReactLoading from 'react-loading';
+import ReactLoading from "react-loading";
 
 const Loading = () => {
   var style = {
@@ -24,7 +24,7 @@ const Loading = () => {
     justifyContent: "center",
   };
 
-  const  isdisplay  = useSelector((state) => state.loading);
+  const isdisplay = useSelector((state) => state.loading);
 
   return (
     <>
@@ -50,7 +50,12 @@ const Loading = () => {
           }}
         >
           <div style={style}>
-          <ReactLoading type="spinningBubbles" color="#cf2127" eight={'30%'} width={'30%'}/>
+            <ReactLoading
+              type="spinningBubbles"
+              color="#cf2127"
+              eight={"30%"}
+              width={"30%"}
+            />
           </div>
         </div>
       ) : (

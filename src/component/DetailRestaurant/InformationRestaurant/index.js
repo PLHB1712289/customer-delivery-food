@@ -4,7 +4,16 @@ import Rating from "./Rating";
 import "./styles.css";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 
-const InformationRestaurant = () => {
+const InformationRestaurant = ({
+  thumbnail,
+  location,
+  name,
+  address,
+  totalRating,
+  rating,
+  timeOpenRestaurant,
+  priceAvg,
+}) => {
   return (
     <Grid
       item
@@ -14,38 +23,34 @@ const InformationRestaurant = () => {
       className="information-restaurant__container"
     >
       <Grid item xs={5}>
-        <img
-          className="information-restaurant__thumbnail"
-          alt=""
-          src="https://images.foody.vn/res/g32/317044/prof/s640x400/foody-mobile-phomui-jpg-691-636219719791166170.jpg"
-        />
+        <div className="information-restaurant__thumbnail">
+          <img alt="" src={thumbnail} />
+        </div>
       </Grid>
       <Grid item xs={7}>
-        <div className="information-restaurant__location">
-          TP.HCM {">>"} Bún Thịt nướng chú ba
-        </div>
+        <div className="information-restaurant__location">{location}</div>
         <div className="information-restaurant__like">
           <ThumbUpAltIcon style={{ width: 20, marginRight: 5 }} />
           Yêu thích
         </div>
-        <div className="information-restaurant__name-restaurant">
-          Bún thịt nướng chú ba
-        </div>
+        <div className="information-restaurant__name-restaurant">{name}</div>
         <div className="information-restaurant__address-restaurant">
-          126 Lê Văn Sỹ, P.10, Quận Phú Nhuận, TP.HCM
+          {address}
         </div>
         <div className="information-restaurant__vote-and-review-restaurant">
-          <Rating rate={1} />
+          <Rating rate={rating} />
           <div className="information-restaurant__review-restaurant">
-            <div className="information-restaurant__count-review">100+</div>
+            <div className="information-restaurant__count-review">
+              {totalRating}
+            </div>
             lượt đánh giá
           </div>
         </div>
         <div className="information-restaurant__time-open-restaurant">
-          <span>Mở cửa:</span> 09:00-21:00
+          <span>Mở cửa:</span> {timeOpenRestaurant}
         </div>
         <div className="information-restaurant__price-restaurant">
-          <span>Giá tiền:</span> 30.000-200.000 VNĐ
+          <span>Giá tiền:</span> {priceAvg}
         </div>
       </Grid>
     </Grid>
