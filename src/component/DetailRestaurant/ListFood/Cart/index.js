@@ -8,7 +8,7 @@ const displayPrice = (price) => {
   return price.toFixed(Math.max(0, 0)).replace(new RegExp(re, "g"), "$&,");
 };
 
-const Cart = ({ listOrder, changeQuantity }) => {
+const Cart = ({ listOrder, changeQuantity, callbackCheckout }) => {
   const totalPrice = listOrder.reduce((sum, currOrder) => {
     sum += currOrder.quantity * currOrder.price;
     return sum;
@@ -47,7 +47,14 @@ const Cart = ({ listOrder, changeQuantity }) => {
           {displayPrice(totalPrice)}đ
         </div>
       </div>
-      <button className="detail-restaurant__cart-submit-order">Đặt hàng</button>
+      <button
+        className="detail-restaurant__cart-submit-order"
+        onClick={() => {
+          if (listOrder.length) callbackCheckout();
+        }}
+      >
+        Đặt hàng
+      </button>
     </div>
   );
 };

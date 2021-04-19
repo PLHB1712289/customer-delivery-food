@@ -24,7 +24,7 @@ const Marker = ({ size = defaultSize, name }) => {
   );
 };
 
-const Map = ({ lat, lng }) => {
+const Map = ({ lat = 0, lng = 0 }) => {
   const [zoom, setZoom] = useState(18);
   const center = { lat, lng };
 

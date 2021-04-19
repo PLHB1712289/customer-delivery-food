@@ -4,11 +4,13 @@ import Cart from "./Cart";
 import ItemFood from "./ItemFood";
 import ItemMenu from "./ItemMenu";
 import "./styles.css";
+import DialogCheckout from "../DialogCheckout";
 
 const ListFood = ({ data }) => {
   const [currentCategory, setCurrentCategory] = useState("all");
   const [listOrder, setListOrder] = useState([]);
   const [listFoodFilter, setListFoodFilter] = useState(data);
+  const [openDialogCheckout, setOpenDialogCheckout] = useState(false);
 
   useEffect(() => {
     if (currentCategory === "all") {
@@ -48,53 +50,64 @@ const ListFood = ({ data }) => {
   };
 
   return (
-    <Grid className="list-food__container" item container xs={12}>
-      <Grid className="list-food__category" item xs={3}>
-        <span>THỰC ĐƠN</span>
-        <ItemMenu
-          category={{ value: "all", lable: "Tất cả" }}
-          currentCategory={currentCategory}
-          onClick={() => {
-            setCurrentCategory("all");
-          }}
-        />
-        {data.map((category) => (
+    <>
+      <DialogCheckout
+        listOrder={listOrder}
+        open={openDialogCheckout}
+        onClose={() => setOpenDialogCheckout(false)}
+      />
+      <Grid className="list-food__container" item container xs={12}>
+        <Grid className="list-food__category" item xs={3}>
+          <span>THỰC ĐƠN</span>
           <ItemMenu
-            category={category}
+            category={{ value: "all", lable: "Tất cả" }}
             currentCategory={currentCategory}
             onClick={() => {
-              setCurrentCategory(category.value);
+              setCurrentCategory("all");
             }}
           />
-        ))}
-      </Grid>
-      <Grid className="list-food__list-food" item xs={5}>
-        <span>DANH SÁCH MÓN ĂN</span>
+          {data.map((category) => (
+            <ItemMenu
+              category={category}
+              currentCategory={currentCategory}
+              onClick={() => {
+                setCurrentCategory(category.value);
+              }}
+            />
+          ))}
+        </Grid>
+        <Grid className="list-food__list-food" item xs={5}>
+          <span>DANH SÁCH MÓN ĂN</span>
 
-        {listFoodFilter.map((item, index) => {
-          return (
-            <div className="list-food__lable-category" key={index}>
-              <span>
-                {item.lable}({item.listFood.length})
-              </span>
-              {item.listFood.map((food) => (
-                <ItemFood
-                  thumbnail={food.thumbnail}
-                  name={food.name}
-                  price={food.price}
-                  id={food._id}
-                  addToCart={addToCart}
-                />
-              ))}
-            </div>
-          );
-        })}
-      </Grid>
+          {listFoodFilter.map((item, index) => {
+            return (
+              <div className="list-food__lable-category" key={index}>
+                <span>
+                  {item.lable}({item.listFood.length})
+                </span>
+                {item.listFood.map((food) => (
+                  <ItemFood
+                    thumbnail={food.thumbnail}
+                    name={food.name}
+                    price={food.price}
+                    id={food._id}
+                    addToCart={addToCart}
+                  />
+                ))}
+              </div>
+            );
+          })}
+        </Grid>
 
-      <Grid className="list-food__cart" item xs={4}>
-        <Cart listOrder={listOrder} changeQuantity={changeQuantity} />
+        <Grid className="list-food__cart" item xs={4}>
+          <Cart
+            listOrder={listOrder}
+            changeQuantity={changeQuantity}
+            callbackCheckout={() => setOpenDialogCheckout(true)}
+          />
+        </Grid>
       </Grid>
-    </Grid>
+    </>
   );
 };
 
