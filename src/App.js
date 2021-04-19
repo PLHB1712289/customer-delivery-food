@@ -7,7 +7,6 @@ import Header from "./component/Header";
 import Loading from "./component/Loading";
 import LangConfig from "./config/LangConfig.js";
 import Localization from "./config/Localization.js";
-import "./libs/fontawesome";
 import DetailRestaurant from "./page/DetailRestaurant";
 import HomePage from "./page/HomePage";
 import ListRestaurant from "./page/ListRestaurant";
@@ -15,7 +14,8 @@ import Profile from "./page/Profile";
 import SignIn from "./page/SignIn";
 import InputOTP from "./page/VertifyOTP";
 import VertifyPhonge from "./page/VertifyPhone";
-import store from "./storage";
+import Store from "./storage";
+import "./libs/fontawesome";
 
 // import { LiveTv } from "@material-ui/icons";
 
@@ -38,7 +38,7 @@ function App() {
   };
 
   return (
-    <Provider store={store}>
+    <Provider store={Store}>
       <Loading />
 
       <Router>
@@ -57,19 +57,19 @@ function App() {
             <DetailRestaurant />
           </Route>
 
-          <Route path={"/input-otp"}>
+          <Route path="/input-otp">
             <InputOTP />
           </Route>
 
-          <Route path={"/restaurants"}>
+          <Route path="/restaurants">
             <ListRestaurant />
           </Route>
 
-          <Route path={"/profile"}>
+          <Route path="/profile">
             <Profile />
           </Route>
 
-          <Route exact path={"/"}>
+          <Route exact path="/">
             <HomePage />
           </Route>
 
