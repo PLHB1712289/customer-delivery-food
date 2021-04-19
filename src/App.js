@@ -10,7 +10,7 @@ import Localization from "./config/Localization.js";
 import DetailRestaurant from "./page/DetailRestaurant";
 import HomePage from "./page/HomePage";
 import ListRestaurant from "./page/ListRestaurant";
-import Profile from "./page/Profile";
+import Profile from "./page/profile";
 import SignIn from "./page/SignIn";
 import InputOTP from "./page/VertifyOTP";
 import VertifyPhonge from "./page/VertifyPhone";
