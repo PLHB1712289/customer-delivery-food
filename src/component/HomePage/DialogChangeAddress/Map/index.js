@@ -24,7 +24,7 @@ const Marker = ({ size = defaultSize, name }) => {
   );
 };
 
-const Map = ({ lat = 0, lng = 0 }) => {
+const Map = ({ lat = 0, lng = 0, tagMarker = "Vị trí của bạn" }) => {
   const [zoom, setZoom] = useState(18);
   const center = { lat, lng };
 
@@ -40,7 +40,7 @@ const Map = ({ lat = 0, lng = 0 }) => {
       >
         <Marker
           size={(zoom / 15) * defaultSize}
-          name={"HAHA"}
+          name={tagMarker}
           lat={lat}
           lng={lng}
         />

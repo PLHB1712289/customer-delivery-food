@@ -69,7 +69,6 @@ const FilterRestaurant = () => {
         setIsLoading(false);
 
         if (success) {
-          console.log(data.listRestaurants);
           setListRestaurants(data.listRestaurants);
         } else {
           alert(message);

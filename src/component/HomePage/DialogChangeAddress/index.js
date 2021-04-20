@@ -8,8 +8,11 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import CloseIcon from "@material-ui/icons/Close";
 import MyLocationIcon from "@material-ui/icons/MyLocation";
 import SearchIcon from "@material-ui/icons/Search";
-import React, { useEffect, useState } from "react";
-import { geoConvertLatLongToAddress } from "../../../utils/Geocode";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  geoConvertAddressToLatLong,
+  geoConvertLatLongToAddress,
+} from "../../../utils/Geocode";
 import "./styles.css";
 import Map from "./Map";
 
@@ -25,23 +28,20 @@ export default function DialogChangeAddress({ open, onClose }) {
   const [lat, setLat] = useState(0);
   const [lng, setLng] = useState(0);
 
+  const typingTimeoutRef = useRef(null);
+
   const options = {
     enableHighAccuracy: true,
     timeout: 5000,
     maximumAge: 0,
   };
 
-  const markCurrentLocationIntoGGMap = (pos) => {
-    const { latitude, longitude } = pos.coords;
-    setLat(latitude);
-    setLng(longitude);
-  };
-
-  const success = async (pos) => {
+  const updateCurrentLocation = async (pos) => {
     const { latitude, longitude } = pos.coords;
     const address = await geoConvertLatLongToAddress(latitude, longitude);
     setLocation(address);
-    console.log(address);
+    setLat(latitude);
+    setLng(longitude);
   };
 
   function errors(err) {
@@ -67,9 +67,19 @@ export default function DialogChangeAddress({ open, onClose }) {
     }
   };
 
-  useEffect(() => {
-    hanleGetCurrentLocation(markCurrentLocationIntoGGMap);
-  }, []);
+  const handleChangeLocation = (e) => {
+    setLocation(e.target.value);
+
+    if (typingTimeoutRef.current) {
+      clearTimeout(typingTimeoutRef.current);
+    }
+
+    typingTimeoutRef.current = setTimeout(async () => {
+      const { lat, lng } = await geoConvertAddressToLatLong(e.target.value);
+      setLat(lat);
+      setLng(lng);
+    }, 1000);
+  };
 
   return (
     <Dialog
@@ -106,9 +116,7 @@ export default function DialogChangeAddress({ open, onClose }) {
           <input
             style={{ width: "100%" }}
             value={location || ""}
-            onChange={(e) => {
-              setLocation(e.target.value);
-            }}
+            onChange={handleChangeLocation}
           />
           {location ? (
             <CancelIcon
@@ -120,11 +128,11 @@ export default function DialogChangeAddress({ open, onClose }) {
             <MyLocationIcon
               fontSize="small"
               style={{ cursor: "pointer" }}
-              onClick={() => hanleGetCurrentLocation(success)}
+              onClick={() => hanleGetCurrentLocation(updateCurrentLocation)}
             />
           )}
         </div>
-        <Map lat={lat} lng={lng} />
+        <Map lat={lat} lng={lng} tagMarker="Vị trí của bạn" />
       </DialogContent>
 
       <DialogActions>

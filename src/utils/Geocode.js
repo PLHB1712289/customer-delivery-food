@@ -30,15 +30,19 @@ export const geoConvertLatLongToAddress = async (lat, lng) => {
     return address;
   } catch (e) {
     console.log(`[Geo_ConvertLatLongToAddress]: ${e.message}`);
+    return "";
   }
 };
 
 // Get latitude & longitude from address.
 export const geoConvertAddressToLatLong = async (address) => {
   try {
-    const { lat, lng } = await Geocode.fromAddress(address);
+    const res = await Geocode.fromAddress(address);
+    const { lat, lng } = res.results[0].geometry.location;
     return { lat, lng };
+    return res;
   } catch (e) {
     console.log(`[Geo_ConvertAddressToLatLong]: ${e.message}`);
+    return { lat: 0, lng: 0 };
   }
 };
