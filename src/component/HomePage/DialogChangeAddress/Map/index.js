@@ -17,7 +17,14 @@ const Marker = ({ size = defaultSize, name }) => {
       }}
     >
       <LocationOnIcon style={{ width: size, height: size, color: "red" }} />
-      <div style={{ fontWeight: 700, background: "white", padding: 5 }}>
+      <div
+        style={{
+          fontWeight: 700,
+          background: "white",
+          padding: 5,
+          textAlign: "center",
+        }}
+      >
         {name}
       </div>
     </div>

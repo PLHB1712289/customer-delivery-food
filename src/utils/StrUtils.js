@@ -9,6 +9,14 @@ StrUtils.formatUsernameUI = function (name) {
   return name;
 };
 
+StrUtils.formatAddressCustomer = function (address) {
+  if (address.length > 85) {
+    address = address.substr(0, 85) + "...";
+  }
+
+  return address;
+};
+
 StrUtils.formatNameRestaurantCart = function (name) {
   if (name.length > 19) {
     name = name.substr(0, 19) + "...";

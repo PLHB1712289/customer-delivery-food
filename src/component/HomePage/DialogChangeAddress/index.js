@@ -23,10 +23,18 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const titleDialog = "Bạn muốn giao đến đâu?";
 const tileAlertLocation = "Vui lòng cấp quyền truy cập vị trí cho flashfood";
 
-export default function DialogChangeAddress({ open, onClose }) {
+export default function DialogChangeAddress({
+  open,
+  onClose,
+  onUpdateAddress,
+}) {
   const [location, setLocation] = useState(null);
   const [lat, setLat] = useState(0);
   const [lng, setLng] = useState(0);
+
+  useEffect(() => {
+    onUpdateAddress(location);
+  }, [location, lat, lng]);
 
   const typingTimeoutRef = useRef(null);
 
@@ -132,17 +140,8 @@ export default function DialogChangeAddress({ open, onClose }) {
             />
           )}
         </div>
-        <Map lat={lat} lng={lng} tagMarker="Vị trí của bạn" />
+        <Map lat={lat} lng={lng} tagMarker="Bạn" />
       </DialogContent>
-
-      <DialogActions>
-        {/* <Button onClick={() => onClose()} color="primary">
-          Disagree
-        </Button>
-        <Button onClick={() => onClose()} color="primary">
-          Agree
-        </Button> */}
-      </DialogActions>
     </Dialog>
   );
 }
