@@ -50,19 +50,25 @@ StrUtils.formatNameVoucherCard = function (name) {
 };
 
 StrUtils.formatMoneyString = function (money) {
-  var str = money.toString();
-  var count = 0;
+  // var str = money.toString();
+  // var count = 0;
 
-  for (var i = str.length - 1; i >= 0; i--) {
-    count++;
-    if (count === 3) {
-      str = str.substr(0, i) + "." + str.substr(i);
-      count = 0;
-      i--;
-    }
-  }
+  // for (var i = str.length - 1; i >= 0; i--) {
+  //   count++;
+  //   if (count === 3) {
+  //     str = str.substr(0, i) + "." + str.substr(i);
+  //     count = 0;
+  //     i--;
+  //   }
+  // }
 
-  return str;
+  // return str;
+  const characterSplit = ",";
+
+  const regex = "\\d(?=(\\d{" + 3 + "})+" + "$" + ")";
+  return money
+    .toFixed(Math.max(0, 0))
+    .replace(new RegExp(regex, "g"), `$&${characterSplit}`);
 };
 
 export default StrUtils;

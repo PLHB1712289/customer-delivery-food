@@ -4,13 +4,14 @@ import InformationRestaurant from "../../component/DetailRestaurant/InformationR
 import ListFood from "../../component/DetailRestaurant/ListFood";
 import service from "./service";
 import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import cartAction from "../../storage/action/cartAction";
 import loadingAction from "../../storage/action/loadingAction";
 
 const DetailRestaurant = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const [dataRestaurant, setDataRestaurant] = useState(null);
+  const loading = useSelector((state) => state.loading);
 
   useEffect(() => {
     // turn on loading
@@ -20,15 +21,16 @@ const DetailRestaurant = () => {
       try {
         const { success, data } = await service.getRestaurant(id);
 
+        console.log(data);
+
         if (success) {
-          setDataRestaurant(data);
+          dispatch(cartAction.createCart(data));
         }
       } catch (e) {}
 
+      // turn off loading
       dispatch(loadingAction.turnOff());
     })();
-
-    // turn on loading
   }, [id]);
 
   return (
@@ -39,19 +41,10 @@ const DetailRestaurant = () => {
       alignItems="center"
     >
       <Grid item container xs={12} md={10}>
-        {dataRestaurant !== null ? (
+        {!loading ? (
           <>
-            <InformationRestaurant
-              thumbnail={dataRestaurant.thumbnail}
-              location={dataRestaurant.location}
-              name={dataRestaurant.name}
-              address={dataRestaurant.address}
-              totalRating={dataRestaurant.totalRating}
-              rating={dataRestaurant.rating}
-              timeOpenRestaurant={dataRestaurant.timeOpenRestaurant}
-              priceAvg={dataRestaurant.priceAvg}
-            />
-            <ListFood data={dataRestaurant.listFood} />
+            <InformationRestaurant />
+            <ListFood />
           </>
         ) : (
           <div style={{ height: "90vh" }}></div>

@@ -5,10 +5,16 @@ import React, { useState } from "react";
 import StrUtils from "../../../utils/StrUtils";
 import DialogChangeAddress from "../DialogChangeAddress";
 import "./styles.css";
+import { useSelector, useDispatch } from "react-redux";
+import addressDeliverAction from "../../../storage/action/addressDeliveryAction";
 
 const Address = () => {
   const [openDialog, setOpenDialog] = useState(false);
-  const [address, setAddress] = useState("Địa chỉ giao hàng");
+  const dispatch = useDispatch();
+  const address = useSelector((state) => state.addressDelivery.address);
+  const setAddress = (address) => {
+    dispatch(addressDeliverAction.updateAddress(address));
+  };
 
   return (
     <>

@@ -2,6 +2,7 @@ const service = {};
 
 const seed = [
   {
+    id: "baboabsaos",
     thumbnail:
       "https://images.foody.vn/res/g32/317044/prof/s640x400/foody-mobile-phomui-jpg-691-636219719791166170.jpg",
     location: "TP.HCM >> Bún Thịt nướng chú ba",
@@ -63,6 +64,7 @@ const seed = [
   },
 
   {
+    id: "lylyasasa",
     thumbnail:
       "https://images.foody.vn/res/g90/891560/prof/s640x400/foody-upload-api-foody-mobile-12-190313173026.jpg",
     location: "TP.HCM >> Bánh Canh Chả Cá - Đặc Sản Phan Rang",

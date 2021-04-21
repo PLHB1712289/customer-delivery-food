@@ -47,12 +47,13 @@
 .dialog-checkout__order-container {
   border-bottom: 1px solid black;
   margin-bottom: 10px;
-  padding: 10px;
+  /* padding: 10px; */
 }
 
 .dialog-checkout__order-item {
   display: grid;
-  grid-template-columns: 0.5fr 2fr 1fr;
+  grid-template-columns: 1fr 10fr 1fr;
+  margin: 5px 0;
 }
 .dialog-checkout__order-note {
   border-bottom: 1px solid black;
@@ -179,4 +180,22 @@
 .dialog-checkout__address-change:hover {
   color: #0861a5;
   transition: color 0.2s;
+}
+
+.dialog-checkout__order-item-quantity {
+  background-color: #0288d1;
+  color: white;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1px;
+  border-radius: 2px;
+  margin-right: 10px;
+}
+
+.dialog-checkout__order-item-name-food,
+.dialog-checkout__order-item-price {
+  display: flex;
+  align-items: center;
 }

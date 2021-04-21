@@ -5,12 +5,23 @@ import ItemFood from "./ItemFood";
 import ItemMenu from "./ItemMenu";
 import "./styles.css";
 import DialogCheckout from "../DialogCheckout";
+import { useDispatch, useSelector } from "react-redux";
+import cartAction from "../../../storage/action/cartAction";
 
-const ListFood = ({ data }) => {
+const ListFood = () => {
+  const cart = useSelector((state) => state.cart);
+  const data = cart.infoRestaurant.listFood;
+
   const [currentCategory, setCurrentCategory] = useState("all");
-  const [listOrder, setListOrder] = useState([]);
   const [listFoodFilter, setListFoodFilter] = useState(data);
   const [openDialogCheckout, setOpenDialogCheckout] = useState(false);
+
+  const dispatch = useDispatch();
+  const listOrder = cart.listOrder;
+
+  const setListOrder = (newListOrder) => {
+    dispatch(cartAction.updateCart(newListOrder));
+  };
 
   useEffect(() => {
     if (currentCategory === "all") {
@@ -32,7 +43,7 @@ const ListFood = ({ data }) => {
     const indexFoodInCart = listOrder.map((item) => item._id).indexOf(_id);
     if (indexFoodInCart <= -1) {
       setListOrder(
-        listOrder.concat({ ...listFoodTemp[indexFood], quantity: 1 })
+        listOrder.concat({ ...listFoodTemp[indexFood], quantity: 1, note: "" })
       );
     } else {
       changeQuantity(_id, listOrder[indexFoodInCart].quantity + 1);
@@ -52,7 +63,6 @@ const ListFood = ({ data }) => {
   return (
     <>
       <DialogCheckout
-        listOrder={listOrder}
         open={openDialogCheckout}
         onClose={() => setOpenDialogCheckout(false)}
       />

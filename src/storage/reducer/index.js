@@ -4,13 +4,17 @@ import loadingReducer from "./service/loading";
 import profileReducer from "./service/profile";
 import cityReducer from "./service/city";
 import indexProfileReducer from "./service/indexProfile";
+import addressDeliveryReducer from "./service/addressDelivery";
+import cartReducer from "./service/cart";
 
 const reducer = combineReducers({
+  cart: cartReducer,
+  addressDelivery: addressDeliveryReducer,
   token: tokenReducer,
   loading: loadingReducer,
   profile: profileReducer,
   city: cityReducer,
-  indexProfile: indexProfileReducer
+  indexProfile: indexProfileReducer,
 });
 
 export default reducer;
