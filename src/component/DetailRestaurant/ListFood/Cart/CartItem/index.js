@@ -1,10 +1,8 @@
 import React from "react";
 import "./styles.css";
 
-const displayPrice = (price) => {
-  var re = "\\d(?=(\\d{" + 3 + "})+" + "$" + ")";
-  return price.toFixed(Math.max(0, 0)).replace(new RegExp(re, "g"), "$&,");
-};
+import StrUtils from "../../../../../utils/StrUtils";
+const displayPrice = StrUtils.formatMoneyString;
 
 const CartItem = ({ id, name, quantity, price, note, changeQuantity }) => {
   const increaseQuantity = () => changeQuantity(id, quantity + 1);

@@ -3,13 +3,15 @@ import profileAction from "./profileAction";
 import loadingAction from "./loadingAction";
 import cityAction from "./cityAction";
 import indexProfileAction from "./indexProfileAction";
+import addressDeliveryAction from "./addressDeliveryAction";
 
 const ReduxAction = {
-  tokenAction: tokenAction,
-  profileAction: profileAction,
-  loadingAction: loadingAction,
-  cityAction: cityAction,
-  indexProfileAction: indexProfileAction
+  addressDeliveryAction,
+  tokenAction,
+  profileAction,
+  loadingAction,
+  cityAction,
+  indexProfileAction,
 };
 
 export default ReduxAction;

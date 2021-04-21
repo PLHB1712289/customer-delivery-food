@@ -1,16 +1,15 @@
 import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import IconButton from "@material-ui/core/IconButton";
 import Slide from "@material-ui/core/Slide";
-import CancelIcon from "@material-ui/icons/Cancel";
 import CloseIcon from "@material-ui/icons/Close";
-import MyLocationIcon from "@material-ui/icons/MyLocation";
-import SearchIcon from "@material-ui/icons/Search";
 import React, { useEffect, useState } from "react";
-import "./styles.css";
+import { useSelector } from "react-redux";
 import Map from "../../HomePage/DialogChangeAddress/Map";
+import StrUtils from "../../../utils/StrUtils";
+import "./styles.css";
+import service from "./service";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -19,7 +18,28 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const titleDialog = "Xác nhận đặt hàng";
 const tileAlertLocation = "Vui lòng cấp quyền truy cập vị trí cho flashfood";
 
-export default function DialogCheckout({ open, onClose, listOrder }) {
+export default function DialogCheckout({ open, onClose }) {
+  const cart = useSelector((state) => state.cart);
+  const { infoRestaurant, listOrder, note } = cart;
+  const [feeShip, setFeeShip] = useState(15000);
+  const [distance, setDistance] = useState(0);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const { success, data } = await service.getFeeShip(0, 0);
+
+        if (success) {
+          const { distance, fee } = data;
+          setFeeShip(fee);
+          setDistance(distance);
+        }
+      } catch (e) {
+        console.log(`[GET_FEE_SHIP_FAILED]: ${e.message}`);
+      }
+    })();
+  }, [cart]);
+
   return (
     <Dialog
       open={open}
@@ -56,10 +76,10 @@ export default function DialogCheckout({ open, onClose, listOrder }) {
               <div className="dialog-checkout__address-item">
                 <div className="dialog-checkout__address-item-lable">Từ: </div>
                 <div className="dialog-checkout__address-item-name-restaurant">
-                  Nâu Sài Gòn - Bánh hỏi, Bún thịt nướng {"&"} Bánh ướt
+                  {infoRestaurant.name}
                 </div>
                 <div className="dialog-checkout__address-item-address-restaurant">
-                  25/4 Bà Lê Chân, P. Tân Định, Quận 1, TP. HCM
+                  {infoRestaurant.restaurant}
                 </div>
               </div>
               <div className="dialog-checkout__address-item">
@@ -80,25 +100,24 @@ export default function DialogCheckout({ open, onClose, listOrder }) {
             <div className="dialog-checkout__order">
               <span>Chi tiết đơn hàng</span>
               <div className="dialog-checkout__order-container">
-                <div className="dialog-checkout__order-item">
-                  <div className="dialog-checkout__order-item-quantity">1</div>
-                  <div className="dialog-checkout__order-item-name-food">
-                    Bún đậu mắm tốm đặc biệt
-                  </div>
-                  <div className="dialog-checkout__order-item-price">
-                    65,000đ
-                  </div>
-                </div>
-
-                <div className="dialog-checkout__order-item">
-                  <div className="dialog-checkout__order-item-quantity">1</div>
-                  <div className="dialog-checkout__order-item-name-food">
-                    Bún đậu mắm tốm đặc biệt
-                  </div>
-                  <div className="dialog-checkout__order-item-price">
-                    65,000đ
-                  </div>
-                </div>
+                {listOrder.map((order) => {
+                  return (
+                    <div className="dialog-checkout__order-item">
+                      <div className="dialog-checkout__order-item-quantity">
+                        {order.quantity}
+                      </div>
+                      <div className="dialog-checkout__order-item-name-food">
+                        {order.name}
+                      </div>
+                      <div className="dialog-checkout__order-item-price">
+                        {StrUtils.formatMoneyString(
+                          order.price * order.quantity
+                        )}
+                        đ
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
               <div className="dialog-checkout__order-note">
                 <span>Ghi chú</span>
@@ -106,19 +125,32 @@ export default function DialogCheckout({ open, onClose, listOrder }) {
 
               <div className="dialog-checkout__order-total">
                 <div className="dialog-checkout__order-total-title">
-                  Tổng cộng <span>3</span> phần
+                  Tổng cộng{" "}
+                  <span>
+                    {listOrder.reduce((total, currOrder) => {
+                      total += currOrder.quantity;
+                      return total;
+                    }, 0)}
+                  </span>{" "}
+                  phần
                 </div>
                 <div className="dialog-checkout__order-total-price">
-                  207,000đ
+                  {StrUtils.formatMoneyString(
+                    listOrder.reduce((total, currOrder) => {
+                      total += currOrder.quantity * currOrder.price;
+                      return total;
+                    }, 0)
+                  )}
+                  đ
                 </div>
               </div>
 
               <div className="dialog-checkout__order-fee-ship">
                 <div className="dialog-checkout__order-fee-ship-title">
-                  Phí vận chuyển 4km
+                  Phí vận chuyển {distance}km
                 </div>
                 <div className="dialog-checkout__order-fee-ship-price">
-                  207,000đ
+                  {StrUtils.formatMoneyString(feeShip)}đ
                 </div>
               </div>
             </div>
@@ -130,7 +162,15 @@ export default function DialogCheckout({ open, onClose, listOrder }) {
 
           <div className="dialog-checkout__item dialog-checkout__total">
             <div className="dialog-checkout__total_title">Tổng cộng</div>
-            <div className="dialog-checkout__total_price">209,000đ</div>
+            <div className="dialog-checkout__total_price">
+              {StrUtils.formatMoneyString(
+                listOrder.reduce((total, currOrder) => {
+                  total += currOrder.quantity * currOrder.price;
+                  return total;
+                }, 0) + feeShip
+              )}
+              đ
+            </div>
           </div>
 
           <button className="dialog-checkout__item dialog-checkout__btn-checkout">

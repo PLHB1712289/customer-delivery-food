@@ -3,17 +3,20 @@ import React from "react";
 import Rating from "./Rating";
 import "./styles.css";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
+import { useSelector } from "react-redux";
 
-const InformationRestaurant = ({
-  thumbnail,
-  location,
-  name,
-  address,
-  totalRating,
-  rating,
-  timeOpenRestaurant,
-  priceAvg,
-}) => {
+const InformationRestaurant = () => {
+  const {
+    thumbnail,
+    location,
+    name,
+    address,
+    totalRating,
+    rating,
+    timeOpenRestaurant,
+    priceAvg,
+  } = useSelector((state) => state.cart.infoRestaurant);
+
   return (
     <Grid
       item

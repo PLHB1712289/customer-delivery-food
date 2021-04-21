@@ -3,10 +3,8 @@ import "./styles.css";
 import AvatarUserDefault from "../../../../assets/img/user-default.png";
 import CartItem from "./CartItem";
 
-const displayPrice = (price) => {
-  var re = "\\d(?=(\\d{" + 3 + "})+" + "$" + ")";
-  return price.toFixed(Math.max(0, 0)).replace(new RegExp(re, "g"), "$&,");
-};
+import StrUtils from "../../../../utils/StrUtils";
+const displayPrice = StrUtils.formatMoneyString;
 
 const Cart = ({ listOrder, changeQuantity, callbackCheckout }) => {
   const totalPrice = listOrder.reduce((sum, currOrder) => {

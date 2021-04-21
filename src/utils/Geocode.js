@@ -1,7 +1,15 @@
+import axios from "axios";
 import Geocode from "react-geocode";
 
+const API_KEY_GG = "AIzaSyD6SYKhvIlFDEehwE1iJU7Sjjhueb4PsmQ";
+const URL_API_GG_DIRECTION = (origin, destination) => {
+  const formalOrigin = origin.split(" ").join("%20");
+  const formalDestination = destination.split(" ").join("%20");
+  return `https://maps.googleapis.com/maps/api/directions/json?origin=${formalOrigin}&destination=${formalDestination}&key=${API_KEY_GG}`;
+};
+
 // set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
-Geocode.setApiKey("AIzaSyD6SYKhvIlFDEehwE1iJU7Sjjhueb4PsmQ");
+Geocode.setApiKey(API_KEY_GG);
 
 // set response language. Defaults to english.
 Geocode.setLanguage("vi");
@@ -45,4 +53,24 @@ export const geoConvertAddressToLatLong = async (address) => {
     console.log(`[Geo_ConvertAddressToLatLong]: ${e.message}`);
     return { lat: 0, lng: 0 };
   }
+};
+
+export const geoDistanceBetween2Address = async (address1, address2) => {
+  try {
+    console.log(`[GETO_DISTANCE_BETWEEN_2_ADDRESS]`);
+    console.log(URL_API_GG_DIRECTION(address1, address2));
+    // const res = await axios.get(URL_API_GG_DIRECTION(address1, address2));
+    const res = await fetch(URL_API_GG_DIRECTION(address1, address2));
+    // const data = res.data;
+    console.log(res);
+  } catch (e) {
+    console.log(`[GETO_DISTANCE_BETWEEN_2_ADDRESS]: ${e.message}`);
+  }
+};
+
+export const geoDistanceBetween2Coor = async (coor1, coor2) => {
+  const address1 = await geoConvertLatLongToAddress(coor1.lat, coor1.lng);
+  const address2 = await geoConvertLatLongToAddress(coor2.lat, coor2.lng);
+
+  return await geoDistanceBetween2Address(address1, address2);
 };
