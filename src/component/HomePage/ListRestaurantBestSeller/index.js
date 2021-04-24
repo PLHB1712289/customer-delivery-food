@@ -1,10 +1,14 @@
 import { Grid } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import ListItems from "../ListItems";
 import CardRestaurant from "./CardRestaurant";
 import service from "./service";
+import Localization from "../../../config/Localization";
 
 const ListRestaurantBestSeller = () => {
+  const history = useHistory();
+
   const [listRestaurant, setListRestaurant] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -57,9 +61,9 @@ const ListRestaurantBestSeller = () => {
   return (
     <ListItems
       shoudDisplayLoading={isLoading}
-      lable="Bán chạy"
+      lable={Localization.text("txt_top_sales")}
       onClickShowAll={() => {
-        alert("Show all");
+        history.push("/restaurants");
       }}
       onClickShowMore={handleLoadMoreRestaurant}
     >

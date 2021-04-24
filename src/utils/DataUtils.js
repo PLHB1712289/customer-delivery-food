@@ -68,20 +68,21 @@ DataUtils.getDataUserSetting = function () {
   return listData;
 };
 
-DataUtils.getListTypeOfFoodHomePage = function (className) {
-  var listTypeCatName = [];
-  for (
-    var index = CatConfig.INDEX_ID_FROM;
-    index <= CatConfig.INDEX_ID_TO;
-    index++
-  ) {
-    listTypeCatName.push(Localization.text("txt_type_food_homepage_" + index));
-  }
+DataUtils.getListTypeOfFoodHomePage = function (className, handleClick) {
+  let listFilter = ArrayUtils.jsonToArray(RestaurantConfig.FILTER_TYPE);
+  listFilter = [0].concat(listFilter);
 
-  var listHTMLObject = listTypeCatName.map((text, index) => {
+  var listHTMLObject = listFilter.map((text, index) => {
+    if (index === 0) {
+      return (
+        <div key={index} className={className} onClick={() => handleClick(0)}>
+          {Localization.text("txt_type_food_homepage_0")}
+        </div>
+      );
+    }
     return (
-      <div key={index} className={className}>
-        {text}
+      <div key={index} className={className}  onClick={() => handleClick(index)}>
+        {Localization.text("txt_cat_" + (index))}
       </div>
     );
   });
@@ -91,31 +92,41 @@ DataUtils.getListTypeOfFoodHomePage = function (className) {
 
 DataUtils.mapDataListRestaurant = function (listData) {
   const html = listData.map(function (data, index) {
-    return (
-        <CardRestaurant data={data} key={index} className="card"/>
-    );
+    return <CardRestaurant data={data} key={index} className="card" />;
   });
 
   return html;
 };
 
-DataUtils.mapStateFitlerArea = function () {
+DataUtils.mapStateFitlerArea = function (index) {
+  index = index || -1;
   const listArea = RestaurantConfig.AREA;
   const state = {};
 
   for (var key in listArea) {
-    state[key] = false;
+    if (parseInt(key) === index) {
+      state[key] = true;
+    }
+    else {
+      state[key] = false;
+    }
   }
 
   return state;
 };
 
-DataUtils.mapStateFitlerType = function () {
+DataUtils.mapStateFitlerType = function (index) {
+  index = index === undefined ? -1 : index;
   const listType = RestaurantConfig.FILTER_TYPE;
   const state = {};
-
+  
   for (var key in listType) {
-    state[key] = false;
+    if (parseInt(key) === index) {
+      state[key] = true;
+    }
+    else {
+      state[key] = false;
+    }
   }
 
   return state;
@@ -145,14 +156,11 @@ DataUtils.getFilterTypeRestaurant = function (filterType) {
   return chooseType;
 };
 
-
 DataUtils.mapCityProfile = function () {
   const cities = ArrayUtils.jsonToArray(RestaurantConfig.CITY);
 
   const data = cities.map((city, key) => {
-    return (
-      <option value={key}>{city}</option>
-    )
+    return <option value={key}>{city}</option>;
   });
 
   return data;
@@ -162,9 +170,7 @@ DataUtils.mapAreaProfile = function (city) {
   const areas = ArrayUtils.jsonToArray(RestaurantConfig.AREA[city]);
 
   const data = areas.map((area, key) => {
-    return (
-      <option value={key}>{area}</option>
-    )
+    return <option value={key}>{area}</option>;
   });
 
   return data;
@@ -176,7 +182,7 @@ DataUtils.mapGenderProfile = function (city) {
   const data = genders.map((gender, key) => {
     return (
       <option value={key}>{Localization.text("txt_gender_" + key)}</option>
-    )
+    );
   });
 
   return data;
@@ -187,12 +193,13 @@ DataUtils.mapOrderStatus = function () {
 
   const data = status.map((value, key) => {
     return (
-      <option value={key}>{Localization.text("txt_order_status_" + key)}</option>
-    )
+      <option value={key}>
+        {Localization.text("txt_order_status_" + key)}
+      </option>
+    );
   });
 
   return data;
 };
-
 
 export default DataUtils;

@@ -132,7 +132,14 @@
     "txt_phone_vertified": "Phone number is authenticated",
     "txt_password": "Password",
     "txt_save": "Save",
-    "txt_cancel": "Cancel"
+    "txt_cancel": "Cancel",
+    "txt_collections": "Collections",
+    "txt_view_all": "Xem tất cả",
+    "txt_nearby": "Nearby",
+    "txt_top_sales": "Top sales",
+    "txt_best_rated": "Best rated",
+    "txt_fast": "Fast",
+    "txt_load_more": "Load more"
   },
   "img": {},
   "sound": {}

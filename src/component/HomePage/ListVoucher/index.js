@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import ListItems from "../ListItems";
 import CardVoucher from "./CardVoucher";
 import service from "./service";
+import Localization from "../../../config/Localization";
+
 
 const ListVoucher = () => {
   const [listVoucher, setListVoucher] = useState([]);
@@ -53,7 +55,7 @@ const ListVoucher = () => {
   return (
     <ListItems
       shoudDisplayLoading={isLoading}
-      lable="Bộ sưu tập"
+      lable={Localization.text("txt_collections")}
       onClickShowAll={() => {
         alert("Show all");
       }}

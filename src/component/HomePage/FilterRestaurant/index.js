@@ -5,27 +5,29 @@ import RestaurantItem from "./RestaurantItem";
 import ReplayIcon from "@material-ui/icons/Replay";
 import LoadingItem from "./Loading";
 import service from "./service";
+import Localization from "../../../config/Localization";
 
-const listFilter = [
-  {
-    title: "Gần tôi",
-    value: "near-me",
-  },
-  {
-    title: "Bán chạy",
-    value: "hot",
-  },
-  {
-    title: "Đánh giá",
-    value: "review",
-  },
-  {
-    title: "Giao nhanh",
-    value: "quick-ship",
-  },
-];
 
 const FilterRestaurant = () => {
+  const listFilter = [
+    {
+      title: Localization.text("txt_nearby"),
+      value: "near-me",
+    },
+    {
+      title: Localization.text("txt_top_sales"),
+      value: "hot",
+    },
+    {
+      title: Localization.text("txt_best_rated"),
+      value: "review",
+    },
+    {
+      title: Localization.text("txt_fast"),
+      value: "quick-ship",
+    },
+  ];
+
   const [currentFilter, setCurrentFilter] = useState(listFilter[0].value);
   const [address, setAddress] = useState("");
   const [listRestaurants, setListRestaurants] = useState([]);
@@ -141,7 +143,7 @@ const FilterRestaurant = () => {
         className="filter-restaurant__show-more"
         onClick={handleLoadMoreRestaurant}
       >
-        Xem thêm
+        {Localization.text("txt_load_more")}
         <ReplayIcon fontSize="small" />
       </div>
     </div>
