@@ -20,6 +20,7 @@ import Localization from "./config/Localization.js";
 import Loading from "./component/Loading";
 import DetailRestaurant from "./page/DetailRestaurant";
 import { LiveTv } from "@material-ui/icons";
+import socket from "./socket";
 
 function App() {
   let current_language = localStorage.getItem("langType");
