@@ -71,7 +71,6 @@ const FilterRestaurant = () => {
         setIsLoading(false);
 
         if (success) {
-          console.log(data.listRestaurants);
           setListRestaurants(data.listRestaurants);
         } else {
           alert(message);
@@ -127,6 +126,7 @@ const FilterRestaurant = () => {
           return (
             <RestaurantItem
               key={restaurant.id}
+              id={restaurant.id}
               urlImg={restaurant.urlImg}
               addressRestaurant={restaurant.addressRestaurant}
               nameRestaurant={restaurant.nameRestaurant}

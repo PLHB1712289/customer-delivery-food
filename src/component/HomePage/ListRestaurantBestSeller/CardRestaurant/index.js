@@ -3,19 +3,23 @@ import { Icon } from "@iconify/react";
 import React from "react";
 import "./styles.css";
 import StrUtils from "../../../../utils/StrUtils";
+import { useHistory } from "react-router-dom";
 
 const CardRestaurant = ({
+  id,
   isOpen,
   urlImg,
   nameRestaurant,
   addressRestaurant,
   voucher,
 }) => {
+  const history = useHistory();
+
   return (
     <div
       className="card-restaurant__container"
       onClick={() => {
-        alert("Restaurant say hello");
+        history.push(`/restaurant/${id}`);
       }}
     >
       <div className="card-restaurant__custom">

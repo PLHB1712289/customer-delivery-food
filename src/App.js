@@ -1,25 +1,21 @@
 import React, { useState } from "react";
-import { Provider, useDispatch } from "react-redux";
+import { Provider } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import store from "./storage";
-import "./libs/fontawesome";
-
-import Header from "./component/Header";
+import NotFound from "./component/Error/404";
 import Footer from "./component/Footer";
-import SignIn from "./page/SignIn";
-import VertifyPhonge from "./page/VertifyPhone";
-import InputOTP from "./page/VertifyOTP";
+import Header from "./component/Header";
+import Loading from "./component/Loading";
+import LangConfig from "./config/LangConfig.js";
+import Localization from "./config/Localization.js";
+import DetailRestaurant from "./page/DetailRestaurant";
 import HomePage from "./page/HomePage";
 import ListRestaurant from "./page/ListRestaurant";
 import Profile from "./page/profile";
-
-import NotFound from "./component/Error/404";
-
-import LangConfig from "./config/LangConfig.js";
-import Localization from "./config/Localization.js";
-import Loading from "./component/Loading";
-import DetailRestaurant from "./page/DetailRestaurant";
-import { LiveTv } from "@material-ui/icons";
+import SignIn from "./page/SignIn";
+import InputOTP from "./page/VertifyOTP";
+import VertifyPhonge from "./page/VertifyPhone";
+import Store from "./storage";
+import "./libs/fontawesome";
 import socket from "./socket";
 
 function App() {
@@ -41,7 +37,7 @@ function App() {
   };
 
   return (
-    <Provider store={store}>
+    <Provider store={Store}>
       <Loading />
 
       <Router>
@@ -60,19 +56,19 @@ function App() {
             <DetailRestaurant />
           </Route>
 
-          <Route path={"/input-otp"}>
+          <Route path="/input-otp">
             <InputOTP />
           </Route>
 
-          <Route path={"/restaurants"}>
+          <Route path="/restaurants">
             <ListRestaurant />
           </Route>
 
-          <Route path={"/profile"}>
+          <Route path="/profile">
             <Profile />
           </Route>
 
-          <Route exact path={"/"}>
+          <Route exact path="/">
             <HomePage />
           </Route>
 
