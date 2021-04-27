@@ -59,7 +59,7 @@ const Footer = () => {
   // Token
   let { token } = useSelector((state) => state.token);
   if (token === null) {
-    token = localStorage.getItem('token');
+    token = localStorage.getItem("token");
     if (token !== null) {
       history.push("/");
     }
@@ -74,7 +74,7 @@ const Footer = () => {
   const handleSignInPhoneNumber = async () => {
     const result = await CustomDialog(
       <Provider store={store}>
-        <PopupSignInPhoneNumber renderHomPage={renderHomPage}/>
+        <PopupSignInPhoneNumber renderHomPage={renderHomPage} />
       </Provider>,
       {}
     );
@@ -220,61 +220,54 @@ const Footer = () => {
 
   // handle Google facebook
   const handleSignInGoogle = (res) => {
-    const id = res.tokenId;
+    const tokenId = res.tokenId;
     const accessToken = res.accessToken;
 
     dispatch(action.loadingAction.turnOn());
     (async () => {
       try {
         // request to server
-        const { success, message, data } = await service.login_Success(
-          id,
+        const { errorCode, data } = await apiService.signInWithGG(
+          tokenId,
           accessToken
         );
-
+        console.log("sign in google: " + JSON.stringify(data));
         dispatch(action.loadingAction.turnOff());
 
-        if (success) {
-          let token = null;
-          let userID = null;
-          let fullName = null;
-          let avatarUrl = null;
-          const status = parseInt(data.status);
+        let token = null;
+        let userID = null;
+        let fullName = null;
+        let avatarUrl = null;
 
-          switch (status) {
-            case SignInConfig.STATUS.SUCESS:
-              token = data.token;
-              userID = data.userID;
-              fullName = data.fullName;
-              avatarUrl = data.avatarUrl;
-              // set token - profile
-              // redux
-              dispatch(action.tokenAction.signIn(token));
-              dispatch(
-                action.profileAction.signIn(userID, fullName, avatarUrl)
-              );
-              // localstorage
-              localStorage.setItem("token", token);
-              localStorage.setItem("userID", userID);
-              localStorage.setItem("avatar", avatarUrl);
-              localStorage.setItem("fullName", fullName);
-              // push history
-              history.push("/");
-              return;
-            case SignInConfig.STATUS.VERTIFY:
-              userID = data.userID;
-              // redux
-              dispatch(action.profileAction.signIn(userID, "", ""));
-              // push history
-              history.push("/vertify-phone");
-              return;
-            case SignInConfig.STATUS.WRONG:
-              setErrMsg("Thông tin đăng nhập không chính xác");
-              return;
-          }
+        switch (errorCode) {
+          case SignInConfig.STATUS.SUCESS:
+            token = data.token;
+            userID = data.userID;
+            fullName = data.fullName;
+            avatarUrl = data.avatarUrl;
+            // set token - profile
+            // redux
+            dispatch(action.tokenAction.signIn(token));
+            dispatch(action.profileAction.signIn(userID, fullName, avatarUrl));
+            // localstorage
+            localStorage.setItem("token", token);
+            localStorage.setItem("userID", userID);
+            localStorage.setItem("avatar", avatarUrl);
+            localStorage.setItem("fullName", fullName);
+            // push history
+            history.push("/");
+            return;
+          case SignInConfig.STATUS.VERTIFY:
+            userID = data.user;
+            // redux
+            dispatch(action.profileAction.signIn(userID, "", ""));
+            // push history
+            history.push("/vertify-phone");
+            return;
+          case SignInConfig.STATUS.WRONG:
+            setErrMsg("Thông tin đăng nhập không chính xác");
+            return;
         }
-
-        alert(message);
       } catch (e) {
         console.log(`[HANDLE_SIGNIN_GG_FAILED]: ${e.message}`);
       }

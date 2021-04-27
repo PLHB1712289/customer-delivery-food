@@ -132,7 +132,14 @@
     "txt_phone_vertified": "số điện thoại đã xác thực",
     "txt_password": "Mật khẩu",
     "txt_save": "Lưu thay đổi",
-    "txt_cancel": "Hủy"
+    "txt_cancel": "Hủy",
+    "txt_collections": "Bộ sưu tập",
+    "txt_view_all": "Xem tất cả",
+    "txt_nearby": "Gần đây",
+    "txt_top_sales": "Bán chạy",
+    "txt_best_rated": "Đánh giá",
+    "txt_fast": "Giao nhanh",
+    "txt_load_more": "Xem thêm"
   },
   "img": {},
   "sound": {}

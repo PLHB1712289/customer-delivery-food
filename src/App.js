@@ -16,8 +16,7 @@ import InputOTP from "./page/VertifyOTP";
 import VertifyPhonge from "./page/VertifyPhone";
 import Store from "./storage";
 import "./libs/fontawesome";
-
-// import { LiveTv } from "@material-ui/icons";
+import socket from "./socket";
 
 function App() {
   let current_language = localStorage.getItem("langType");

@@ -4,6 +4,8 @@ import ReplayIcon from "@material-ui/icons/Replay";
 import Loading from "./LoadingItem";
 import React from "react";
 import "./styles.css";
+import Localization from "../../../config/Localization";
+
 
 const ListItems = ({
   shoudDisplayLoading,
@@ -18,7 +20,7 @@ const ListItems = ({
         <div className="ListItems__lable-title">{lable}</div>
         <div className="ListItems__lable-see-all" onClick={onClickShowAll}>
           <AppsIcon fontSize="small" />
-          Xem tất cả
+          {Localization.text("txt_view_all")}
         </div>
       </div>
 
@@ -27,7 +29,7 @@ const ListItems = ({
         {shoudDisplayLoading && <Loading />}
       </Grid>
       <div className="ListItems__show-more" onClick={onClickShowMore}>
-        Xem thêm
+        {Localization.text("txt_load_more")}
         <ReplayIcon fontSize="small" />
       </div>
     </div>

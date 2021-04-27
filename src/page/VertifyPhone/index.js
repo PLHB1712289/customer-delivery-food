@@ -33,7 +33,7 @@ const VertifyPhoneNumber = () => {
   // userID
   let { userID } = useSelector((state) => state.profile);
   if (userID === -1) {
-    userID = localStorage.getItem('userID');
+    userID = localStorage.getItem("userID");
   }
 
   // handle event change input form
@@ -48,26 +48,27 @@ const VertifyPhoneNumber = () => {
     (async () => {
       try {
         // request to server
-        const { success, message, data } = await service.vertifyPhoneNumber(
-          0
-        );
+        const user = userID;
+        const phone = phoneNumber;
+        const { errorCode, data } = await apiService.vertifyPhone(user, phone);
+
+        console.log("data phone: " + errorCode);
 
         dispatch(action.loadingAction.turnOff());
 
-        if (success) {
-          const status = parseInt(data.status);
-          switch (status) {
-            case SignInConfig.VERTIFY_PHONE_NUMBER_STATUS.SUCESS:
-              // push history
-              history.push("/input-otp");
-              return;
-            case SignInConfig.VERTIFY_PHONE_NUMBER_STATUS.PHONE_NUMBER_USED:
-              setErrorMsg("txt_phone_number_used");
-              return;
-            case SignInConfig.VERTIFY_PHONE_NUMBER_STATUS.INVALID:
-              setErrorMsg("txt_invalid_phone_number");
-              return;
-          }
+        switch (errorCode) {
+          case SignInConfig.VERTIFY_PHONE_NUMBER_STATUS.SUCESS:
+            // push history
+            history.push("/input-otp");
+            return;
+          case SignInConfig.VERTIFY_PHONE_NUMBER_STATUS.PHONE_NUMBER_USED:
+            setErrorMsg("txt_phone_number_used");
+            return;
+          case SignInConfig.VERTIFY_PHONE_NUMBER_STATUS.INVALID:
+          case SignInConfig.VERTIFY_PHONE_NUMBER_STATUS.USER_NOT_ACTIVED:
+          case SignInConfig.VERTIFY_PHONE_NUMBER_STATUS.USER_NOT_EXISTED:
+            setErrorMsg("txt_invalid_phone_number");
+            return;
         }
       } catch (e) {
         console.log(`[HandleVertifyPhoneNumber]: ${e.message}`);
@@ -83,7 +84,9 @@ const VertifyPhoneNumber = () => {
 
           <Grid item md={6}>
             <div className="vertifyPhoneNumber_panel">
-              <p className="vertifyPhoneNumber_title">{Localization.text("txt_vertify_phone_number")}</p>
+              <p className="vertifyPhoneNumber_title">
+                {Localization.text("txt_vertify_phone_number")}
+              </p>
               {/* Button Login With Phone */}
 
               {/* Input phone number */}
@@ -104,7 +107,9 @@ const VertifyPhoneNumber = () => {
                 />
               </div>
 
-              <div className="vertifyPhoneNumber_error">{Localization.text(errorMsg)}</div>
+              <div className="vertifyPhoneNumber_error">
+                {Localization.text(errorMsg)}
+              </div>
 
               <Button
                 className="vertifyPhoneNumber_button"

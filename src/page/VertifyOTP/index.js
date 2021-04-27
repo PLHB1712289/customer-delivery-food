@@ -1,24 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import {
-  Grid,
-  IconButton,
-  OutlinedInput,
-  InputAdornment,
-  Button,
-} from "@material-ui/core";
-import { Dialpad } from "@material-ui/icons";
+import { Grid, Button } from "@material-ui/core";
 import OtpInput from "react-otp-input";
 // service
 import action from "../../storage/action";
 import service from "./service";
+import apiService from "./apiService";
 // config
 import Localization from "../../config/Localization";
-import AppConfig from "../../config/AppConfig";
 import SignInConfig from "../../config/SignInConfig";
-// utils
-import ArrayUtils from "../../utils/ArrayUtils";
 
 import "./styles.css";
 
@@ -50,20 +41,20 @@ const InputOTP = () => {
       dispatch(action.loadingAction.turnOn());
       (async () => {
         try {
-          const { success, message, data } = await service.inputOTP(otp, 0);
+          const { errorCode, data } = await apiService.vertifyOTP(userID, otp);
 
           dispatch(action.loadingAction.turnOff());
 
-          if (success) {
-            const status = parseInt(data.status);
-            switch (status) {
-              case SignInConfig.VERTIFY_OTP_STATUS.SUCESS:
-                handleGetUserInfo(userID);
-                return;
-              case SignInConfig.VERTIFY_OTP_STATUS.WRONG:
-                setIsValidOTP(false);
-                return;
-            }
+          console.log("vertify otp: " + errorCode);
+
+          switch (errorCode) {
+            case SignInConfig.VERTIFY_OTP_STATUS.SUCESS:
+              // handleGetUserInfo(userID);
+              return;
+            case SignInConfig.VERTIFY_OTP_STATUS.WRONG:
+            case SignInConfig.VERTIFY_OTP_STATUS.PHONE_NOT_EXISTED:
+              setIsValidOTP(false);
+              return;
           }
         } catch (e) {
           alert("Không thể kết nối với server.");

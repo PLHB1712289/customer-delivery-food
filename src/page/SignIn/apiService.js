@@ -17,7 +17,7 @@ const APIService = {
   },
 
   signInWithGG: async (tokenId, accessToken) => {
-    const payload = { id: tokenId, accessToken };
+    const payload = { tokenId: tokenId, accessToken };
     const response = await axiosClient.post(URL.SIGN_IN.GOOGLE, payload);
 
     return response;

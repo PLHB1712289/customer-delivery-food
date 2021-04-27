@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { Grid } from "@material-ui/core";
 
 import action from "../../storage/action";
@@ -23,14 +23,22 @@ import FilterType from "../../component/ListRestaurant/FilterType";
 
 import "./styles.css";
 import ArrayUtils from "../../utils/ArrayUtils";
+import CatConfig from "../../config/CategoryConfig";
 
 const ListRestaurant = () => {
   // React router hook
   const history = useHistory();
+  const location = useLocation();
   // use dispatch
   const dispatch = useDispatch();
   // use Selector
   const city = useSelector((state) => state.city);
+  // location
+  let keyType = -1;
+  if (location.state) {
+    const passValue = location.state.keyType ? location.state.keyType : 0;
+    keyType = passValue - 1;
+  }
   // use state
   const [listRes, setListRes] = useState([]);
   const [countItem, setCountItem] = useState(0);
@@ -38,7 +46,7 @@ const ListRestaurant = () => {
   const [sortType, setSortType] = useState(0);
   const [cacheFilter, setCacheFilter] = useState([]);
   const [filterArea, setFilterArea] = useState(DataUtils.mapStateFitlerArea());
-  const [filterType, setFilterType] = useState(DataUtils.mapStateFitlerType());
+  const [filterType, setFilterType] = useState(DataUtils.mapStateFitlerType(parseInt(keyType)));
 
   useEffect(() => {
     dispatch(action.loadingAction.turnOn());
@@ -63,7 +71,7 @@ const ListRestaurant = () => {
           alert(message);
         }
       } catch (e) {
-        alert("KKKKhông thể kết nối với server.");
+        alert("Không thể kết nối với server.");
         console.error(`[LIST_VOUCHER]: ${e.message}`);
       }
     })();

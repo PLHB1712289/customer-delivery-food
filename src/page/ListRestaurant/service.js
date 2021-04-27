@@ -331,8 +331,7 @@ const seed = [
     urlImg:
       "https://images.foody.vn/res/g100/993044/prof/s640x400/image-b046e112-210118135546.jpeg",
     nameRestaurant: "Master Tea 美茶 - Yên Lãng",
-    addressRestaurant:
-      "23 Ngõ 82 Yên Lãng, Đống Đa, Hà Nội",
+    addressRestaurant: "23 Ngõ 82 Yên Lãng, Đống Đa, Hà Nội",
     voucher: "Mã giảm 15%",
     isOpening: 0,
     city: 1,
@@ -350,10 +349,10 @@ service.getListRestaurant = async (page, city, filterArea, filterType) => {
   if (filterArea.length === 0 && filterType.length === 0) {
     let seed_city = [];
     for (var i = 0; i < seed.length; i++) {
-     if (seed[i].city === city) {
-       seed_city.push(seed[i]);
-     }
-   }
+      if (seed[i].city === city) {
+        seed_city.push(seed[i]);
+      }
+    }
 
     var startIndex = (page - 1) * ITEM_PER_PAGE;
     var endIndex =
@@ -361,12 +360,13 @@ service.getListRestaurant = async (page, city, filterArea, filterType) => {
         ? startIndex + ITEM_PER_PAGE
         : seed_city.length;
 
+    countItem = seed_city.length;
     for (var i = startIndex; i < endIndex; i++) {
-        listRestaurant.push(seed_city[i]);
+      listRestaurant.push(seed_city[i]);
     }
   } else {
     let seed_city = [];
-     for (var i = 0; i < seed.length; i++) {
+    for (var i = 0; i < seed.length; i++) {
       if (seed[i].city === city) {
         seed_city.push(seed[i]);
       }
@@ -374,9 +374,13 @@ service.getListRestaurant = async (page, city, filterArea, filterType) => {
 
     let temp = [];
     // get filter area
-    for (var i = 0; i < seed_city.length; i++) {
-      if (ArrayUtils.isInArray(seed_city[i].area, filterArea) === true) {
-        temp.push(seed[i]);
+    if (filterArea.length === 0) {
+      temp = seed_city;
+    } else {
+      for (var i = 0; i < seed_city.length; i++) {
+        if (ArrayUtils.isInArray(seed_city[i].area, filterArea) === true) {
+          temp.push(seed_city[i]);
+        }
       }
     }
 
@@ -392,9 +396,9 @@ service.getListRestaurant = async (page, city, filterArea, filterType) => {
       }
     }
 
-    // pagination\
+    // pagination
     var result = [];
-    countItem = temp.length;
+    countItem = listRestaurant.length;
     var startIndex = (page - 1) * ITEM_PER_PAGE;
     var endIndex =
       startIndex + ITEM_PER_PAGE < listRestaurant.length

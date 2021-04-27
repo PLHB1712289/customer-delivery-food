@@ -1,4 +1,5 @@
 import { Grid } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 import React from "react";
 import Address from "../../component/HomePage/Address";
 import FilterRestaurant from "../../component/HomePage/FilterRestaurant";
@@ -10,8 +11,20 @@ import ImageUtils from "../../utils/ImageUtils";
 import "./styles.css";
 
 const Footer = () => {
-  // local state
-  const listTypeCat = DataUtils.getListTypeOfFoodHomePage("tag");
+  // history
+  const history = useHistory();
+
+  // handle click tag
+  const handleClickTag = (key) => {
+    history.push("/restaurants");
+    history.push({
+      pathname: '/restaurants',
+      state: { keyType: key }
+    })
+  };
+
+    // local state
+    const listTypeCat = DataUtils.getListTypeOfFoodHomePage("tag", handleClickTag);
 
   return (
     <>
