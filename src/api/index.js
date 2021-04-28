@@ -1,6 +1,7 @@
 import axios from "axios";
 import queryString from "query-string";
 import config from "../config/EnvConfig";
+import { getToken } from "../utils/Token";
 
 // Note: - This module is Http Client.
 //       - Control all requests from client to server, all requests go through this port.
@@ -23,9 +24,9 @@ const axiosClient = axios.create({
 });
 
 // Handle request
-axiosClient.interceptors.request.use((config) => {
+axiosClient.interceptors.request.use(async (config) => {
   // ..Handle token
-  const token = localStorage.getItem("token");
+  const token = await getToken();
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 });

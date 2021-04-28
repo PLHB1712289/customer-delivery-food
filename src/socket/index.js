@@ -4,8 +4,10 @@ import { TAG_EVENT } from "./TAG_EVENT";
 
 console.log(config);
 
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.EyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.QZP_WIN3WTUPaevU2BNlJCXCNEvt_gVBgWb-uQa4Tqs";
+let token =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.QZP_WIN3WTUPaevU2BNlJCXCNEvt_gVBgWb-uQa4Tqs";
+
+// const token = null;
 
 const Socket = class {
   constructor() {
@@ -14,33 +16,20 @@ const Socket = class {
   }
 
   connect() {
-    this.socket = io.connect(config.SERVER_URL_SOCKET, {
-      extraHeaders: { Authorization: `Bearer ${token}` },
-      forceNew: true,
+    this.socket = io.connect(config.SERVER_URL_SOCKET);
+
+    this.socket.on("connect", () => {
+      this.socket.emit("authenticate", { token });
     });
 
-    //---- <Setup> ----
-    this.socket
-      .on("authenticated", () => {
-        console.log("authenticated");
-      })
-      .on("unauthorized", (error) => {
-        // ^- i don't know why it not work!!
-        alert("User token has expired");
-        if (
-          error.data.type == "UnauthorizedError" ||
-          error.data.code == "invalid_token"
-        ) {
-          // redirect user to login page perhaps?
-          alert("User token has expired");
-        }
-      })
-      .on("error", (err) => {
-        console.log("Global Error:");
-        console.log(err);
-      });
+    this.socket.on("unauthenticate", (message) => {
+      // alert(message);
+    });
 
-    this.socket.emit("HELLo");
+    this.socket.on("authenticated", (message) => {
+      // alert(message);
+    });
+
     return this.socket;
   }
 
