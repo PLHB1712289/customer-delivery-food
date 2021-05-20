@@ -41,6 +41,7 @@ import AppConfig from "../../config/AppConfig";
 import SignInConfig from "../../config/SignInConfig";
 
 import ArrayUtils from "../../utils/ArrayUtils";
+import JwtUtils from "../../utils/JwtUtils";
 
 const Footer = () => {
   // React router hook
@@ -165,7 +166,7 @@ const Footer = () => {
     (async () => {
       try {
         // request to server
-        const { success, message, data } = await service.login_Success(
+        const { success, message, data } = await apiService.signInWithGG(
           id,
           accessToken
         );
@@ -231,7 +232,6 @@ const Footer = () => {
           tokenId,
           accessToken
         );
-        console.log("sign in google: " + JSON.stringify(data));
         dispatch(action.loadingAction.turnOff());
 
         let token = null;
@@ -241,21 +241,21 @@ const Footer = () => {
 
         switch (errorCode) {
           case SignInConfig.STATUS.SUCESS:
-            token = data.token;
-            userID = data.userID;
-            fullName = data.fullName;
-            avatarUrl = data.avatarUrl;
-            // set token - profile
-            // redux
-            dispatch(action.tokenAction.signIn(token));
-            dispatch(action.profileAction.signIn(userID, fullName, avatarUrl));
-            // localstorage
-            localStorage.setItem("token", token);
-            localStorage.setItem("userID", userID);
-            localStorage.setItem("avatar", avatarUrl);
-            localStorage.setItem("fullName", fullName);
-            // push history
-            history.push("/");
+            // login for the first
+            if (data.user) {
+              localStorage.setItem("user", data.user);
+              history.push("/vertify-phone");
+              return;
+            }
+            
+            // login normal
+            if (data.token !== null) {
+              dispatch(action.tokenAction.signIn(data.token));
+              localStorage.setItem("token", data.token);
+              handleGetUserInfo(data.token);
+              return;
+            }
+
             return;
           case SignInConfig.STATUS.VERTIFY:
             userID = data.user;
@@ -270,6 +270,36 @@ const Footer = () => {
         }
       } catch (e) {
         console.log(`[HANDLE_SIGNIN_GG_FAILED]: ${e.message}`);
+      }
+    })();
+  };
+
+  const handleGetUserInfo = function (token) {
+    var userId = JwtUtils.parseJwt(token).id;
+
+    dispatch(action.loadingAction.turnOn());
+    (async () => {
+      try {
+        // request to server
+        const { errorCode, data } = await apiService.getUserInfo(userId);
+        dispatch(action.loadingAction.turnOff());
+
+        let userID = data.user.id;
+        let fullName = data.user.FullName;
+        let avatar = data.user.Avatar;
+
+        if (errorCode === 0) {
+          // redux
+          dispatch(action.profileAction.signIn(userID, fullName, avatar));
+          // localstorage
+          localStorage.setItem("userID", userID);
+          localStorage.setItem("avatar", avatar);
+          localStorage.setItem("fullName", fullName);
+          // history
+          history.push("/");
+        }
+      } catch (e) {
+        console.log(`[HANDLE_GET_USERINFO_FAILED]: ${e.message}`);
       }
     })();
   };

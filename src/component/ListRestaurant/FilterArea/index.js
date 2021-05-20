@@ -56,7 +56,8 @@ export default function FilterArea(props) {
   });
 
   // map data
-  const listArea = ArrayUtils.jsonToArray(RestaurantConfig.AREA[city]);
+  const listArea = RestaurantConfig.AREA[city];
+  
   const data = listArea.map(function (area, index) {
     return (
       <Grid item md={4} key={index}>

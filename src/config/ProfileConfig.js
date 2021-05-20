@@ -6,7 +6,6 @@ ProfileConfig.TYPE = {
     PAYMENT_METHODS: 2,
 };
 
-
 ProfileConfig.GENDER = {
     0: "Khác",
     1: "Nam",

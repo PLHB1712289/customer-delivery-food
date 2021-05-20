@@ -21,6 +21,10 @@ const TAG = {
 
   INDEX_PROFILE: {
     UPDATE: "INDEX_PROFILE_UPDATE"
+  },
+
+  SEARCH: {
+    ON_SEARCH: "ON_SEARCH"
   }
 };
 

@@ -81,8 +81,8 @@ DataUtils.getListTypeOfFoodHomePage = function (className, handleClick) {
       );
     }
     return (
-      <div key={index} className={className}  onClick={() => handleClick(index)}>
-        {Localization.text("txt_cat_" + (index))}
+      <div key={index} className={className} onClick={() => handleClick(index)}>
+        {Localization.text("txt_cat_" + index)}
       </div>
     );
   });
@@ -98,18 +98,12 @@ DataUtils.mapDataListRestaurant = function (listData) {
   return html;
 };
 
-DataUtils.mapStateFitlerArea = function (index) {
-  index = index || -1;
+DataUtils.mapStateFitlerArea = function (city) {
   const listArea = RestaurantConfig.AREA;
   const state = {};
 
   for (var key in listArea) {
-    if (parseInt(key) === index) {
-      state[key] = true;
-    }
-    else {
-      state[key] = false;
-    }
+    state[key] = false;
   }
 
   return state;
@@ -119,12 +113,11 @@ DataUtils.mapStateFitlerType = function (index) {
   index = index === undefined ? -1 : index;
   const listType = RestaurantConfig.FILTER_TYPE;
   const state = {};
-  
+
   for (var key in listType) {
     if (parseInt(key) === index) {
       state[key] = true;
-    }
-    else {
+    } else {
       state[key] = false;
     }
   }
@@ -132,13 +125,17 @@ DataUtils.mapStateFitlerType = function (index) {
   return state;
 };
 
-DataUtils.getFilterAreaRestaurant = function (filterArea) {
+DataUtils.getFilterAreaRestaurant = function (filterArea, city) {
+  const listArea = RestaurantConfig.AREA[city];
   const chooseArea = [];
+  let i = 0;
 
+  i = 0;
   for (var key in filterArea) {
     if (filterArea[key] === true) {
-      chooseArea.push(key);
+      chooseArea.push(listArea[i].id);
     }
+    i++;
   }
 
   return chooseArea;

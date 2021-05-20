@@ -8,7 +8,14 @@ const _url = {
 
     OTP: {
         CALL: "/auth/google/otp/call",
-        VERIFY: "auth/google/otp/verify"
+        VERIFY: "/auth/google/otp/verify",
+
+        PHONE_CALL: "/auth/phone/otp/call",
+        PHONE_VERIFY: "/auth/phone/otp/verify"
+    },
+
+    USER_INFO: {
+        GET: "/users/"
     },
 
     RESTAURANT: {

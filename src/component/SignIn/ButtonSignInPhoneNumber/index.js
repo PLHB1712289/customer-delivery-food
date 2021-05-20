@@ -10,6 +10,7 @@ import { Button } from "@material-ui/core";
 import "./styles.css";
 import action from "../../../storage/action";
 import service from "./service";
+import apiService from "./apiService";
 import store from "../../../storage";
 // config
 import Localization from "../../../config/Localization";
@@ -56,12 +57,12 @@ export default function PopupSignInWithPhone(props) {
     (async () => {
       try {
         // request to server
-        let { status, message, data } = await service.vertifyPhoneNumber(phoneNumber, 0);
+        let { errorCode, data } = await apiService.signInWithPhoneNumber(phoneNumber);
+        console.log("dataaa: " + JSON.stringify(data));
 
         dispatch(action.loadingAction.turnOff());
 
-        status = parseInt(status);
-        switch (status) {
+        switch (errorCode) {
           case SignInConfig.VERTIFY_PHONE_NUMBER_STATUS.SUCESS:
             setErrorMsg("");
             setIsOTP(true);

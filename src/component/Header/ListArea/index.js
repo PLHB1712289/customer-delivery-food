@@ -18,18 +18,21 @@ export default function SimpleMenu() {
   const dispatch = useDispatch();
 
   // state
-  const data = ArrayUtils.jsonToArray(RestaurantConfig.CITY);
   const [city, setCity] = useState(0);
+  const data = [];
+  for (var i = 0; i < RestaurantConfig.CITY.length; i++) {
+    data.push(RestaurantConfig.CITY[i].name)
+  }
 
   // handle select
   const handleSelect = (index) => {
       setCity(index);
       dispatch(action.cityAction.update(index));
   };
-
+  
   return (
     <DropdownButton
-      buttonText={RestaurantConfig.CITY[city]}
+      buttonText={RestaurantConfig.CITY[city].name}
       buttonProps={dropdownButtonStyle}
       hoverColor={"#000000"}
       dropdownList={data}
