@@ -4,14 +4,16 @@ import loadingAction from "./loadingAction";
 import cityAction from "./cityAction";
 import indexProfileAction from "./indexProfileAction";
 import searchAction from "./searchAction";
+import addressDeliveryAction from "./addressDeliveryAction";
 
 const ReduxAction = {
-  tokenAction: tokenAction,
-  profileAction: profileAction,
-  loadingAction: loadingAction,
-  cityAction: cityAction,
-  indexProfileAction: indexProfileAction,
-  searchAction: searchAction
+  searchAction,
+  addressDeliveryAction,
+  tokenAction,
+  profileAction,
+  loadingAction,
+  cityAction,
+  indexProfileAction,
 };
 
 export default ReduxAction;

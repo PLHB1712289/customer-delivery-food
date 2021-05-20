@@ -16,6 +16,7 @@
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "fs": "^0.0.1-security",
+    "google-map-react": "^2.1.9",
     "halogenium": "^2.3.0",
     "query-string": "^4.3.4",
     "react": "^17.0.1",
@@ -23,6 +24,7 @@
     "react-bootstrap": "^1.5.2",
     "react-dom": "^17.0.1",
     "react-facebook-login": "^4.1.1",
+    "react-geocode": "^0.2.3",
     "react-google-login": "^5.2.2",
     "react-js-pagination": "^3.0.3",
     "react-loading": "^2.0.3",
@@ -37,6 +39,7 @@
     "reactstrap": "^8.9.0",
     "redux": "^4.0.5",
     "semantic-ui-react": "^2.0.3",
+    "socket.io-client": "^4.0.1",
     "styled-components": "^4.4.1",
     "web-vitals": "^1.1.0"
   },

@@ -1,0 +1,74 @@
+.detail-restaurant__cart-item-container {
+  display: flex;
+  flex-direction: column;
+
+  padding: 5px;
+  border-bottom: 1px solid rgb(226, 226, 226);
+}
+
+.detail-restaurant__cart-item-row,
+.detail-restaurant__cart-item-row-note-container {
+  display: flex;
+  margin: 2px 0;
+}
+
+.detail-restaurant__cart-item-quantity-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.detail-restaurant__cart-item-quantity-container > button {
+  border: none;
+  outline: none;
+}
+
+.detail-restaurant__button-decrease-quantity {
+  width: 15px;
+  height: 15px;
+  background-color: gray;
+  color: white;
+  font-size: 1rem;
+  font-weight: 900;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.detail-restaurant__button-increase-quantity {
+  width: 15px;
+  height: 15px;
+  background-color: #329900;
+  color: white;
+  font-size: 1rem;
+  font-weight: 900;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.detail-restaurant__cart-item-name {
+  font-weight: 700;
+}
+
+.detail-restaurant__cart-item-note {
+  width: 70%;
+}
+.detail-restaurant__cart-item-row-note-container {
+  justify-content: space-between;
+}
+
+.detail-restaurant__cart-item-note {
+  border: none;
+  outline: none;
+  padding: 0px;
+  margin: 0px;
+}
+
+.detail-restaurant__cart-item-price {
+}

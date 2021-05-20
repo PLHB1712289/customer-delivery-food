@@ -1,0 +1,201 @@
+.dialog-checkout__container {
+  background-color: rgb(230, 230, 230);
+  padding: 0;
+}
+
+.dialog-checkout__title {
+  text-align: center;
+  margin-bottom: 10;
+  background: white;
+}
+
+.dialog-checkout__body {
+  display: grid;
+  grid-template-columns: 5fr 4fr;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.dialog-checkout__item {
+  background-color: white;
+}
+
+.dialog-checkout__address-and-order {
+  margin: 10px 5px 5px 0;
+  background-color: rgb(230, 230, 230);
+
+  display: flex;
+  flex-direction: column;
+}
+
+.dialog-checkout__address {
+  margin: 0 0 10px 0;
+  background-color: white;
+}
+
+.dialog-checkout__order {
+  background-color: white;
+  height: 100%;
+
+  padding: 10px;
+}
+.dialog-checkout__order > span {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.dialog-checkout__order-container {
+  border-bottom: 1px solid black;
+  margin-bottom: 10px;
+  /* padding: 10px; */
+}
+
+.dialog-checkout__order-item {
+  display: grid;
+  grid-template-columns: 1fr 10fr 1fr;
+  margin: 5px 0;
+}
+.dialog-checkout__order-note {
+  border-bottom: 1px solid black;
+  margin-bottom: 10px;
+}
+
+.dialog-checkout__order-note > span {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.dialog-checkout__order-total,
+.dialog-checkout__order-fee-ship {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.dialog-checkout__order-total-title,
+.dialog-checkout__order-fee-ship-title {
+  font-weight: 600;
+}
+
+.dialog-checkout__order-item-price,
+.dialog-checkout__order-total-price,
+.dialog-checkout__order-fee-ship-price {
+  text-align: right;
+  font-weight: 600;
+}
+
+.dialog-checkout__map {
+  margin: 10px 0 5px 5px;
+}
+
+.dialog-checkout__total {
+  margin: 5px 5px 0 0;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 10px;
+}
+
+.dialog-checkout__total_title {
+  display: flex;
+  align-items: center;
+}
+
+.dialog-checkout__total_price {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.dialog-checkout__btn-checkout {
+  margin: 5px 0 0 5px;
+
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: #ff0000;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.dialog-checkout__btn-checkout:hover {
+  background: #d80000;
+  transition: background 0.2s;
+}
+
+.dialog-checkout__address-item {
+  display: grid;
+  grid-template-columns: 2fr 12fr;
+
+  padding: 10px 0;
+}
+.dialog-checkout__address-item-lable {
+  grid-column-start: 1;
+  grid-column-end: 1;
+  grid-row-start: 1;
+  grid-row-end: 3;
+
+  font-weight: 800;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dialog-checkout__address-item-name-restaurant {
+  grid-column-start: 2;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 1;
+
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.dialog-checkout__address-item-address-restaurant {
+  grid-column-start: 2;
+  grid-column-end: 2;
+  grid-row-start: 2;
+  grid-row-end: 2;
+  font-size: 1rem;
+}
+
+.dialog-checkout__address-change {
+  text-align: right;
+}
+
+.dialog-checkout__address-change > button {
+  color: #1b75bb;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background-color: rgba(0, 0, 0, 0);
+  transition: color 0.2s;
+
+  padding: 5px;
+}
+
+.dialog-checkout__address-change:hover {
+  color: #0861a5;
+  transition: color 0.2s;
+}
+
+.dialog-checkout__order-item-quantity {
+  background-color: #0288d1;
+  color: white;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1px;
+  border-radius: 2px;
+  margin-right: 10px;
+}
+
+.dialog-checkout__order-item-name-food,
+.dialog-checkout__order-item-price {
+  display: flex;
+  align-items: center;
+}

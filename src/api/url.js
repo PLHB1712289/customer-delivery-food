@@ -1,10 +1,10 @@
 const _url = {
-    SIGN_IN: {
-        FACEBOOK: "/auth/sign-in/facebook",
-        GOOGLE: "/auth/google",
-        PHONE: "/auth/sign-in/phone",
-        NORMAL: "/auth/sign-in"
-    },
+  SIGN_IN: {
+    FACEBOOK: "/auth/sign-in/facebook",
+    GOOGLE: "/auth/google",
+    PHONE: "/auth/sign-in/phone",
+    NORMAL: "/auth/sign-in",
+  },
 
     OTP: {
         CALL: "/auth/google/otp/call",
