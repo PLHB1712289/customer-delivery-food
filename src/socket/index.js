@@ -1,13 +1,7 @@
 import io from "socket.io-client";
 import config from "../config/EnvConfig";
+import { getToken } from "../utils/Token";
 import { TAG_EVENT } from "./TAG_EVENT";
-
-console.log(config);
-
-let token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.QZP_WIN3WTUPaevU2BNlJCXCNEvt_gVBgWb-uQa4Tqs";
-
-// const token = null;
 
 const Socket = class {
   constructor() {
@@ -15,7 +9,9 @@ const Socket = class {
     this.connect();
   }
 
-  connect() {
+  async connect() {
+    const token = await getToken();
+
     this.socket = io.connect(config.SERVER_URL_SOCKET);
 
     this.socket.on("connect", () => {
@@ -24,10 +20,12 @@ const Socket = class {
 
     this.socket.on("unauthenticate", (message) => {
       // alert(message);
+      // success
     });
 
     this.socket.on("authenticated", (message) => {
       // alert(message);
+      // failed
     });
 
     return this.socket;

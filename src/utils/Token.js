@@ -4,11 +4,18 @@ import jwtDecode from "jwt-decode";
 
 let refreshTokenRequest = null;
 const isExpired = (token) => {
-  const decode = jwtDecode.decode(token);
-  const dateNow = new Date();
+  try {
+    const decode = jwtDecode(token);
+    const dateNow = Math.floor(Date.now() / 1000);
 
-  if (decode.exp < dateNow.getTime()) return true;
-  return false;
+    console.log(decode.exp, dateNow);
+
+    if (decode.exp < dateNow) return true;
+    return false;
+  } catch (e) {
+    console.log(`[TOKEN_ERROR]: ${e.message}`);
+    return false;
+  }
 };
 
 const refreshTokenAPI = async () => {
@@ -32,6 +39,7 @@ export const getToken = async () => {
   if (!token) return null;
 
   if (isExpired(token)) {
+    console.log("EXPIRED TOKEN");
     refreshTokenRequest = refreshTokenRequest
       ? refreshTokenRequest
       : refreshTokenAPI();
