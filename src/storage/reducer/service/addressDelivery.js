@@ -1,6 +1,6 @@
 import TAG from "../../TAG";
 
-const INITIAL_STATE = { address: "Địa chỉ giao hàng", lat: 0, lng: 0 };
+const INITIAL_STATE = { address: "Địa chỉ giao hàng", lat: -1, lng: -1 };
 
 const addressDeliveryReducer = (addressDelivery = INITIAL_STATE, action) => {
   switch (action.type) {

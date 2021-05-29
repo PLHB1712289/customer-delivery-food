@@ -43,14 +43,14 @@ const RestaurantItem = ({
               icon={labelAlt}
               style={{ color: "#ffc107", fontSize: "20px" }}
             />
-            Tối thiểu {minPrice}k
+            Mở cửa {minPrice}
           </div>
           <div className="restaurant-item__price-restaurant">
             <Icon
               icon={coinsLine}
               style={{ color: "#ffc107", fontSize: "20px" }}
             />
-            Giá {avgPrice}k
+            Đóng cửa {avgPrice}
           </div>
         </div>
         <div className="restaurant-item__deal-restaurant">

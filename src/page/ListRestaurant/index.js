@@ -46,7 +46,9 @@ const ListRestaurant = () => {
   const [pageIndex, setPageIndex] = useState(1);
   const [sortType, setSortType] = useState(0);
   const [cacheFilter, setCacheFilter] = useState([]);
-  const [filterArea, setFilterArea] = useState(DataUtils.mapStateFitlerArea(city));
+  const [filterArea, setFilterArea] = useState(
+    DataUtils.mapStateFitlerArea(city)
+  );
   const [filterType, setFilterType] = useState(
     DataUtils.mapStateFitlerType(parseInt(keyType))
   );
@@ -63,8 +65,8 @@ const ListRestaurant = () => {
 
   useEffect(() => {
     // reset
-    handleResetType();
-    handleResetArea();
+    // handleResetType();
+    // handleResetArea();
 
     dispatch(action.loadingAction.turnOn());
     const list_area = DataUtils.getFilterAreaRestaurant(filterArea, city);
@@ -72,21 +74,22 @@ const ListRestaurant = () => {
 
     (async () => {
       try {
-        const { success, message, data } = await service.getListRestaurant(
-          pageIndex,
-          city,
-          list_area,
-          list_type,
-          sortType,
-          keyword
-        );
+        const { errorCode, data, pagingInfo } =
+          await apiService.getRestaurant(
+            pageIndex,
+            RestaurantConfig.CITY[city].id,
+            list_area,
+            list_type,
+            sortType,
+            keyword
+          );
 
         dispatch(action.loadingAction.turnOff());
-        if (success) {
-          setListRes(data.listRestaurant);
-          setCountItem(data.countItem);
+        if (errorCode === 0) {
+          console.log("totalll: " + pagingInfo.total);
+          setListRes(data);
+          setCountItem(pagingInfo.total);
         } else {
-          alert(message);
         }
       } catch (e) {
         alert("Không thể kết nối với server.");
@@ -109,23 +112,22 @@ const ListRestaurant = () => {
     dispatch(action.loadingAction.turnOn());
     (async () => {
       try {
-        const { success, message, data } = await service.getListRestaurant(
-          index,
-          city,
-          list_area,
-          list_type,
-          sortType
-        );
+        const { errorCode, data, pagingInfo } =
+          await apiService.getRestaurant(
+            index,
+            RestaurantConfig.CITY[city].id,
+            list_area,
+            list_type,
+            sortType
+          );
 
         dispatch(action.loadingAction.turnOff());
-        if (success) {
-          setListRes(data.listRestaurant);
-          setCountItem(data.countItem);
+        if (errorCode === 0) {
+          setListRes(data);
+          setCountItem(pagingInfo.total);
           setPageIndex(index);
           window.scrollTo(0, 0);
-        } else {
-          alert(message);
-        }
+        } 
       } catch (e) {
         alert("KKKKhông thể kết nối với server.");
         console.error(`[LIST_RESTAURANT]: ${e.message}`);
@@ -179,23 +181,22 @@ const ListRestaurant = () => {
     dispatch(action.loadingAction.turnOn());
     (async () => {
       try {
-        const { success, message, data } = await service.getListRestaurant(
-          1,
-          city,
-          list_area,
-          list_type,
-          sortType
-        );
+        const { errorCode, data, pagingInfo } =
+          await apiService.getRestaurant(
+            1,
+            RestaurantConfig.CITY[city].id,
+            list_area,
+            list_type,
+            sortType
+          );
 
         dispatch(action.loadingAction.turnOff());
-        if (success) {
-          setListRes(data.listRestaurant);
-          setCountItem(data.countItem);
+        if (errorCode === 0) {
+          setListRes(data);
+          setCountItem(pagingInfo.total);
           setPageIndex(1);
           setCacheFilter([filterArea, filterType]);
           window.scrollTo(0, 0);
-        } else {
-          alert(message);
         }
       } catch (e) {
         alert("KKKKhông thể kết nối với server.");

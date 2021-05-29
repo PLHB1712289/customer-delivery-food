@@ -4,28 +4,58 @@ import { useHistory } from "react-router-dom";
 import ListItems from "../ListItems";
 import CardRestaurant from "./CardRestaurant";
 import service from "./service";
+import apiService from "./apiService";
 import Localization from "../../../config/Localization";
+import { useSelector } from "react-redux";
+import RestaurantConfig from "../../../config/RestaurantConfig";
 
 const ListRestaurantBestSeller = () => {
   const history = useHistory();
 
   const [listRestaurant, setListRestaurant] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [maxPage, setMaxPage] = useState(1);
 
+  const city = useSelector((state) => state.city);
+
+  // fake
+  // const handleLoadMoreRestaurant = () => {
+  //   setIsLoading(true);
+
+  //   (async () => {
+  //     try {
+  //       const { success, message, data } = await service.getMoreRestaurant(
+  //         listRestaurant.length
+  //       );
+
+  //       setIsLoading(false);
+  //       if (success) {
+  //         setListRestaurant((prev) => prev.concat(data.listRestaurant));
+  //       } else {
+  //         alert(message);
+  //       }
+  //     } catch (e) {
+  //       alert("[handleLoadMoreRestaurant] Không thể kết nối với server.");
+  //       console.error(`[LIST_RESTAURANT_BEST_SELLER]: ${e.message}`);
+  //     }
+  //   })();
+  // };
+
+  // real
   const handleLoadMoreRestaurant = () => {
-    setIsLoading(true);
+    if (page + 1 > maxPage)
+      return; 
 
+    setIsLoading(true);
     (async () => {
       try {
-        const { success, message, data } = await service.getMoreRestaurant(
-          listRestaurant.length
-        );
+        const { errorCode, data, pagingInfo } = await service.getMoreRestaurant(page + 1, RestaurantConfig.CITY[city].idea);
 
         setIsLoading(false);
-        if (success) {
-          setListRestaurant((prev) => prev.concat(data.listRestaurant));
-        } else {
-          alert(message);
+        if (errorCode === 0) {
+          setListRestaurant((prev) => prev.concat(data));
+          setPage(page + 1);
         }
       } catch (e) {
         alert("[handleLoadMoreRestaurant] Không thể kết nối với server.");
@@ -34,29 +64,47 @@ const ListRestaurantBestSeller = () => {
     })();
   };
 
+  // fake
+  // useEffect(() => {
+  //   setIsLoading(true);
+
+  //   (async () => {
+  //     try {
+  //       const { success, message, data } =
+  //         await service.getListRestaurantBestSeller();
+
+  //       setIsLoading(false);
+  //       if (success) {
+  //         setListRestaurant(data.listRestaurant);
+  //       } else {
+  //         alert(message);
+  //       }
+  //     } catch (e) {
+  //       alert("Không thể kết nối với server.");
+  //       console.error(`[LIST_RESTAURANT_BEST_SELLER]: ${e.message}`);
+  //     }
+  //   })();
+  // }, []);
+
+  // real
   useEffect(() => {
     setIsLoading(true);
 
     (async () => {
       try {
-        const {
-          success,
-          message,
-          data,
-        } = await service.getListRestaurantBestSeller();
+        const { errorCode, data } = await apiService.getListRestaurant(page, RestaurantConfig.CITY[city].idea,);
 
         setIsLoading(false);
-        if (success) {
-          setListRestaurant(data.listRestaurant);
-        } else {
-          alert(message);
+        if (errorCode === 0) {
+          setListRestaurant(data);
+          setMaxPage(data.totalPage)
         }
       } catch (e) {
         alert("Không thể kết nối với server.");
         console.error(`[LIST_RESTAURANT_BEST_SELLER]: ${e.message}`);
       }
     })();
-  }, []);
+  }, [city]);
 
   return (
     <ListItems
@@ -72,11 +120,11 @@ const ListRestaurantBestSeller = () => {
           <Grid item md={4} key={restaurant.id}>
             <CardRestaurant
               id={restaurant.id}
-              isOpen={restaurant.isOpen}
-              urlImg={restaurant.urlImg}
-              nameRestaurant={restaurant.nameRestaurant}
-              addressRestaurant={restaurant.addressRestaurant}
-              voucher={restaurant.voucher}
+              isOpen={restaurant.IsOpening}
+              urlImg={restaurant.Avatar}
+              nameRestaurant={restaurant.Name}
+              addressRestaurant={restaurant.FullAddress}
+              voucher={"Giảm giá"}
             />
           </Grid>
         );

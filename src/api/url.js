@@ -22,7 +22,15 @@ const _url = {
         GET_LIST_ALL: "/restaurants",
         GET_LIST_NEW: "/restaurants/new",
         GET_LIST_DISCOUNT: "/restaurants/best-discount",
-        GET_LIST_NEAREST: "/restaurants/nearest"
+        GET_LIST_NEAREST: "/restaurants/nearest",
+        GET_BY_ID: "/restaurants/",
+        GET_CATEGORIES: "/restaurants/resId/foodcategories",
+        GET_FOODS: "restaurants/resId/foodcategories/catId/foods"
+    },
+
+    ORDER: {
+      GET_SHIP_FEE: "/orders/shippingfee",
+      SEND_ORDER: "/orders"
     }
 };
 

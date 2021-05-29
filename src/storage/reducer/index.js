@@ -15,7 +15,7 @@ const reducer = combineReducers({
   loading: loadingReducer,
   profile: profileReducer,
   city: cityReducer,
-
+  indexProfile: indexProfileReducer,
   search: searchReducer
 });
 

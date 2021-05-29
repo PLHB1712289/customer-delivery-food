@@ -56,6 +56,11 @@
   font-weight: 700;
 }
 
+.detail-restaurant__cart-item-option {
+  font-weight: 400;
+  font-size: 0.7rem;
+}
+
 .detail-restaurant__cart-item-note {
   width: 70%;
 }

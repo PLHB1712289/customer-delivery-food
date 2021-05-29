@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   userID: -1,
   fullName: "",
   avatarUrl: "",
+  phone: ""
 };
 
 const profileReducer = (profile = INITIAL_STATE, action) => {
@@ -13,14 +14,16 @@ const profileReducer = (profile = INITIAL_STATE, action) => {
         ...profile,
         userID: action.payload.userID,
         fullName: action.payload.fullName,
-        avatarUrl: action.payload.avatarUrl
+        avatarUrl: action.payload.avatarUrl,
+        phone: action.payload.phone
       };
     case TAG.PROFILE.SIGN_OUT:
       return {
         ...profile,
         userID: -1,
         fullName: "",
-        avatarUrl: ""
+        avatarUrl: "",
+        phone: ""
       };
     default:
       return profile;

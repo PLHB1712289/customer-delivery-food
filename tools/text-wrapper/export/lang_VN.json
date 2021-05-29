@@ -32,9 +32,10 @@
     "txt_type_food_homepage_12": "Mì phở",
     "txt_type_food_homepage_13": "Cơm hộp",
     "txt_restaurant_filter_0": "Tất cả",
-    "txt_restaurant_filter_1": "Giảm giá nhiều nhất",
-    "txt_restaurant_filter_2": "Mới nhất",
-    "txt_restaurant_filter_3": "Gần tôi",
+    "txt_restaurant_filter_1": "Gần đây",
+    "txt_restaurant_filter_2": "Bán chạy",
+    "txt_restaurant_filter_3": "Đánh giá",
+    "txt_restaurant_filter_4": "Giảm giá ",
     "txt_district": "Quận",
     "txt_area": "Địa diểm",
     "txt_district_0_1": "Quận 1",
@@ -138,8 +139,10 @@
     "txt_nearby": "Gần đây",
     "txt_top_sales": "Bán chạy",
     "txt_best_rated": "Đánh giá",
-    "txt_fast": "Giao nhanh",
-    "txt_load_more": "Xem thêm"
+    "txt_most_discount": "Giảm giá ",
+    "txt_load_more": "Xem thêm",
+    "txt_require_address": "Vui lòng định vị địa chỉ nhận hàng",
+    "txt_order": "Đặt hàng"
   },
   "img": {},
   "sound": {}

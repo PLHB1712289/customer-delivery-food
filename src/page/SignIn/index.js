@@ -67,7 +67,7 @@ const Footer = () => {
   }
 
   // handle render home page
-  const renderHomPage = () => {
+  const renderHomePage = () => {
     history.push("/");
   };
 
@@ -75,7 +75,7 @@ const Footer = () => {
   const handleSignInPhoneNumber = async () => {
     const result = await CustomDialog(
       <Provider store={store}>
-        <PopupSignInPhoneNumber renderHomPage={renderHomPage} />
+        <PopupSignInPhoneNumber renderHomePage={renderHomePage} />
       </Provider>,
       {}
     );
@@ -287,14 +287,16 @@ const Footer = () => {
         let userID = data.user.id;
         let fullName = data.user.FullName;
         let avatar = data.user.Avatar;
+        let phone = data.user.Phone;
 
         if (errorCode === 0) {
           // redux
-          dispatch(action.profileAction.signIn(userID, fullName, avatar));
+          dispatch(action.profileAction.signIn(userID, fullName, avatar, phone));
           // localstorage
           localStorage.setItem("userID", userID);
           localStorage.setItem("avatar", avatar);
           localStorage.setItem("fullName", fullName);
+          localStorage.setItem("phone", phone);
           // history
           history.push("/");
         }

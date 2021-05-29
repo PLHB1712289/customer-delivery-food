@@ -32,25 +32,29 @@ const Card = (props) => {
 
   let classReddot = "listRes_reddot ";
   let statusText = "";
-  if (data.isOpening === 0) {
+  if (data.IsOpening) {
     classReddot += "listRes_green";
     statusText = Localization.text("txt_open");
   }
-  else if (data.isOpening === 1) {
-    classReddot += "listRes_yellow";
-    statusText = Localization.text("txt_closed_soon");
-  }
+  // else if (data.isOpening === 1) {
+  //   classReddot += "listRes_yellow";
+  //   statusText = Localization.text("txt_closed_soon");
+  // }
   else {
     classReddot += "listRes_red";
     statusText = Localization.text("txt_closed");
   }
 
+  const onViewDetailRestaurant = () => {
+      history.push("restaurant/" + data.id)
+  };
+
   return (
     <>
-      <div className="listRes_card-custom">
+      <div className="listRes_card-custom" onClick={onViewDetailRestaurant}>
         <div className={classReddot}>{statusText}</div>
         <img
-          src={data.urlImg}
+          src={data.Avatar}
           alt="image"
         ></img>
         <div className="listRes_span-like">
@@ -58,9 +62,9 @@ const Card = (props) => {
         </div>
         <div>
           <VerifiedUser className="listRes_vertify-icon" />
-          <h3 className="listRes_title">{StrUtils.formatNameRestaurantCart(data.nameRestaurant)}</h3>
+          <h3 className="listRes_title">{StrUtils.formatNameRestaurantCart(data.Name)}</h3>
         </div>
-        <p className="listRes_address">{StrUtils.formatAdressRestaurantCart(data.addressRestaurant)}</p>
+        <p className="listRes_address">{StrUtils.formatAdressRestaurantCart(data.FullAddress)}</p>
         <hr className="listRes_break-line-card"></hr>
         <LocalOffer className="listRes_icon-offer" />
         <div className="listRes_text-offer">{data.voucher}</div>

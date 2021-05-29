@@ -6,14 +6,14 @@ const ItemMenu = ({ currentCategory, category, onClick }) => {
       className={[
         "list-food__category-item",
         `${
-          currentCategory === category.value
+          currentCategory === category.id
             ? "list-food__category-item-active"
             : ""
         }`,
       ].join(" ")}
       onClick={onClick}
     >
-      {category.lable}
+      {category.Name}
     </div>
   );
 };
