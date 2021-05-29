@@ -17,7 +17,7 @@ const APIService = {
   },
 
   signInWithGG: async (tokenId, accessToken) => {
-    const payload = { tokenId: tokenId, accessToken };
+    const payload = { idToken: tokenId, accessToken };
     const response = await axiosClient.post(URL.SIGN_IN.GOOGLE, payload);
 
     return response;
@@ -29,6 +29,13 @@ const APIService = {
 
     return response;
   },
+
+  getUserInfo: async (userId) => {
+    const payload = {};
+    const response = await axiosClient.get(URL.USER_INFO.GET + userId, payload);
+
+    return response;
+  }
 };
 
 export default APIService;

@@ -1,38 +1,30 @@
-import React, { useEffect, useState } from "react";
-import { Provider, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { CustomDialog, useDialog } from "react-st-modal";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import OtpInput from "react-otp-input";
-
 import { Button } from "@material-ui/core";
 
 // service
 import "./styles.css";
 import action from "../../../storage/action";
-import service from "./service";
-import store from "../../../storage";
+import apiService from "./apiService";
 // config
 import Localization from "../../../config/Localization";
 import SignInConfig from "../../../config/SignInConfig";
 // utils
 import ImageUtils from "../../../utils/ImageUtils";
+import JwtUtils from "../../../utils/JwtUtils";
 
 // The element to be shown in the modal window
 export default function PopupSignInWithPhone(props) {
-  const { renderHomPage } = props;
-
-  // use this hook to control the dialog
-  const dialog = useDialog();
-  // use dispatch
-  const dispatch = useDispatch();
-  // use history
-  const history = useHistory();
-
+  const { renderHomePage } = props;
   const [isOTP, setIsOTP] = useState(false);
   const [otp, setOTP] = useState("");
   const [disable, setDisable] = useState("disabled");
   const [phoneNumber, setPhoneNumer] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+
+  // use dispatch
+  const dispatch = useDispatch();
 
   // handle change OTP
   const handleChange = (otp) => {
@@ -56,12 +48,13 @@ export default function PopupSignInWithPhone(props) {
     (async () => {
       try {
         // request to server
-        let { status, message, data } = await service.vertifyPhoneNumber(phoneNumber, 0);
+        let { errorCode, data } = await apiService.signInWithPhoneNumber(
+          phoneNumber
+        );
 
         dispatch(action.loadingAction.turnOff());
 
-        status = parseInt(status);
-        switch (status) {
+        switch (errorCode) {
           case SignInConfig.VERTIFY_PHONE_NUMBER_STATUS.SUCESS:
             setErrorMsg("");
             setIsOTP(true);
@@ -84,33 +77,20 @@ export default function PopupSignInWithPhone(props) {
       dispatch(action.loadingAction.turnOn());
       (async () => {
         try {
-          let { status, message, data } = await service.inputOTP(otp, 0);
+          let { errorCode, data } = await apiService.vertifyOTP(
+            phoneNumber,
+            otp
+          );
 
           dispatch(action.loadingAction.turnOff());
 
-          status = parseInt(status);
-          switch (status) {
-            case SignInConfig.VERTIFY_OTP_STATUS.SUCESS:
-              const token = data.token;
-              const userID = data.userID;
-              const fullName = data.fullName;
-              const avatarUrl = data.avatarUrl;
-              // set token - profile
-              // redux
-              dispatch(action.tokenAction.signIn(token));
-              dispatch(action.profileAction.signIn(userID, fullName, avatarUrl));
-              // localstorage
-              localStorage.setItem("token", token);
-              localStorage.setItem("userID", userID);
-              localStorage.setItem("avatar", avatarUrl);
-              localStorage.setItem("fullName", fullName);
-              // push history
-              dialog.close();
-              renderHomPage();
-              return;
-            case SignInConfig.VERTIFY_OTP_STATUS.WRONG:
-              setErrorMsg(Localization.text("txt_invalid_otp"));
-              return;
+          if (errorCode === 0) {
+            const token = data.token;
+            dispatch(action.tokenAction.signIn(token));
+            localStorage.setItem("token", token);
+            handleGetUserInfo(token);
+          } else {
+            setErrorMsg(Localization.text("txt_invalid_otp"));
           }
         } catch (e) {
           alert("Không thể kết nối với server.");
@@ -118,6 +98,41 @@ export default function PopupSignInWithPhone(props) {
         }
       })();
     }
+  };
+
+  // handle get UserInfo
+  const handleGetUserInfo = function (token) {
+    var userId = JwtUtils.parseJwt(token).id;
+
+    dispatch(action.loadingAction.turnOn());
+    (async () => {
+      try {
+        // request to server
+        const { errorCode, data } = await apiService.getUserInfo(userId);
+        dispatch(action.loadingAction.turnOff());
+
+        let userID = data.user.id;
+        let fullName = data.user.FullName;
+        let avatar = data.user.Avatar;
+        let phone = data.user.Phone;
+
+        if (errorCode === 0) {
+          // redux
+          dispatch(
+            action.profileAction.signIn(userID, fullName, avatar, phone)
+          );
+          // localstorage
+          localStorage.setItem("userID", userID);
+          localStorage.setItem("avatar", avatar);
+          localStorage.setItem("fullName", fullName);
+          localStorage.setItem("phone", phone);
+          // history
+          renderHomePage();
+        }
+      } catch (e) {
+        console.log(`[HANDLE_GET_USERINFO_FAILED]: ${e.message}`);
+      }
+    })();
   };
 
   return (
@@ -169,7 +184,10 @@ export default function PopupSignInWithPhone(props) {
           <div className="popupSignInPhoneNumber_resendOTP">
             {Localization.text("txt_resend_otp")}
           </div>
-          <Button className="popupSignInPhoneNumber_button" onClick={handleSubmitOTP}>
+          <Button
+            className="popupSignInPhoneNumber_button"
+            onClick={handleSubmitOTP}
+          >
             {Localization.text("txt_submit")}
           </Button>
         </div>

@@ -21,8 +21,35 @@
 .listRes_break-line {
     width: 82% !important;
     border-top: 1px solid #bbb;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }
+
+.listRes_list-show-filter {
+    padding-left: 9.3%;
+}
+
+.listRes_list-btnShowFilter {
+    position: relative;
+    border: none;
+    background-color: #d7d7d7;
+    font-size: 15px;
+    padding: 8px 15px;
+    margin-right: 20px;
+}
+
+.listRes_reddotClose {
+    position: absolute;
+    right: -6px;
+    top: -6px;
+    background-color: #6d6f71;
+    border-radius: 50%;
+    padding: 2px 5px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: white;
+    font-weight: bold;
+  }
+  
 
 .listRes_list-card {
     margin-top: 50px;

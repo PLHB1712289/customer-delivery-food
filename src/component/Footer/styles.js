@@ -55,8 +55,8 @@ export default makeStyles((theme) => ({
     float: "left"
   },
   logo: {
-    width: theme.spacing(11),
-    height: theme.spacing(11),
+    width: "120px",
+    height: "155px",
     display: "block",
     margin: "0 auto",
     marginTop: theme.spacing(2),

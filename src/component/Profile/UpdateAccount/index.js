@@ -213,20 +213,20 @@ const SideBar = () => {
               placeholder="Địa chỉ - số nhà, tên đường, phường,..."
               disabled={disabledAddress}
             ></input>
-            <select
+            {/* <select
               className="profile_updateAccount_inputCity"
               disabled={disabledAddress}
               onChange={handleSelectCity}
             >
               {DataUtils.mapCityProfile()}
-            </select>
-            <select
+            </select> */}
+            {/* <select
               className="profile_updateAccount_inputCity"
               disabled={disabledAddress}
               onChange={handleSelectArea}
             >
               {DataUtils.mapAreaProfile(_city)}
-            </select>
+            </select> */}
           </form>
           {disabledAddress === "disabled" ? (
             <button

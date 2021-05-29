@@ -11,18 +11,20 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Localization from "../../config/Localization";
-import tokenAction from "../../storage/action/tokenAction";
+import action from "../../storage/action";
 import ImageUtils from "../../utils/ImageUtils";
 import APIService from "./apiService";
 import Avatar from "./AvatarDropdown";
 import ListArea from "./ListArea";
 import OptionLanguage from "./OptionLanguage";
+import { useHistory } from "react-router-dom";
 import useStyles from "./styles";
 
 const Navbar = ({ onChangeLanguage }) => {
   // Styles
   const classes = useStyles();
-
+  // use history
+  const history = useHistory();
   // React router hook
   const dispatch = useDispatch();
 
@@ -31,7 +33,22 @@ const Navbar = ({ onChangeLanguage }) => {
   if (token === null) {
     token = localStorage.getItem('token');
   }
-  const [isDisplayProfile, setIsDisplayProfile] = useState(false);
+
+  const [keyword, setKeyword] = useState("");
+
+  const onChangeKeyWord = (e) => {
+    setKeyword(e.target.value);
+  };
+
+  const onSearch = () => {
+      dispatch(action.searchAction.update(keyword));
+
+      history.push({
+        pathname: "restaurants",
+        search: `?keyword=${keyword}`,
+        state: {keyword: keyword}
+      });
+  };
 
   // Sync account
   // useEffect(() => {
@@ -95,8 +112,9 @@ const Navbar = ({ onChangeLanguage }) => {
                   <input
                     placeholder={Localization.text("txt_search")}
                     className={classes.searchInput}
+                    onChange={onChangeKeyWord}
                   />
-                  <Button className={classes.searchButton}>
+                  <Button className={classes.searchButton} onClick={onSearch}>
                     <SearchIcon className={classes.iconButton} />
                   </Button>
                 </form>

@@ -52,3 +52,11 @@
   cursor: pointer;
 }
 /* #0288d1!important */
+
+.detail-restaurant__cart-total-title {
+  margin: 10px 0;
+}
+
+.detail-restaurant__cart-total-money {
+  margin: 10px 0;
+}

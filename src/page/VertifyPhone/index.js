@@ -48,7 +48,8 @@ const VertifyPhoneNumber = () => {
     (async () => {
       try {
         // request to server
-        const user = userID;
+        const user = localStorage.getItem("user");
+        console.log("user: " + user);
         const phone = phoneNumber;
         const { errorCode, data } = await apiService.vertifyPhone(user, phone);
 

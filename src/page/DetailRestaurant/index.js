@@ -3,6 +3,7 @@ import { Grid } from "@material-ui/core";
 import InformationRestaurant from "../../component/DetailRestaurant/InformationRestaurant";
 import ListFood from "../../component/DetailRestaurant/ListFood";
 import service from "./service";
+import apiService from "./apiService";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import cartAction from "../../storage/action/cartAction";
@@ -13,17 +14,38 @@ const DetailRestaurant = () => {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.loading);
 
+  // fake
+  // useEffect(() => {
+  //   // turn on loading
+  //   dispatch(loadingAction.turnOn());
+
+  //   (async () => {
+  //     try {
+  //       const { success, data } = await service.getRestaurant(id);
+
+  //       console.log(data);
+
+  //       if (success) {
+  //         dispatch(cartAction.createCart(data));
+  //       }
+  //     } catch (e) {}
+
+  //     // turn off loading
+  //     dispatch(loadingAction.turnOff());
+  //   })();
+  // }, [id]);
+
   useEffect(() => {
     // turn on loading
     dispatch(loadingAction.turnOn());
 
     (async () => {
       try {
-        const { success, data } = await service.getRestaurant(id);
+        const { errorCode, data } = await apiService.getRestaurant(id);
 
-        console.log(data);
+        console.log("data restaurant: " + JSON.stringify(data));
 
-        if (success) {
+        if (errorCode === 0 ) {
           dispatch(cartAction.createCart(data));
         }
       } catch (e) {}

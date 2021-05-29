@@ -27,6 +27,7 @@ const SideBar = () => {
 
   // use State
   const indexProfile = useSelector((state) => state.indexProfile);
+  console.log("indexxx: " + indexProfile);
   // handle select
   const handleSelect = (k) => {
     if (indexProfile !== k) {

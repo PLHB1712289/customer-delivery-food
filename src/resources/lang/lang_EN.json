@@ -32,9 +32,10 @@
     "txt_type_food_homepage_12": "Noodles",
     "txt_type_food_homepage_13": "Rice box",
     "txt_restaurant_filter_0": "All",
-    "txt_restaurant_filter_1": "Most discount",
-    "txt_restaurant_filter_2": "Latest",
-    "txt_restaurant_filter_3": "Near me",
+    "txt_restaurant_filter_1": "Nearby",
+    "txt_restaurant_filter_2": "Top sales",
+    "txt_restaurant_filter_3": "Best rated",
+    "txt_restaurant_filter_4": "Discount",
     "txt_district": "District",
     "txt_area": "Area",
     "txt_district_0_1": "District 1",
@@ -138,8 +139,10 @@
     "txt_nearby": "Nearby",
     "txt_top_sales": "Top sales",
     "txt_best_rated": "Best rated",
-    "txt_fast": "Fast",
-    "txt_load_more": "Load more"
+    "txt_most_discount": "Discount",
+    "txt_load_more": "Load more",
+    "txt_require_address": "\nPlease pick up the address",
+    "txt_order": "Order"
   },
   "img": {},
   "sound": {}

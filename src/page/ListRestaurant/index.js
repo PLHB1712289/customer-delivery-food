@@ -32,6 +32,7 @@ const ListRestaurant = () => {
   // use dispatch
   const dispatch = useDispatch();
   // use Selector
+  const keyword = useSelector((state) => state.search);
   const city = useSelector((state) => state.city);
   // location
   let keyType = -1;
@@ -45,37 +46,57 @@ const ListRestaurant = () => {
   const [pageIndex, setPageIndex] = useState(1);
   const [sortType, setSortType] = useState(0);
   const [cacheFilter, setCacheFilter] = useState([]);
-  const [filterArea, setFilterArea] = useState(DataUtils.mapStateFitlerArea());
-  const [filterType, setFilterType] = useState(DataUtils.mapStateFitlerType(parseInt(keyType)));
+  const [filterArea, setFilterArea] = useState(
+    DataUtils.mapStateFitlerArea(city)
+  );
+  const [filterType, setFilterType] = useState(
+    DataUtils.mapStateFitlerType(parseInt(keyType))
+  );
+  const [reload, setReload] = useState(false);
+
+  if (location.state) {
+    // if (location.state.keyword) {
+    //   dispatch(action.searchAction.update(location.state.keyword));
+    // }
+    // if (location.search) {
+    //   dispatch(action.searchAction.update(location.search));
+    // }
+  }
 
   useEffect(() => {
+    // reset
+    // handleResetType();
+    // handleResetArea();
+
     dispatch(action.loadingAction.turnOn());
-    const list_area = DataUtils.getFilterAreaRestaurant(filterArea);
+    const list_area = DataUtils.getFilterAreaRestaurant(filterArea, city);
     const list_type = DataUtils.getFilterTypeRestaurant(filterType);
 
     (async () => {
       try {
-        const { success, message, data } = await service.getListRestaurant(
-          1,
-          city,
-          list_area,
-          list_type,
-          sortType
-        );
+        const { errorCode, data, pagingInfo } =
+          await apiService.getRestaurant(
+            pageIndex,
+            RestaurantConfig.CITY[city].id,
+            list_area,
+            list_type,
+            sortType,
+            keyword
+          );
 
         dispatch(action.loadingAction.turnOff());
-        if (success) {
-          setListRes(data.listRestaurant);
-          setCountItem(data.countItem);
+        if (errorCode === 0) {
+          console.log("totalll: " + pagingInfo.total);
+          setListRes(data);
+          setCountItem(pagingInfo.total);
         } else {
-          alert(message);
         }
       } catch (e) {
         alert("Không thể kết nối với server.");
         console.error(`[LIST_VOUCHER]: ${e.message}`);
       }
     })();
-  }, [sortType, city]);
+  }, [sortType, city, reload, keyword]);
 
   const listRestaurant = DataUtils.mapDataListRestaurant(listRes);
 
@@ -85,29 +106,28 @@ const ListRestaurant = () => {
       return;
     }
 
-    const list_area = DataUtils.getFilterAreaRestaurant(filterArea);
+    const list_area = DataUtils.getFilterAreaRestaurant(filterArea, city);
     const list_type = DataUtils.getFilterTypeRestaurant(filterType);
 
     dispatch(action.loadingAction.turnOn());
     (async () => {
       try {
-        const { success, message, data } = await service.getListRestaurant(
-          index,
-          city,
-          list_area,
-          list_type,
-          sortType
-        );
+        const { errorCode, data, pagingInfo } =
+          await apiService.getRestaurant(
+            index,
+            RestaurantConfig.CITY[city].id,
+            list_area,
+            list_type,
+            sortType
+          );
 
         dispatch(action.loadingAction.turnOff());
-        if (success) {
-          setListRes(data.listRestaurant);
-          setCountItem(data.countItem);
+        if (errorCode === 0) {
+          setListRes(data);
+          setCountItem(pagingInfo.total);
           setPageIndex(index);
           window.scrollTo(0, 0);
-        } else {
-          alert(message);
-        }
+        } 
       } catch (e) {
         alert("KKKKhông thể kết nối với server.");
         console.error(`[LIST_RESTAURANT]: ${e.message}`);
@@ -155,35 +175,59 @@ const ListRestaurant = () => {
       }
     }
 
-    const list_area = DataUtils.getFilterAreaRestaurant(filterArea);
+    const list_area = DataUtils.getFilterAreaRestaurant(filterArea, city);
     const list_type = DataUtils.getFilterTypeRestaurant(filterType);
-
+    console.log("----area: " + list_area);
     dispatch(action.loadingAction.turnOn());
     (async () => {
       try {
-        const { success, message, data } = await service.getListRestaurant(
-          1,
-          city,
-          list_area,
-          list_type,
-          sortType
-        );
+        const { errorCode, data, pagingInfo } =
+          await apiService.getRestaurant(
+            1,
+            RestaurantConfig.CITY[city].id,
+            list_area,
+            list_type,
+            sortType
+          );
 
         dispatch(action.loadingAction.turnOff());
-        if (success) {
-          setListRes(data.listRestaurant);
-          setCountItem(data.countItem);
+        if (errorCode === 0) {
+          setListRes(data);
+          setCountItem(pagingInfo.total);
           setPageIndex(1);
           setCacheFilter([filterArea, filterType]);
           window.scrollTo(0, 0);
-        } else {
-          alert(message);
         }
       } catch (e) {
         alert("KKKKhông thể kết nối với server.");
         console.error(`[LIST_RESTAURANT]: ${e.message}`);
       }
     })();
+  };
+
+  // handle reset area
+  const handleResetArea = (isReload) => {
+    for (var key in filterArea) {
+      filterArea[key] = false;
+    }
+
+    if (isReload) setReload(!reload);
+  };
+
+  // handle reset type
+  const handleResetType = (isReload) => {
+    for (var key in filterType) {
+      filterType[key] = false;
+    }
+
+    if (isReload) setReload(!reload);
+  };
+
+  // handle reset keyword
+  const handleResetKeyword = (isReload) => {
+    dispatch(action.searchAction.update(""));
+
+    if (isReload) setReload(!reload);
   };
 
   // handle select sort
@@ -195,6 +239,9 @@ const ListRestaurant = () => {
   if (listRes.length !== 0) {
     globalClass += "listRes_haveResult";
   }
+
+  const count_area = DataUtils.getFilterAreaRestaurant(filterArea, city).length;
+  const count_type = DataUtils.getFilterTypeRestaurant(filterType).length;
 
   return (
     <>
@@ -208,9 +255,7 @@ const ListRestaurant = () => {
             </Grid>
 
             <Grid container item md={12}>
-              <Grid item md={1}>
-                {" "}
-              </Grid>
+              <Grid item md={1}></Grid>
 
               <Grid item md={1}>
                 <div className="listRes_filter-area">
@@ -249,6 +294,54 @@ const ListRestaurant = () => {
               <Grid item md={12}>
                 <hr className="listRes_break-line"></hr>
               </Grid>
+
+              <Grid item md={12} className="listRes_list-show-filter">
+                {count_area > 0 ? (
+                  <button className="listRes_list-btnShowFilter">
+                    Khu vực:{" "}
+                    <span style={{ fontWeight: "bold" }}>({count_area})</span>
+                    <div
+                      className="listRes_reddotClose"
+                      onClick={() => handleResetArea(true)}
+                    >
+                      x
+                    </div>
+                  </button>
+                ) : (
+                  <></>
+                )}
+
+                {count_type > 0 ? (
+                  <button className="listRes_list-btnShowFilter">
+                    Phân loại:{" "}
+                    <span style={{ fontWeight: "bold" }}>({count_type})</span>
+                    <div
+                      className="listRes_reddotClose"
+                      onClick={() => handleResetType(true)}
+                    >
+                      x
+                    </div>
+                  </button>
+                ) : (
+                  <></>
+                )}
+
+                {keyword !== "" ? (
+                  <button className="listRes_list-btnShowFilter">
+                    Từ Khóa:{" "}
+                    <span style={{ fontWeight: "bold" }}>({keyword})</span>
+                    <div
+                      className="listRes_reddotClose"
+                      onClick={() => handleResetKeyword(true)}
+                    >
+                      x
+                    </div>
+                  </button>
+                ) : (
+                  <></>
+                )}
+              </Grid>
+
               <Grid item md={1}></Grid>
               <Grid item md={10}>
                 {listRes.length === 0 ? (

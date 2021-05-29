@@ -9,6 +9,8 @@ import CloseIcon from "@material-ui/icons/Close";
 import MyLocationIcon from "@material-ui/icons/MyLocation";
 import SearchIcon from "@material-ui/icons/Search";
 import React, { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import action from "../../../storage/action";
 import {
   geoConvertAddressToLatLong,
   geoConvertLatLongToAddress,
@@ -28,6 +30,8 @@ export default function DialogChangeAddress({
   onClose,
   onUpdateAddress,
 }) {
+  const dispatch = useDispatch();
+
   const [location, setLocation] = useState(null);
   const [lat, setLat] = useState(0);
   const [lng, setLng] = useState(0);
@@ -50,6 +54,7 @@ export default function DialogChangeAddress({
     setLocation(address);
     setLat(latitude);
     setLng(longitude);
+    dispatch(action.addressDeliveryAction.updateCoordinate(latitude, longitude));
   };
 
   function errors(err) {
@@ -86,6 +91,7 @@ export default function DialogChangeAddress({
       const { lat, lng } = await geoConvertAddressToLatLong(e.target.value);
       setLat(lat);
       setLng(lng);
+      dispatch(action.addressDeliveryAction.updateCoordinate(lat, lng));
     }, 1000);
   };
 

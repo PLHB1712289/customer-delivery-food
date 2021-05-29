@@ -10,6 +10,8 @@ import apiService from "./apiService";
 // config
 import Localization from "../../config/Localization";
 import SignInConfig from "../../config/SignInConfig";
+// utils
+import JwtUtils from "../../utils/JwtUtils";
 
 import "./styles.css";
 
@@ -41,15 +43,17 @@ const InputOTP = () => {
       dispatch(action.loadingAction.turnOn());
       (async () => {
         try {
-          const { errorCode, data } = await apiService.vertifyOTP(userID, otp);
+          const user = localStorage.getItem("user");
+          const { errorCode, data } = await apiService.vertifyOTP(user, otp);
 
           dispatch(action.loadingAction.turnOff());
 
-          console.log("vertify otp: " + errorCode);
-
           switch (errorCode) {
             case SignInConfig.VERTIFY_OTP_STATUS.SUCESS:
-              // handleGetUserInfo(userID);
+              const token = data.token;
+              dispatch(action.tokenAction.signIn(token));
+              localStorage.setItem("token", token);
+              handleGetUserInfo(token);
               return;
             case SignInConfig.VERTIFY_OTP_STATUS.WRONG:
             case SignInConfig.VERTIFY_OTP_STATUS.PHONE_NOT_EXISTED:
@@ -65,34 +69,32 @@ const InputOTP = () => {
   };
 
   // handle get UserInfo
-  const handleGetUserInfo = () => {
+  const handleGetUserInfo = function (token) {
+    var userId = JwtUtils.parseJwt(token).id;
+
     dispatch(action.loadingAction.turnOn());
     (async () => {
       try {
-        const { success, message, data } = await service.getUserInfo(userID);
-
+        // request to server
+        const { errorCode, data } = await apiService.getUserInfo(userId);
         dispatch(action.loadingAction.turnOff());
 
-        if (success) {
-          const token = data.token;
-          const userID = data.userID;
-          const fullName = data.fullName;
-          const avatarUrl = data.avatarUrl;
-          // set token - profile
+        let userID = data.user.id;
+        let fullName = data.user.FullName;
+        let avatar = data.user.Avatar;
+
+        if (errorCode === 0) {
           // redux
-          dispatch(action.tokenAction.signIn(token));
-          dispatch(action.profileAction.signIn(userID, fullName, avatarUrl));
+          dispatch(action.profileAction.signIn(userID, fullName, avatar));
           // localstorage
-          localStorage.setItem("token", token);
           localStorage.setItem("userID", userID);
-          localStorage.setItem("avatar", avatarUrl);
+          localStorage.setItem("avatar", avatar);
           localStorage.setItem("fullName", fullName);
-          // push history
+          // history
           history.push("/");
         }
       } catch (e) {
-        alert("Không thể kết nối với server.");
-        console.error(`[LIST_RESTAURANT]: ${e.message}`);
+        console.log(`[HANDLE_GET_USERINFO_FAILED]: ${e.message}`);
       }
     })();
   };

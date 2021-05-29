@@ -5,26 +5,33 @@ import RestaurantItem from "./RestaurantItem";
 import ReplayIcon from "@material-ui/icons/Replay";
 import LoadingItem from "./Loading";
 import service from "./service";
+import apiService from "./apiService";
 import Localization from "../../../config/Localization";
+import { useSelector } from "react-redux";
+import RestaurantConfig from "../../../config/RestaurantConfig";
 
 
 const FilterRestaurant = () => {
+  const city = useSelector((state) => state.city);
+  const [page, setPage] = useState(1);
+  const [maxPage, setMaxPage] = useState(1);
+
   const listFilter = [
     {
       title: Localization.text("txt_nearby"),
-      value: "near-me",
+      value: 1,
     },
     {
       title: Localization.text("txt_top_sales"),
-      value: "hot",
+      value: 2,
     },
     {
       title: Localization.text("txt_best_rated"),
-      value: "review",
+      value: 3,
     },
     {
-      title: Localization.text("txt_fast"),
-      value: "quick-ship",
+      title: Localization.text("txt_most_discount"),
+      value: 4,
     },
   ];
 
@@ -33,21 +40,47 @@ const FilterRestaurant = () => {
   const [listRestaurants, setListRestaurants] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  // fake
+  // const handleLoadMoreRestaurant = () => {
+  //   setIsLoading(true);
+  //   (async () => {
+  //     try {
+  //       const { success, message, data } = await service.getListRestaurant(
+  //         currentFilter,
+  //         address,
+  //         listRestaurants.length
+  //       );
+  //       setIsLoading(false);
+
+  //       if (success) {
+  //         setListRestaurants((prev) => prev.concat(data.listRestaurants));
+  //       } else {
+  //         alert(message);
+  //       }
+  //     } catch (e) {
+  //       setIsLoading(false);
+  //       alert("Không thể kết nối với server.");
+  //       console.log(`[FILTER_RESTAURANT]: ${e.message}`);
+  //     }
+  //   })();
+  // };
+
   const handleLoadMoreRestaurant = () => {
+    if (page + 1 > maxPage)
+      return;
+
     setIsLoading(true);
     (async () => {
       try {
-        const { success, message, data } = await service.getListRestaurant(
+        const { errorCode, data, pagingInfo } = await apiService.getMoreRestaurant(
+          page,
           currentFilter,
-          address,
-          listRestaurants.length
+          RestaurantConfig.CITY[city].idea,
+          address
         );
         setIsLoading(false);
-
-        if (success) {
-          setListRestaurants((prev) => prev.concat(data.listRestaurants));
-        } else {
-          alert(message);
+        if (errorCode === 0) {
+          setListRestaurants((prev) => prev.concat(data));
         }
       } catch (e) {
         setIsLoading(false);
@@ -57,23 +90,50 @@ const FilterRestaurant = () => {
     })();
   };
 
+  // fake
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   setListRestaurants([]);
+
+  //   (async () => {
+  //     try {
+  //       const { success, message, data } = await service.getListRestaurant(
+  //         currentFilter,
+  //         address,
+  //         0
+  //       );
+  //       setIsLoading(false);
+
+  //       if (success) {
+  //         setListRestaurants(data.listRestaurants);
+  //       } else {
+  //         alert(message);
+  //       }
+  //     } catch (e) {
+  //       setIsLoading(false);
+  //       alert("Không thể kết nối với server.");
+  //       console.log(`[FILTER_RESTAURANT]: ${e.message}`);
+  //     }
+  //   })();
+  // }, [currentFilter, address]);
+
   useEffect(() => {
     setIsLoading(true);
     setListRestaurants([]);
 
     (async () => {
       try {
-        const { success, message, data } = await service.getListRestaurant(
+        const { errorCode, data, pagingInfo } = await apiService.getListRestaurant(
+          page,
           currentFilter,
-          address,
-          0
+          RestaurantConfig.CITY[city].idea,
+          address
         );
         setIsLoading(false);
 
-        if (success) {
-          setListRestaurants(data.listRestaurants);
-        } else {
-          alert(message);
+        if (errorCode === 0) {
+          setListRestaurants(data);
+          setMaxPage(pagingInfo.totalPage);
         }
       } catch (e) {
         setIsLoading(false);
@@ -81,7 +141,7 @@ const FilterRestaurant = () => {
         console.log(`[FILTER_RESTAURANT]: ${e.message}`);
       }
     })();
-  }, [currentFilter, address]);
+  }, [currentFilter, address, city]);
 
   return (
     <div className="filter-restaurant__container">
@@ -127,12 +187,12 @@ const FilterRestaurant = () => {
             <RestaurantItem
               key={restaurant.id}
               id={restaurant.id}
-              urlImg={restaurant.urlImg}
-              addressRestaurant={restaurant.addressRestaurant}
-              nameRestaurant={restaurant.nameRestaurant}
-              minPrice={restaurant.minPrice}
-              avgPrice={restaurant.avgPrice}
-              voucher={restaurant.voucher}
+              urlImg={restaurant.Avatar}
+              addressRestaurant={restaurant.FullAddress}
+              nameRestaurant={restaurant.Name}
+              minPrice={restaurant.OpenHours[0]}
+              avgPrice={restaurant.OpenHours[1]}
+              voucher={"Giảm giá"}
             />
           );
         })}
