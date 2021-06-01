@@ -1,0 +1,62 @@
+.dialog-order-item-food__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+  
+    margin-bottom: 10px;
+    margin-top: 20px;
+    border-bottom: 1px solid whitesmoke;
+  }
+  
+  .dialog-order-item-food__food {
+    display: flex;
+  }
+  
+  .dialog-order-item-food__thumbnail {
+    margin-right: 10px;
+  
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    position: relative;
+  }
+  .dialog-order-item-food__thumbnail > img {
+    min-width: 100%;
+    min-height: 100%;
+  
+    max-width: 300px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+  }
+  
+  .dialog-order-item-food__info-name {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .dialog-order-item-food__info-option {
+    font-size: 0.7rem;
+    font-weight: 400;
+    line-height: 2;
+  }
+
+  .dialog-order-item-food__info-amount {
+    font-size: 0.7rem;
+    font-weight: 400;
+  }
+  
+  .dialog-order-item-food__info-price {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #0288d1;
+    margin-top: 5px;
+  }
+  
+  .dialog-order-item-food__avatar {
+      width: 5vh;
+      height: 5vh;
+  }

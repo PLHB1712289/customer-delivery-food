@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import useStyles from "./styles";
@@ -13,12 +13,7 @@ import {
   Avatar,
 } from "@material-ui/core";
 import classNames from "classnames";
-import {
-  AccountCircle,
-  History,
-  CardGiftcard,
-  ExitToApp,
-} from "@material-ui/icons";
+import { AccountCircle, History, Reorder, ExitToApp } from "@material-ui/icons";
 
 // service
 import action from "../../../storage/action";
@@ -26,14 +21,13 @@ import action from "../../../storage/action";
 import ProfileConfig from "../../../config/ProfileConfig";
 import StrUtils from "../../../utils/StrUtils";
 import Localization from "../../../config/Localization";
-import { act } from "react-dom/test-utils";
+import DialogOrder from "../../DialogOrder";
+import { ORDER_STATUS } from "../../../socket/TAG_EVENT";
 
 export default function SimpleMenu(props) {
   const classes = useStyles();
-
   // dispatch
   const dispatch = useDispatch();
-
   // history
   const history = useHistory();
 
@@ -50,6 +44,8 @@ export default function SimpleMenu(props) {
 
   const { customStyle } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [openDialogCheckout, setOpenDialogCheckout] = React.useState(false);
+  let order = useSelector((state) => state.order);
 
   // handle open
   const handleClick = (event) => {
@@ -87,8 +83,38 @@ export default function SimpleMenu(props) {
     history.push("/sign-in");
   };
 
+  const onCloseDialogOrder = () => {
+    setOpenDialogCheckout(false);
+
+    const status = order.status;
+    switch (status) {
+      case ORDER_STATUS.CANCEL_BY_CUSTOMER:
+      case ORDER_STATUS.CANCEL_BY_MERCHANT:
+      case ORDER_STATUS.CANCEL_BY_SHIPPER:
+        dispatch(action.orderAction.reset());
+        break;
+    }
+  };
+  
+  useEffect(() => {
+    if (order.status > 0) {
+      setOpenDialogCheckout(true);
+    }
+  }, [order]);
+
   return (
     <div>
+      {order.status !== -1 ? (
+        <DialogOrder
+          open={openDialogCheckout}
+          onClose={() => onCloseDialogOrder()}
+          renderSignInPage={() => {
+            history.push("sign-in");
+          }}
+        />
+      ) : (
+        <></>
+      )}
       <Button
         aria-controls="simple-menu"
         aria-haspopup="true"
@@ -124,6 +150,7 @@ export default function SimpleMenu(props) {
                   <MenuItem className={classes.itemFirst}>
                     <div className={classes.username}>{"Hi, " + fullName}</div>
                   </MenuItem>
+
                   <MenuItem
                     className={classes.item}
                     onClick={() =>
@@ -133,13 +160,7 @@ export default function SimpleMenu(props) {
                     <History className={classes.iconOrder} />
                     {Localization.text("txt_order_history")}
                   </MenuItem>
-                  <MenuItem className={classes.item}>
-                    <CardGiftcard
-                      className={classes.iconVoucher}
-                      color="primary"
-                    />
-                    {Localization.text("txt_my_vouchers")}
-                  </MenuItem>
+
                   <MenuItem
                     className={classes.item}
                     onClick={() =>
@@ -149,6 +170,19 @@ export default function SimpleMenu(props) {
                     <AccountCircle className={classes.iconAccount} />
                     {Localization.text("txt_update_account")}
                   </MenuItem>
+
+                  {order.status !== -1 ? (
+                    <MenuItem
+                      className={classes.item}
+                      onClick={() => setOpenDialogCheckout(true)}
+                    >
+                      <Reorder className={classes.iconVoucher} />
+                      {Localization.text("txt_my_order")}
+                    </MenuItem>
+                  ) : (
+                    <span></span>
+                  )}
+
                   <MenuItem className={classes.item} onClick={handleLogout}>
                     <ExitToApp className={classes.iconLogout} />
                     {Localization.text("txt_logout")}

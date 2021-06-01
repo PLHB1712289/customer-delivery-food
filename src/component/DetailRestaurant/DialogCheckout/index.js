@@ -20,6 +20,7 @@ import {
 } from "../../../utils/Geocode";
 import Localization from "../../../config/Localization";
 import apiService from "./apiService";
+import { useHistory } from "react-router-dom";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -29,6 +30,7 @@ const titleDialog = "Xác nhận đặt hàng";
 const tileAlertLocation = "Vui lòng cấp quyền truy cập vị trí cho flashfood";
 
 export default function DialogCheckout({ open, onClose, renderSignInPage }) {
+  const history = useHistory();
   const dispatch = useDispatch();
 
   const cart = useSelector((state) => state.cart);
@@ -60,17 +62,22 @@ export default function DialogCheckout({ open, onClose, renderSignInPage }) {
   }
 
   useEffect(() => {
+    if (!location) return;
+
     (async () => {
       try {
-        const { success, data } = await service.getFeeShip(0, 0);
+        // request to server
+        const { errorCode, data } = await apiService.getShipFee(
+          cart.infoRestaurant.id,
+          lng,
+          lat
+        );
 
-        if (success) {
-          const { distance, fee } = data;
-          setFeeShip(fee);
-          setDistance(distance);
+        if (errorCode === 0) {
+          setFeeShip(data);
         }
       } catch (e) {
-        console.log(`[GET_FEE_SHIP_FAILED]: ${e.message}`);
+        console.log(`[HANDLE_GET_SHIP_FEE]: ${e.message}`);
       }
     })();
   }, [cart]);
@@ -133,14 +140,13 @@ export default function DialogCheckout({ open, onClose, renderSignInPage }) {
     var dataOrder = {};
     dataOrder.foods = [];
 
-    console.log("----------" + listOrder[0].id);
     // list food
     for (var i = 0; i < listOrder.length; i++) {
       dataOrder.foods[i] = {};
       dataOrder.foods[i].id = listOrder[i].id;
       dataOrder.foods[i].quantity = listOrder[i].quantity;
       dataOrder.foods[i].price = listOrder[i].OriginalPrice;
-      dataOrder.foods[i].options = [];
+      var options = [];
       for (var j = 0; j < listOrder[i].Options.length; j++) {
         var _option = listOrder[i].Options[j];
         var option = {};
@@ -156,9 +162,13 @@ export default function DialogCheckout({ open, onClose, renderSignInPage }) {
             option.items.push(item);
           }
         }
-        dataOrder.foods[i].options.push(option);
+        if (option.items.length > 0) {
+          options.push(option);
+        }
       }
-
+      if (options.length > 0) {
+        dataOrder.foods[i].options = options;
+      }
     }
 
     // total price
@@ -185,6 +195,8 @@ export default function DialogCheckout({ open, onClose, renderSignInPage }) {
         console.log("order data: " + JSON.stringify(data));
         console.log("errorCode: " + errorCode);
         if (errorCode === 0) {
+          dispatch(action.orderAction.create(data));
+          history.push("/");
         }
       } catch (e) {
         console.log(`[HANDLE_SEND_ORDER]: ${e.message}`);
@@ -218,14 +230,12 @@ export default function DialogCheckout({ open, onClose, renderSignInPage }) {
       for (var j = 0; j < listOrder[k].Options[i].Items.length; j++) {
         if (listOrder[k].Options[i].Items[j].IsDefault) {
           totalPrice += listOrder[k].Options[i].Items[j].OriginalPrice;
-          strOptions += listOrder[k].Options[i].Items[j].Name;
-          if (
-            i !== listOrder[k].Options.length - 1 ||
-            j !== listOrder[k].Options[i].Items.length - 1
-          )
-            strOptions += ", ";
+          strOptions += listOrder[k].Options[i].Items[j].Name + ", ";
         }
       }
+    }
+    if (strOptions.length > 2) {
+      strOptions = strOptions.substr(0, strOptions.length - 2);
     }
     listOrder[k].TotalMoney = totalPrice;
     listOrder[k].StrOption = strOptions;
@@ -342,7 +352,7 @@ export default function DialogCheckout({ open, onClose, renderSignInPage }) {
                 <div className="dialog-checkout__order-total-price">
                   {StrUtils.formatMoneyString(
                     listOrder.reduce((total, currOrder) => {
-                      total += currOrder.quantity * currOrder.OriginalPrice;
+                      total += currOrder.quantity * currOrder.TotalMoney;
                       return total;
                     }, 0)
                   )}
@@ -395,7 +405,7 @@ export default function DialogCheckout({ open, onClose, renderSignInPage }) {
             <div className="dialog-checkout__total_price">
               {StrUtils.formatMoneyString(
                 listOrder.reduce((total, currOrder) => {
-                  total += currOrder.quantity * currOrder.OriginalPrice;
+                  total += currOrder.quantity * currOrder.TotalMoney;
                   return total;
                 }, 0) + (location === null ? 0 : feeShip)
               )}

@@ -8,7 +8,7 @@ const isExpired = (token) => {
     const decode = jwtDecode(token);
     const dateNow = Math.floor(Date.now() / 1000);
 
-    console.log(decode.exp, dateNow);
+    // console.log(decode.exp, dateNow);
 
     if (decode.exp < dateNow) return true;
     return false;

@@ -7,6 +7,7 @@ import indexProfileReducer from "./service/indexProfile";
 import searchReducer from "./service/search";
 import addressDeliveryReducer from "./service/addressDelivery";
 import cartReducer from "./service/cart";
+import orderReducer from "./service/order";
 
 const reducer = combineReducers({
   cart: cartReducer,
@@ -16,7 +17,8 @@ const reducer = combineReducers({
   profile: profileReducer,
   city: cityReducer,
   indexProfile: indexProfileReducer,
-  search: searchReducer
+  search: searchReducer,
+  order: orderReducer
 });
 
 export default reducer;

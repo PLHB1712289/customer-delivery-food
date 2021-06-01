@@ -6,7 +6,7 @@
     "txt_dish": "Dish",
     "txt_login": "Sign In",
     "txt_order_history": "Order History",
-    "txt_my_vouchers": "My Vouchers",
+    "txt_my_order": "Follow your order",
     "txt_update_account": "Update Account",
     "txt_logout": "Log Out",
     "txt_phone": "PHONE NUMBER",
@@ -142,7 +142,14 @@
     "txt_most_discount": "Discount",
     "txt_load_more": "Load more",
     "txt_require_address": "\nPlease pick up the address",
-    "txt_order": "Order"
+    "txt_order": "Order",
+    "txt_order_waiting": "Order Processing",
+    "txt_order_get": "Shipper waiting for get order",
+    "txt_order_ship": "Shipper is on the way to deliver",
+    "txt_order_delivered": "Delivery Successful",
+    "txt_order_cancel_by_customer": "You have canceled the order",
+    "txt_order_cancel_by_merchain": "The merchain does not acppect your order",
+    "txt_order_cancel_by_shipper": "Shipper is busy"
   },
   "img": {},
   "sound": {}

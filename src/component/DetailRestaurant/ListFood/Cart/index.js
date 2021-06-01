@@ -8,8 +8,21 @@ import { useSelector } from "react-redux";
 const displayPrice = StrUtils.formatMoneyString;
 
 const Cart = ({ listOrder, changeQuantity, callbackCheckout }) => {
-  const totalPrice = listOrder.reduce((sum, currOrder) => {
-    sum += currOrder.quantity * currOrder.OriginalPrice;
+
+  for (var k = 0; k < listOrder.length; k++) {
+    var totalPrice = listOrder[k].OriginalPrice;
+    for (var i = 0; i < listOrder[k].Options.length; i++) {
+      for (var j = 0; j < listOrder[k].Options[i].Items.length; j++) {
+        if (listOrder[k].Options[i].Items[j].IsDefault) {
+          totalPrice += listOrder[k].Options[i].Items[j].OriginalPrice;
+        }
+      }
+    }
+    listOrder[k].TotalMoney = totalPrice;
+  }
+
+  const total = listOrder.reduce((sum, currOrder) => {
+    sum += currOrder.quantity * currOrder.TotalMoney;
     return sum;
   }, 0);
 
@@ -61,7 +74,7 @@ const Cart = ({ listOrder, changeQuantity, callbackCheckout }) => {
       <div className="detail-restaurant__cart-total">
         <div className="detail-restaurant__cart-total-title">Tổng cộng</div>
         <div className="detail-restaurant__cart-total-money">
-          {displayPrice(totalPrice)}đ
+          {displayPrice(total)}đ
         </div>
       </div>
       <button

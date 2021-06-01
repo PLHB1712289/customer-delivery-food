@@ -13,9 +13,9 @@ const ItemFood = ({ Avatar, Name, OriginalPrice, _id, addToCart, data, onChangeO
                   <p style={{fontWeight: "bold"}}>{"* " + option.Name}</p>
                   {option.Items.slice(0).reverse().map((item, index1) => (
                       <p key={index1.toString() + option.id.toString() + item.id}> 
-                        {item.IsDefault === false && type !== "radio" ?
-                          <input style={{marginLeft: "30px"}} type={type} id={_id.toString() + index1.toString() + option.id.toString() + index.toString() + item.id.toString()} name={option.id} value={item.id} onChange={()=>{}} onClick={(e) => onChangeOption(e, _id, option.id, item.id, type)}/>
-                          : <input style={{marginLeft: "30px"}} type={type} id={_id.toString() + index1.toString() + option.id.toString() + index.toString() + item.id.toString()} name={option.id} value={item.id} checked onChange={()=>{}} onClick={(e) => onChangeOption(e, _id, option.id, item.id, type)}/>
+                        {item.IsDefault === true && type === "radio" ?
+                          <input style={{marginLeft: "30px"}} type={type} id={_id.toString() + index1.toString() + option.id.toString() + index.toString() + item.id.toString()} name={option.id} value={item.id} checked onChange={()=>{}} onClick={(e) => onChangeOption(e, _id, option.id, item.id, type)}/>
+                          : <input style={{marginLeft: "30px"}} type={type} id={_id.toString() + index1.toString() + option.id.toString() + index.toString() + item.id.toString()} name={option.id} value={item.id} onChange={()=>{}} onClick={(e) => onChangeOption(e, _id, option.id, item.id, type)}/>
                         }
                           <label for={_id.toString() + index1.toString() + option.id.toString() + index.toString() + item.id.toString()}>{item.Name} <span style={{fontWeight: "bold"}}>{item.OriginalPrice > 0 ? " - " + StrUtils.formatMoneyString(item.OriginalPrice) + "d" : ""}</span></label><br/>
                       </p>

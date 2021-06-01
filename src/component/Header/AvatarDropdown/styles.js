@@ -70,6 +70,7 @@ export default makeStyles((theme) => ({
         marginRight: theme.spacing(1)
     },
     iconVoucher: {
+        color: "#cf2127",
         width: theme.spacing(4),
         height: theme.spacing(4),
         marginRight: theme.spacing(1)

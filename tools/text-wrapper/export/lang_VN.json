@@ -6,7 +6,7 @@
     "txt_dish": "Thức ăn",
     "txt_login": "Đăng nhập",
     "txt_order_history": "Lịch sử đặt hàng",
-    "txt_my_vouchers": "Khuyến mãi của tôi",
+    "txt_my_order": "Theo dõi đơn hàng",
     "txt_update_account": "Cập nhập tài khoản",
     "txt_logout": "Đăng xuất",
     "txt_phone": "SỐ ĐIỆN THOẠI",
@@ -142,7 +142,14 @@
     "txt_most_discount": "Giảm giá ",
     "txt_load_more": "Xem thêm",
     "txt_require_address": "Vui lòng định vị địa chỉ nhận hàng",
-    "txt_order": "Đặt hàng"
+    "txt_order": "Đặt hàng",
+    "txt_order_waiting": "Đang xử lý đơn hàng",
+    "txt_order_get": "Đang chờ lấy hàng",
+    "txt_order_ship": "Đang giao hàng",
+    "txt_order_delivered": "Đã nhận hàng",
+    "txt_order_cancel_by_customer": "Bạn đã hủy đơn hàng",
+    "txt_order_cancel_by_merchain": "Nhà hàng không nhận đơn hàng của bạn",
+    "txt_order_cancel_by_shipper": "Tài xế đang bận"
   },
   "img": {},
   "sound": {}

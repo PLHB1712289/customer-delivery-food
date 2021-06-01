@@ -25,9 +25,12 @@ const CartItem = ({
     for (var j = 0; j < options[i].Items.length; j++) {
       if (options[i].Items[j].IsDefault) {
         totalPrice += options[i].Items[j].OriginalPrice;
-        strOptions += options[i].Items[j].Name + ", ";
+        strOptions += options[i].Items[j].Name + ", "; 
       }
     }
+  }
+  if (strOptions.length > 2) {
+    strOptions = strOptions.substr(0, strOptions.length - 2);
   }
 
   return (

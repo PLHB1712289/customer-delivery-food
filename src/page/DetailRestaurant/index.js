@@ -43,8 +43,6 @@ const DetailRestaurant = () => {
       try {
         const { errorCode, data } = await apiService.getRestaurant(id);
 
-        console.log("data restaurant: " + JSON.stringify(data));
-
         if (errorCode === 0 ) {
           dispatch(cartAction.createCart(data));
         }

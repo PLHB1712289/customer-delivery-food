@@ -36,6 +36,12 @@ const TAG = {
 
   SEARCH: {
     ON_SEARCH: "ON_SEARCH"
+  },
+
+  ORDER: {
+    CREATE: "ORDER_CREATE",
+    UPDATE_STATUS: "ORDER_UPDATE_STATUS",
+    RESET: "ORDER_RESET"
   }
 };
 

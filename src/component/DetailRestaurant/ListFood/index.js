@@ -34,7 +34,6 @@ const ListFood = () => {
     //   setListFoodFilter(data);
     //   return;
     // }
-
     // setListFoodFilter(data.filter((item) => item.value === currentCategory));
 
     (async () => {
@@ -60,7 +59,29 @@ const ListFood = () => {
         listOrder.concat({ ...listFood[indexFood], quantity: 1, note: "" })
       );
     } else {
-      changeQuantity(_id, listOrder[indexFoodInCart].quantity + 1);
+      // changeQuantity(_id, listOrder[indexFoodInCart].quantity + 1);
+      // check is same option
+      var flagSame = true;
+      for (var i = 0; i < listOrder[indexFoodInCart].Options.length; i++) {
+        const option_1 = listOrder[indexFoodInCart].Options[i];
+        const option_2 = listFood[indexFood].Options[i];
+        for (var j = 0; j < option_1.Items.length; j++) {
+          var item_1 = option_1.Items[j].IsDefault;
+          var item_2 = option_2.Items[j].IsDefault;
+          if (item_1 !== item_2) {
+            flagSame = false;
+            break;
+          }
+        }
+        if (!flagSame) break;
+      }
+      if (flagSame) {
+        changeQuantity(_id, listOrder[indexFoodInCart].quantity + 1);
+      } else {
+        setListOrder(
+          listOrder.concat({ ...listFood[indexFood], quantity: 1, note: "" })
+        );
+      }
     }
   };
 
@@ -85,60 +106,104 @@ const ListFood = () => {
     console.log("itemId: " + itemId);
     console.log("type: " + type);
 
-        // set list food
-    const listFood_indexItemOrder = listFood.map((item) => item.id).indexOf(foodId);
+    // set list food
+    const listFood_indexItemOrder = listFood
+      .map((item) => item.id)
+      .indexOf(foodId);
     if (listFood_indexItemOrder <= -1) return;
     const newListFood = listFood.slice();
-    const listFood_indexOption = newListFood[listFood_indexItemOrder].Options.map((item) => item.id).indexOf(optionId);
+    const listFood_indexOption = newListFood[
+      listFood_indexItemOrder
+    ].Options.map((item) => item.id).indexOf(optionId);
     if (listFood_indexOption <= -1) return;
-    const listFood_indexItem = newListFood[listFood_indexItemOrder].Options[listFood_indexOption].Items.map((item) => item.id).indexOf(itemId);
+    const listFood_indexItem = newListFood[listFood_indexItemOrder].Options[
+      listFood_indexOption
+    ].Items.map((item) => item.id).indexOf(itemId);
     if (listFood_indexItem <= -1) return;
     if (type === "radio") {
-        for (var i = 0; i < newListFood[listFood_indexItemOrder].Options[listFood_indexOption].Items.length; i++) {
-          newListFood[listFood_indexItemOrder].Options[listFood_indexOption].Items[i].IsDefault = false;
-          newListFood[listFood_indexItemOrder].Options[listFood_indexOption].Items[i].Quantity = 1;
-        }
-        newListFood[listFood_indexItemOrder].Options[listFood_indexOption].Items[listFood_indexItem].IsDefault = true;
-        newListFood[listFood_indexItemOrder].Options[listFood_indexOption].Items[listFood_indexItem].Quantity = 1;
-     }
-    else {
-      newListFood[listFood_indexItemOrder].Options[listFood_indexOption].Items[listFood_indexItem].IsDefault = event.target.checked;
-      newListFood[listFood_indexItemOrder].Options[listFood_indexOption].Items[listFood_indexItem].Quantity = 1;
+      for (
+        var i = 0;
+        i <
+        newListFood[listFood_indexItemOrder].Options[listFood_indexOption].Items
+          .length;
+        i++
+      ) {
+        newListFood[listFood_indexItemOrder].Options[
+          listFood_indexOption
+        ].Items[i].IsDefault = false;
+        newListFood[listFood_indexItemOrder].Options[
+          listFood_indexOption
+        ].Items[i].Quantity = 1;
+      }
+      newListFood[listFood_indexItemOrder].Options[listFood_indexOption].Items[
+        listFood_indexItem
+      ].IsDefault = true;
+      newListFood[listFood_indexItemOrder].Options[listFood_indexOption].Items[
+        listFood_indexItem
+      ].Quantity = 1;
+    } else {
+      newListFood[listFood_indexItemOrder].Options[listFood_indexOption].Items[
+        listFood_indexItem
+      ].IsDefault = event.target.checked;
+      newListFood[listFood_indexItemOrder].Options[listFood_indexOption].Items[
+        listFood_indexItem
+      ].Quantity = 1;
     }
     setListFood(newListFood);
 
     // set in cart
-    const indexItemOrder = listOrder.map((item) => item.id).indexOf(foodId);
-    if (indexItemOrder <= -1) return;
-    const newListOrder = listOrder.slice();
-    const indexOption = newListOrder[indexItemOrder].Options.map((item) => item.id).indexOf(optionId);
-    if (indexOption <= -1) return;
-    const indexItem = newListOrder[indexItemOrder].Options[indexOption].Items.map((item) => item.id).indexOf(itemId);
-    if (indexItem <= -1) return;
-    if (type === "radio") {
-        for (var i = 0; i < newListOrder[indexItemOrder].Options[indexOption].Items.length; i++) {
-          newListOrder[indexItemOrder].Options[indexOption].Items[i].IsDefault = false;
-          newListOrder[indexItemOrder].Options[indexOption].Items[i].Quantity = 1;
-        }
-        newListOrder[indexItemOrder].Options[indexOption].Items[indexItem].IsDefault = true;
-        newListOrder[indexItemOrder].Options[indexOption].Items[indexItem].Quantity = 1;
-    }
-    else {
-      newListOrder[indexItemOrder].Options[indexOption].Items[indexItem].IsDefault = event.target.checked;
-      newListOrder[indexItemOrder].Options[indexOption].Items[indexItem].Quantity = 1;
-    }
-    setListOrder(newListOrder);
-};
+    // const indexItemOrder = listOrder.map((item) => item.id).indexOf(foodId);
+    // if (indexItemOrder <= -1) return;
+    // const newListOrder = listOrder.slice();
+    // const indexOption = newListOrder[indexItemOrder].Options.map(
+    //   (item) => item.id
+    // ).indexOf(optionId);
+    // if (indexOption <= -1) return;
+    // const indexItem = newListOrder[indexItemOrder].Options[
+    //   indexOption
+    // ].Items.map((item) => item.id).indexOf(itemId);
+    // if (indexItem <= -1) return;
+    // if (type === "radio") {
+    //   for (
+    //     var i = 0;
+    //     i < newListOrder[indexItemOrder].Options[indexOption].Items.length;
+    //     i++
+    //   ) {
+    //     newListOrder[indexItemOrder].Options[indexOption].Items[
+    //       i
+    //     ].IsDefault = false;
+    //     newListOrder[indexItemOrder].Options[indexOption].Items[i].Quantity = 1;
+    //   }
+    //   newListOrder[indexItemOrder].Options[indexOption].Items[
+    //     indexItem
+    //   ].IsDefault = true;
+    //   newListOrder[indexItemOrder].Options[indexOption].Items[
+    //     indexItem
+    //   ].Quantity = 1;
+    // } else {
+    //   newListOrder[indexItemOrder].Options[indexOption].Items[
+    //     indexItem
+    //   ].IsDefault = event.target.checked;
+    //   newListOrder[indexItemOrder].Options[indexOption].Items[
+    //     indexItem
+    //   ].Quantity = 1;
+    // }
+    // setListOrder(newListOrder);
+  };
 
-
-  const foods = currentCategory === "all" ? listFoodFilter : listFoodFilter.filter((item) => item.id === currentCategory);
+  const foods =
+    currentCategory === "all"
+      ? listFoodFilter
+      : listFoodFilter.filter((item) => item.id === currentCategory);
 
   return (
     <>
       <DialogCheckout
         open={openDialogCheckout}
         onClose={() => setOpenDialogCheckout(false)}
-        renderSignInPage={() => { history.push("sign-in") }}
+        renderSignInPage={() => {
+          history.push("sign-in");
+        }}
       />
       <Grid className="list-food__container" item container xs={12}>
         <Grid className="list-food__category" item xs={3}>

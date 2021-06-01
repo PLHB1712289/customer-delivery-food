@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import NotFound from "./component/Error/404";
@@ -12,6 +12,7 @@ import HomePage from "./page/HomePage";
 import ListRestaurant from "./page/ListRestaurant";
 import Profile from "./page/profile";
 import SignIn from "./page/SignIn";
+import Order from "./page/Order";
 import InputOTP from "./page/VertifyOTP";
 import VertifyPhonge from "./page/VertifyPhone";
 import Store from "./storage";
@@ -19,6 +20,12 @@ import "./libs/fontawesome";
 import socket from "./socket";
 
 function App() {
+
+  useEffect(() => {
+      socket.connect();
+      return () => socket.disconnect();
+  }, []);
+  
   let current_language = localStorage.getItem("langType");
   current_language =
     current_language !== undefined && current_language !== null
@@ -41,6 +48,7 @@ function App() {
       <Loading />
 
       <Router>
+
         <Header onChangeLanguage={onChangeLanguage} />
 
         <Switch>
@@ -66,6 +74,10 @@ function App() {
 
           <Route path="/profile">
             <Profile />
+          </Route>
+
+          <Route path="/my-order">
+            <Order />
           </Route>
 
           <Route exact path="/">

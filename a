@@ -1,0 +1,66 @@
+{
+    "PromoCodes": [],
+    "Status": 0,
+    "ShippingFee": 10000,
+    "Subtotal": 79000,
+    "Total": 89000,
+    "Distance": 0,
+    "Address": "van ne",
+    "Coor": {
+        "longitude": -96.6994781,
+        "latitude": 40.7702999
+    },
+    "PaymentMethod": 0,
+    "Tool": true,
+    "Foods": [
+        {
+            "Food": "60a797c8b7245f28182cf84d",
+            "Price": 40000,
+            "Quantity": 1,
+            "Options": [
+                {
+                    "id": 6446,
+                    "Items": [
+                        {
+                            "id": 32228,
+                            "Quantity": 1,
+                            "Price": 5000
+                        }
+                    ]
+                },
+                {
+                    "id": 6458,
+                    "Items": [
+                        {
+                            "id": 32331,
+                            "Quantity": 1,
+                            "Price": 0
+                        }
+                    ]
+                },
+                {
+                    "id": 6459,
+                    "Items": [
+                        {
+                            "id": 32350,
+                            "Quantity": 1,
+                            "Price": 0
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "Food": "60a797c8b7245f28182cf84e",
+            "Price": 17000,
+            "Quantity": 2,
+            "Options": []
+        }
+    ],
+    "User": "60a92e310e293488c8a1f982",
+    "Restaurant": "60a771e2b7245f28182cf82f",
+    "Phone": "0835484878",
+    "CreatedAt": "2021-05-31T04:29:38.339Z",
+    "UpdatedAt": "2021-05-31T04:29:38.339Z",
+    "id": "60b46632fa26965ddcb7f8e4"
+}
