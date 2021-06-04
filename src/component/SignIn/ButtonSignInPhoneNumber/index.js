@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import OtpInput from "react-otp-input";
 import { Button } from "@material-ui/core";
+import { CustomDialog, useDialog } from 'react-st-modal';
 
 // service
 import "./styles.css";
 import action from "../../../storage/action";
 import apiService from "./apiService";
+import socket from "../../../socket";
 // config
 import Localization from "../../../config/Localization";
 import SignInConfig from "../../../config/SignInConfig";
@@ -25,6 +27,7 @@ export default function PopupSignInWithPhone(props) {
 
   // use dispatch
   const dispatch = useDispatch();
+  const dialog = useDialog();
 
   // handle change OTP
   const handleChange = (otp) => {
@@ -86,7 +89,7 @@ export default function PopupSignInWithPhone(props) {
 
           if (errorCode === 0) {
             const token = data.token;
-            dispatch(action.tokenAction.signIn(token));
+            // dispatch(action.tokenAction.signIn(token));
             localStorage.setItem("token", token);
             handleGetUserInfo(token);
           } else {
@@ -127,6 +130,8 @@ export default function PopupSignInWithPhone(props) {
           localStorage.setItem("fullName", fullName);
           localStorage.setItem("phone", phone);
           // history
+          socket.connect();
+          dialog.close();
           renderHomePage();
         }
       } catch (e) {

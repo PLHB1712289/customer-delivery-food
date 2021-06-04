@@ -17,19 +17,19 @@ const Rating = ({ rate }) => {
 
   const rateReal = rate < 0 ? 0 : rate > 5 ? 5 : rate;
   const listStar = [
-    <StarBorderIcon className={classes.star} />,
-    <StarBorderIcon className={classes.star} />,
-    <StarBorderIcon className={classes.star} />,
-    <StarBorderIcon className={classes.star} />,
-    <StarBorderIcon className={classes.star} />,
+    <StarBorderIcon className={classes.star} key={0}/>,
+    <StarBorderIcon className={classes.star} key={1}/>,
+    <StarBorderIcon className={classes.star} key={2}/>,
+    <StarBorderIcon className={classes.star} key={3}/>,
+    <StarBorderIcon className={classes.star} key={4}/>,
   ];
 
   let i = 0;
   for (i = 0; i < Math.floor(rateReal); i++) {
-    listStar[i] = <StarIcon className={classes.star} />;
+    listStar[i] = <StarIcon className={classes.star} key={i}/>;
   }
   if (Math.floor((rateReal * 10) % 10)) {
-    listStar[i] = <StarHalfIcon className={classes.star} />;
+    listStar[i] = <StarHalfIcon className={classes.star} key={i}/>;
   }
 
   return <div className={classes.container}>{listStar}</div>;

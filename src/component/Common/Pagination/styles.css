@@ -16,6 +16,7 @@
 .active {
     color: white !important;
     background-color: #cf2127 !important;
+    border-radius: 10px;
 }
 
 .icon {

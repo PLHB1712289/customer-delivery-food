@@ -54,7 +54,7 @@ const Cart = ({ listOrder, changeQuantity, callbackCheckout }) => {
         </div>
       </div>
       <div className="detail-restaurant__cart-list-order">
-        {listOrder.map((order) => {
+        {listOrder.map((order, index) => {
           return (
             order.quantity > 0 && (
               <CartItem
@@ -65,6 +65,7 @@ const Cart = ({ listOrder, changeQuantity, callbackCheckout }) => {
                 price={order.OriginalPrice}
                 options={order.Options}
                 Avatar={order.Avatar}
+                index={index}
                 changeQuantity={changeQuantity}
               />
             )

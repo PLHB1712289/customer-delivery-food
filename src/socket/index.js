@@ -69,16 +69,12 @@ const Socket = class {
         case ORDER_STATUS.CANCEL_BY_CUSTOMER:
           break;
         case ORDER_STATUS.CANCEL_BY_MERCHANT:
-          alert("Order has been cancelled by merchant");
           break;
         case ORDER_STATUS.CANCEL_BY_SHIPPER:
-          alert("Order has been cancelled by shipper");
           break;
         default:
           break;
       }
-
-      // store.dispatch(updateStatusCustomer(res.data));
     });
 
     this.socket.on(TAG_EVENT.RESPONSE_SHIPPER_CHANGE_COOR, (res) => {
@@ -93,8 +89,10 @@ const Socket = class {
   }
 
   disconnect() {
-    this.socket.disconnect();
-    this.socket = null;
+    if (this.socket !== null) {
+      this.socket.disconnect();
+      this.socket = null;
+    }
   }
 
   addCallback(tag, callback) {

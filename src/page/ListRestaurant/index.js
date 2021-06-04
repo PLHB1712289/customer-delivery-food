@@ -86,7 +86,6 @@ const ListRestaurant = () => {
 
         dispatch(action.loadingAction.turnOff());
         if (errorCode === 0) {
-          console.log("totalll: " + pagingInfo.total);
           setListRes(data);
           setCountItem(pagingInfo.total);
         } else {
@@ -177,7 +176,6 @@ const ListRestaurant = () => {
 
     const list_area = DataUtils.getFilterAreaRestaurant(filterArea, city);
     const list_type = DataUtils.getFilterTypeRestaurant(filterType);
-    console.log("----area: " + list_area);
     dispatch(action.loadingAction.turnOn());
     (async () => {
       try {

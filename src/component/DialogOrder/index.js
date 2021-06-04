@@ -14,6 +14,7 @@ import Rating from "./Rating";
 import StrUtils from "../../utils/StrUtils";
 import "./styles.css";
 import action from "../../storage/action";
+import socket from "../../socket";
 import {
   geoConvertAddressToLatLong,
   geoConvertLatLongToAddress,
@@ -84,8 +85,9 @@ export default function DialogOrder({ open, onClose, renderSignInPage }) {
   const dataProcess = getStep(order.status);
 
   const onCancelOrder = () => {
-    console.log("on cancel");
-    dispatch(action.orderAction.updateStatus(ORDER_STATUS.CANCEL_BY_CUSTOMER));
+    if (socket) socket.cancelOrder(order.dataOrder.id);
+    // console.log("on cancel");
+    // dispatch(action.orderAction.updateStatus(ORDER_STATUS.CANCEL_BY_CUSTOMER));
   };
 
   return (
@@ -236,7 +238,7 @@ export default function DialogOrder({ open, onClose, renderSignInPage }) {
             <div className="dialog-order__list-item">
               <div className="dialog-order__chat-title">Danh sách món ăn</div>
               <div className="dialog-order__list-item-food">
-                <ListItemFood></ListItemFood>
+                <ListItemFood foods={order.dataOrder.Foods}></ListItemFood>
               </div>
             </div>
           </div>

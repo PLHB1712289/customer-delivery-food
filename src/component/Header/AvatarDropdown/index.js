@@ -16,6 +16,7 @@ import classNames from "classnames";
 import { AccountCircle, History, Reorder, ExitToApp } from "@material-ui/icons";
 
 // service
+import socket from "../../../socket";
 import action from "../../../storage/action";
 // config
 import ProfileConfig from "../../../config/ProfileConfig";
@@ -81,6 +82,7 @@ export default function SimpleMenu(props) {
     localStorage.setItem("avatar", "");
     localStorage.setItem("fullName", "");
     history.push("/sign-in");
+    if (socket !== null) socket.disconnect();
   };
 
   const onCloseDialogOrder = () => {
@@ -91,6 +93,7 @@ export default function SimpleMenu(props) {
       case ORDER_STATUS.CANCEL_BY_CUSTOMER:
       case ORDER_STATUS.CANCEL_BY_MERCHANT:
       case ORDER_STATUS.CANCEL_BY_SHIPPER:
+      case ORDER_STATUS.DELIVERED:
         dispatch(action.orderAction.reset());
         break;
     }

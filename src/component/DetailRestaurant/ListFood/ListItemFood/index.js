@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ItemFood from "../ItemFood";
 import apiService from "./apiService";
 
-const ListItemFood = ({ restaurantId, categoryId, addToCart, addFood, onChangeOption }) => {
+const ListItemFood = ({ restaurantId, categoryId, addToCart, addFood, onChangeOption, onChooseOption }) => {
   const [listFood, setListFood] = useState([]);
 
   useEffect(() => {
@@ -31,6 +31,7 @@ const ListItemFood = ({ restaurantId, categoryId, addToCart, addFood, onChangeOp
       addToCart={addToCart}
       data={food}
       onChangeOption={onChangeOption}
+      onChooseOption={onChooseOption}
     ></ItemFood>
   ));
 

@@ -1,66 +1,69 @@
 {
-    "PromoCodes": [],
-    "Status": 0,
-    "ShippingFee": 10000,
-    "Subtotal": 79000,
-    "Total": 89000,
-    "Distance": 0,
-    "Address": "van ne",
-    "Coor": {
-        "longitude": -96.6994781,
-        "latitude": 40.7702999
+  "PromoCodes": [],
+  "Status": 0,
+  "ShippingFee": 10000,
+  "Subtotal": 243000,
+  "Total": 253000,
+  "Distance": 0,
+  "Address": "273 Nguyễn Văn Cừ, P. 4, Quận 5, TP. HCM",
+  "Coor": { "longitude": 100.1234567, "latitude": 10.1234567 },
+  "PaymentMethod": 0,
+  "Tool": true,
+  "Foods": [
+    {
+      "Food": "60a79a9cb7245f28182cf906",
+      "Price": 104000,
+      "Quantity": 2,
+      "Options": [],
+      "Name": "Combo Sữa chua vị xoài + Trà sữa vanilla",
+      "Avatar": "https://images.foody.vn/default/s560x560/deli-dish-no-image.png"
     },
-    "PaymentMethod": 0,
-    "Tool": true,
-    "Foods": [
+    {
+      "Food": "60a79a9cb7245f28182cf90a",
+      "Price": 35000,
+      "Quantity": 1,
+      "Options": [
         {
-            "Food": "60a797c8b7245f28182cf84d",
-            "Price": 40000,
-            "Quantity": 1,
-            "Options": [
-                {
-                    "id": 6446,
-                    "Items": [
-                        {
-                            "id": 32228,
-                            "Quantity": 1,
-                            "Price": 5000
-                        }
-                    ]
-                },
-                {
-                    "id": 6458,
-                    "Items": [
-                        {
-                            "id": 32331,
-                            "Quantity": 1,
-                            "Price": 0
-                        }
-                    ]
-                },
-                {
-                    "id": 6459,
-                    "Items": [
-                        {
-                            "id": 32350,
-                            "Quantity": 1,
-                            "Price": 0
-                        }
-                    ]
-                }
-            ]
+          "id": 6014,
+          "Items": [
+            { "id": 29857, "Quantity": 1, "Price": 0, "Name": "Size M" }
+          ],
+          "Name": "Chọn size"
         },
         {
-            "Food": "60a797c8b7245f28182cf84e",
-            "Price": 17000,
-            "Quantity": 2,
-            "Options": []
+          "id": 6016,
+          "Items": [
+            {
+              "id": 29870,
+              "Quantity": 1,
+              "Price": 0,
+              "Name": "Mức đường bình thường"
+            }
+          ],
+          "Name": "Chọn mức đường"
+        },
+        {
+          "id": 6017,
+          "Items": [
+            {
+              "id": 29897,
+              "Quantity": 1,
+              "Price": 0,
+              "Name": "Mức đá bình thường"
+            }
+          ],
+          "Name": "Chọn mức đá"
         }
-    ],
-    "User": "60a92e310e293488c8a1f982",
-    "Restaurant": "60a771e2b7245f28182cf82f",
-    "Phone": "0835484878",
-    "CreatedAt": "2021-05-31T04:29:38.339Z",
-    "UpdatedAt": "2021-05-31T04:29:38.339Z",
-    "id": "60b46632fa26965ddcb7f8e4"
+      ],
+      "Name": "Trà sữa oolong",
+      "Avatar": "https://images.foody.vn/res/g66/654814/s570x570/20171117154022-tra-sua-olong.jpg"
+    }
+  ],
+  "User": "60a92e310e293488c8a1f982",
+  "Restaurant": "60a77a2eb7245f28182cf831",
+  "Phone": "0331234567",
+  "CreatedAt": "2021-06-01T09:35:03.634Z",
+  "UpdatedAt": "2021-06-01T09:35:03.634Z",
+  "id": "60b5ff47307a466d686b271e",
+  "paymentInfo": null
 }

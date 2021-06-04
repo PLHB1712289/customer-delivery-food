@@ -23,7 +23,6 @@ const INITIAL_STATE = {
 // <UTIL>
 // Load cart from local storage when user access detail restaurant page
 const loadCartFromLocalStorage = (infoRestaurant) => {
-  console.log(infoRestaurant);
   const cart = localStorage.getItem(`cart_${infoRestaurant.id}`);
 
   if (!cart) return { ...INITIAL_STATE, infoRestaurant };

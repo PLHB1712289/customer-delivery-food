@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import GoogleMapReact from "google-map-react";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
-import DirectionsBikeIcon from "@material-ui/icons/DirectionsBike";
+import MotorcycleIcon from '@material-ui/icons/Motorcycle';
 
 const defaultSize = 30;
 const Marker = ({ size = defaultSize, name }) => {
@@ -45,7 +45,7 @@ const Shipper = ({ size = defaultSize, name }) => {
         transform: "translate(-50%, -60%)",
       }}
     >
-      <DirectionsBikeIcon
+      <MotorcycleIcon
         style={{ width: size, height: size, color: "red" }}
       />
       <div
@@ -72,7 +72,7 @@ const Map = ({
 }) => {
   const [zoom, setZoom] = useState(18);
   const center = { lat, lng };
-
+  const fakeCenter = { lat: 10, lng: 10};
   return (
     // Important! Always set the container height explicitly
     <div style={{ height: "62vh", width: "100%" }}>

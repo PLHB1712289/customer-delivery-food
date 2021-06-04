@@ -35,6 +35,7 @@ import apiService from "./apiService";
 import service from "./service";
 import useStyles from "./styles";
 import store from "../../storage";
+import socket from "../../socket";
 // config
 import Localization from "../../config/Localization";
 import AppConfig from "../../config/AppConfig";
@@ -250,7 +251,7 @@ const Footer = () => {
             
             // login normal
             if (data.token !== null) {
-              dispatch(action.tokenAction.signIn(data.token));
+              // dispatch(action.tokenAction.signIn(data.token));
               localStorage.setItem("token", data.token);
               handleGetUserInfo(data.token);
               return;
@@ -298,7 +299,15 @@ const Footer = () => {
           localStorage.setItem("fullName", fullName);
           localStorage.setItem("phone", phone);
           // history
-          history.push("/");
+          socket.connect();
+          const cachePath = localStorage.getItem("cachePath");
+          if (cachePath) {
+            history.push(cachePath);
+            localStorage.removeItem("cachePath");
+          }
+          else {
+            history.push("/");
+          }
         }
       } catch (e) {
         console.log(`[HANDLE_GET_USERINFO_FAILED]: ${e.message}`);

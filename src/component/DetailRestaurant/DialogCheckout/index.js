@@ -1,3 +1,4 @@
+import { useToasts } from 'react-toast-notifications';
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -32,6 +33,7 @@ const tileAlertLocation = "Vui lòng cấp quyền truy cập vị trí cho flas
 export default function DialogCheckout({ open, onClose, renderSignInPage }) {
   const history = useHistory();
   const dispatch = useDispatch();
+  const { addToast } = useToasts();
 
   const cart = useSelector((state) => state.cart);
   const { infoRestaurant, listOrder, note } = cart;
@@ -48,6 +50,7 @@ export default function DialogCheckout({ open, onClose, renderSignInPage }) {
   };
 
   // Token
+  let order = useSelector((state) => state.order);
   let { token } = useSelector((state) => state.token);
   let { userID, fullName, avatarUrl, phone } = useSelector(
     (state) => state.profile
@@ -135,6 +138,11 @@ export default function DialogCheckout({ open, onClose, renderSignInPage }) {
 
   const handleOnOrder = () => {
     if (!token) renderSignInPage();
+    if (order.status && order.status !== -1) {
+      onClose();
+      addToast('Bạn đã đạt giới hạn đơn hàng tại 1 thời điểm', { appearance: 'info' });
+      return;
+    }
     if (!location) return;
 
     var dataOrder = {};
@@ -185,14 +193,14 @@ export default function DialogCheckout({ open, onClose, renderSignInPage }) {
     dataOrder.phone = phone;
     dataOrder.method = 0;
 
-    console.log("orderrrr: " + JSON.stringify(dataOrder));
 
     (async () => {
       try {
         // request to server
-        const { errorCode, data } = await apiService.sendOrder(dataOrder);
+        // const { errorCode, data } = await apiService.sendOrder(dataOrder);
+        const { errorCode, data } = await apiService.sendOrder(fakeOrderData);
 
-        console.log("order data: " + JSON.stringify(data));
+        console.log("data: " + JSON.stringify(data));
         console.log("errorCode: " + errorCode);
         if (errorCode === 0) {
           dispatch(action.orderAction.create(data));
@@ -305,9 +313,9 @@ export default function DialogCheckout({ open, onClose, renderSignInPage }) {
             <div className="dialog-checkout__order">
               <span>Chi tiết đơn hàng</span>
               <div className="dialog-checkout__order-container">
-                {listOrder.map((order) => {
+                {listOrder.map((order, index) => {
                   return (
-                    <div className="dialog-checkout__order-item">
+                    <div className="dialog-checkout__order-item" key={index}>
                       <div className="dialog-checkout__order-item-quantity">
                         {order.quantity}
                       </div>
@@ -424,3 +432,23 @@ export default function DialogCheckout({ open, onClose, renderSignInPage }) {
     </Dialog>
   );
 }
+
+const fakeOrderData = {
+  "foods": [{
+      "id": "60a79a9cb7245f28182cf906",
+      "price": 104000,
+      "quantity": 2
+  },
+  {
+      "id": "60a79a9cb7245f28182cf90a",
+      "price": 35000,
+      "quantity": 1
+  }],
+  "subtotal": 243000,
+  "shippingfee": 10000,
+  "address": "273 Nguyễn Văn Cừ, P. 4, Quận 5, TP. HCM",
+  "phone": "0331234567",
+  "longitude": 100.1234567,
+  "latitude": 10.1234567,
+  "method": 0
+};

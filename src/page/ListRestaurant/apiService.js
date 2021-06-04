@@ -4,7 +4,6 @@ import RestaurantConfig from "../../config/RestaurantConfig";
 
 const APIService = {
   getRestaurant: async (page, city, areas, types, sort, keyword) => {
-    console.log("city: " + city);
     return await axiosClient.get(URL.RESTAURANT.GET_LIST_ALL,{
       params: {
         page: page, // int

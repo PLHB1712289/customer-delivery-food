@@ -1,0 +1,156 @@
+.dialog-option__container {
+  background-color: white;
+  padding: 0;
+}
+
+.dialog-option__food-info {
+  background-color: white;
+}
+
+.dialog-option__food {
+  display: flex;
+}
+
+.dialog-option__divider {
+  border-bottom: 1px solid #ebebeb;
+  margin-top: 10px;
+}
+
+.dialog-option_food__thumbnail {
+  margin-right: 10px;
+
+  width: 80px;
+  height: 80px;
+  overflow: hidden;
+  position: relative;
+}
+.dialog-option_food__thumbnail > img {
+  min-width: 100%;
+  min-height: 100%;
+
+  max-width: 150px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+}
+
+.dialog-option__food-info {
+  padding: 10px 0px;
+  margin-left: 15px;
+}
+
+.dialog-option__food-info__name {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #464646;
+}
+
+.dialog-option__food-info__price {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #464646;
+}
+
+.dialog-option__action {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center;
+  width: 100%;
+  background-color: #f4f4f4;
+  padding: 15px 0px !important;
+}
+
+.dialog-option__action__group-quantity {
+  display: flex;
+  float: left;
+}
+
+.dialog-option__action__btn-sub {
+  width: 30px;
+  height: 30px;
+  font-size: 22px;
+  font-weight: bold;
+  color: white;
+  border: none;
+  background-color: #959595;
+  border-radius: 5px;
+  margin: 0px 10px 0px 15px;
+}
+
+.dialog-option__action__btn-sub:hover {
+    background-color: #696969;
+}
+
+.dialog-option__action__btn-add {
+  width: 30px;
+  height: 30px;
+  font-size: 22px;
+  font-weight: bold;
+  color: white;
+  border: none;
+  background-color: #d80000;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.dialog-option__action__btn-add:hover {
+    background-color: #b8171d;
+}
+
+.dialog-option__action__quantity {
+  padding: 2px 22px;
+  font-size: 17px;
+  font-weight: normal;
+  color: black;
+  border: rgba(118, 118, 118, 0.3) 1px solid;
+  margin-right: 10px;
+}
+
+.dialog-option__action__btn-ok {
+  width: 200px;
+  height: 30px;
+  font-size: 16px;
+  color: white;
+  background-color: #d80000;
+  border: none;
+  border-radius: 5px;
+  margin-right: 15px;
+}
+
+.dialog-option__action__btn-ok:hover {
+    background-color: #b8171d;
+}
+
+.dialog-option__action__form-group {
+  width: 100%;
+  margin: 0px !important;
+  text-align: left;
+  padding-left: 1rem;
+}
+
+.dialog-option__action__form-group_option {
+    display: flex !important;
+    float: left !important;
+    margin: 10px 0px;
+}
+
+.dialog-option__action__form-group_option-name {
+    font-weight: bold;
+    color: #464646;
+    font-size: 0.9rem;
+    display: flex !important;
+    float: left !important;
+}
+
+.dialog-option__action__form-group_option-mandatory {
+    font-weight: normal;
+    color: #959595;
+    font-size: 0.9rem;
+}
+
+.dialog-option__action__form-group_item-price {
+    color: #6d6f71;
+    font-size: 13px;
+}

@@ -1,10 +1,10 @@
 import { Grid } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import Cart from "./Cart";
-import ItemFood from "./ItemFood";
 import ItemMenu from "./ItemMenu";
 import "./styles.css";
 import DialogCheckout from "../DialogCheckout";
+import DialogOption from "../DialogOption";
 import { useDispatch, useSelector } from "react-redux";
 import cartAction from "../../../storage/action/cartAction";
 import apiService from "./apiService";
@@ -19,23 +19,33 @@ const ListFood = () => {
   const [currentCategory, setCurrentCategory] = useState("all");
   const [listFoodFilter, setListFoodFilter] = useState(data);
   const [openDialogCheckout, setOpenDialogCheckout] = useState(false);
+  const [openDialogOption, setOpenDialogoption] = useState(false);
   const [listFood, setListFood] = useState([]);
+  const [currFood, setCurrFood] = useState(null);
 
   const history = useHistory();
   const dispatch = useDispatch();
   const listOrder = cart.listOrder;
 
+  let { token } = useSelector((state) => state.token);
+  if (token === null) {
+    token = localStorage.getItem("token");
+  }
+
   const setListOrder = (newListOrder) => {
     dispatch(cartAction.updateCart(newListOrder));
   };
 
-  useEffect(() => {
-    // if (currentCategory === "all") {
-    //   setListFoodFilter(data);
-    //   return;
-    // }
-    // setListFoodFilter(data.filter((item) => item.value === currentCategory));
+  const onCheckOrder = () => {
+    if (!token) {
+      localStorage.setItem("cachePath", window.location.pathname);
+      history.push("/sign-in");
+      return;
+    }
+    setOpenDialogCheckout(true);
+  };
 
+  useEffect(() => {
     (async () => {
       try {
         const { errorCode, data } = await apiService.getRestaurantCategories(
@@ -49,17 +59,58 @@ const ListFood = () => {
     })();
   }, [currentCategory]);
 
-  const addToCart = (_id) => {
+  const addToCart = (_id, foodData, quantity) => {
+    // add food by food data
+    if (_id === null) {
+      quantity = quantity || 0;
+      var flagSame = true;
+      var food = null;
+      var index = -1;
+      var id = -1;
+      for (var k = 0; k < listOrder.length; k++) {
+        food = listOrder[k];
+        index = k;
+        id = food.id;
+        if (food.id !== foodData.id) continue;
+        for (var i = 0; i < food.Options.length; i++) {
+          const option_1 = food.Options[i];
+          const option_2 = foodData.Options[i];
+          for (var j = 0; j < option_1.Items.length; j++) {
+            var item_1 = option_1.Items[j].IsDefault;
+            var item_2 = option_2.Items[j].IsDefault;
+            if (item_1 !== item_2) {
+              flagSame = false;
+              break;
+            }
+          }
+          if (!flagSame) break;
+        }
+      }
+
+      if (flagSame && id === foodData.id) {
+        if (index > -1)
+          changeQuantity(index, listOrder[index].quantity + quantity);
+        else
+          setListOrder(
+            listOrder.concat({ ...foodData, quantity: quantity, note: "" })
+          );
+      } else {
+        setListOrder(
+          listOrder.concat({ ...foodData, quantity: quantity, note: "" })
+        );
+      }
+      return;
+    }
+
+    // add food by id
     const indexFood = listFood.map((item) => item.id).indexOf(_id);
     if (indexFood <= -1) return;
-
     const indexFoodInCart = listOrder.map((item) => item.id).indexOf(_id);
     if (indexFoodInCart <= -1) {
       setListOrder(
         listOrder.concat({ ...listFood[indexFood], quantity: 1, note: "" })
       );
     } else {
-      // changeQuantity(_id, listOrder[indexFoodInCart].quantity + 1);
       // check is same option
       var flagSame = true;
       for (var i = 0; i < listOrder[indexFoodInCart].Options.length; i++) {
@@ -76,7 +127,10 @@ const ListFood = () => {
         if (!flagSame) break;
       }
       if (flagSame) {
-        changeQuantity(_id, listOrder[indexFoodInCart].quantity + 1);
+        changeQuantity(
+          indexFoodInCart,
+          listOrder[indexFoodInCart].quantity + 1
+        );
       } else {
         setListOrder(
           listOrder.concat({ ...listFood[indexFood], quantity: 1, note: "" })
@@ -85,12 +139,11 @@ const ListFood = () => {
     }
   };
 
-  const changeQuantity = (id, quantity) => {
-    const indexItemOrder = listOrder.map((item) => item.id).indexOf(id);
-    if (indexItemOrder <= -1) return;
+  const changeQuantity = (indexFoodInCart, quantity) => {
+    if (indexFoodInCart < 0 || indexFoodInCart > listOrder.length - 1) return;
 
     const newListOrder = listOrder.slice();
-    newListOrder[indexItemOrder].quantity = quantity;
+    newListOrder[indexFoodInCart].quantity = quantity;
 
     setListOrder(newListOrder);
   };
@@ -99,96 +152,56 @@ const ListFood = () => {
     setListFood((prev) => prev.concat(foods));
   };
 
-  const onChangeOption = (event, foodId, optionId, itemId, type) => {
-    console.log(event.target.checked);
-    console.log("foodId: " + foodId);
-    console.log("optionId: " + optionId);
-    console.log("itemId: " + itemId);
-    console.log("type: " + type);
+  // const onChangeOption = (event, foodId, optionId, itemId, type) => {
+  //   // set list food
+  //   const listFood_indexItemOrder = listFood
+  //     .map((item) => item.id)
+  //     .indexOf(foodId);
+  //   if (listFood_indexItemOrder <= -1) return;
+  //   const newListFood = listFood.slice();
+  //   const listFood_indexOption = newListFood[
+  //     listFood_indexItemOrder
+  //   ].Options.map((item) => item.id).indexOf(optionId);
+  //   if (listFood_indexOption <= -1) return;
+  //   const listFood_indexItem = newListFood[listFood_indexItemOrder].Options[
+  //     listFood_indexOption
+  //   ].Items.map((item) => item.id).indexOf(itemId);
+  //   if (listFood_indexItem <= -1) return;
+  //   if (type === "radio") {
+  //     for (
+  //       var i = 0;
+  //       i <
+  //       newListFood[listFood_indexItemOrder].Options[listFood_indexOption].Items
+  //         .length;
+  //       i++
+  //     ) {
+  //       newListFood[listFood_indexItemOrder].Options[
+  //         listFood_indexOption
+  //       ].Items[i].IsDefault = false;
+  //       newListFood[listFood_indexItemOrder].Options[
+  //         listFood_indexOption
+  //       ].Items[i].Quantity = 1;
+  //     }
+  //     newListFood[listFood_indexItemOrder].Options[listFood_indexOption].Items[
+  //       listFood_indexItem
+  //     ].IsDefault = true;
+  //     newListFood[listFood_indexItemOrder].Options[listFood_indexOption].Items[
+  //       listFood_indexItem
+  //     ].Quantity = 1;
+  //   } else {
+  //     newListFood[listFood_indexItemOrder].Options[listFood_indexOption].Items[
+  //       listFood_indexItem
+  //     ].IsDefault = event.target.checked;
+  //     newListFood[listFood_indexItemOrder].Options[listFood_indexOption].Items[
+  //       listFood_indexItem
+  //     ].Quantity = 1;
+  //   }
+  //   setListFood(newListFood);
+  // };
 
-    // set list food
-    const listFood_indexItemOrder = listFood
-      .map((item) => item.id)
-      .indexOf(foodId);
-    if (listFood_indexItemOrder <= -1) return;
-    const newListFood = listFood.slice();
-    const listFood_indexOption = newListFood[
-      listFood_indexItemOrder
-    ].Options.map((item) => item.id).indexOf(optionId);
-    if (listFood_indexOption <= -1) return;
-    const listFood_indexItem = newListFood[listFood_indexItemOrder].Options[
-      listFood_indexOption
-    ].Items.map((item) => item.id).indexOf(itemId);
-    if (listFood_indexItem <= -1) return;
-    if (type === "radio") {
-      for (
-        var i = 0;
-        i <
-        newListFood[listFood_indexItemOrder].Options[listFood_indexOption].Items
-          .length;
-        i++
-      ) {
-        newListFood[listFood_indexItemOrder].Options[
-          listFood_indexOption
-        ].Items[i].IsDefault = false;
-        newListFood[listFood_indexItemOrder].Options[
-          listFood_indexOption
-        ].Items[i].Quantity = 1;
-      }
-      newListFood[listFood_indexItemOrder].Options[listFood_indexOption].Items[
-        listFood_indexItem
-      ].IsDefault = true;
-      newListFood[listFood_indexItemOrder].Options[listFood_indexOption].Items[
-        listFood_indexItem
-      ].Quantity = 1;
-    } else {
-      newListFood[listFood_indexItemOrder].Options[listFood_indexOption].Items[
-        listFood_indexItem
-      ].IsDefault = event.target.checked;
-      newListFood[listFood_indexItemOrder].Options[listFood_indexOption].Items[
-        listFood_indexItem
-      ].Quantity = 1;
-    }
-    setListFood(newListFood);
-
-    // set in cart
-    // const indexItemOrder = listOrder.map((item) => item.id).indexOf(foodId);
-    // if (indexItemOrder <= -1) return;
-    // const newListOrder = listOrder.slice();
-    // const indexOption = newListOrder[indexItemOrder].Options.map(
-    //   (item) => item.id
-    // ).indexOf(optionId);
-    // if (indexOption <= -1) return;
-    // const indexItem = newListOrder[indexItemOrder].Options[
-    //   indexOption
-    // ].Items.map((item) => item.id).indexOf(itemId);
-    // if (indexItem <= -1) return;
-    // if (type === "radio") {
-    //   for (
-    //     var i = 0;
-    //     i < newListOrder[indexItemOrder].Options[indexOption].Items.length;
-    //     i++
-    //   ) {
-    //     newListOrder[indexItemOrder].Options[indexOption].Items[
-    //       i
-    //     ].IsDefault = false;
-    //     newListOrder[indexItemOrder].Options[indexOption].Items[i].Quantity = 1;
-    //   }
-    //   newListOrder[indexItemOrder].Options[indexOption].Items[
-    //     indexItem
-    //   ].IsDefault = true;
-    //   newListOrder[indexItemOrder].Options[indexOption].Items[
-    //     indexItem
-    //   ].Quantity = 1;
-    // } else {
-    //   newListOrder[indexItemOrder].Options[indexOption].Items[
-    //     indexItem
-    //   ].IsDefault = event.target.checked;
-    //   newListOrder[indexItemOrder].Options[indexOption].Items[
-    //     indexItem
-    //   ].Quantity = 1;
-    // }
-    // setListOrder(newListOrder);
+  const onChooseOption = (food) => {
+    setCurrFood(food);
+    setOpenDialogoption(true);
   };
 
   const foods =
@@ -205,6 +218,15 @@ const ListFood = () => {
           history.push("sign-in");
         }}
       />
+      <DialogOption
+        open={openDialogOption}
+        onClose={() => setOpenDialogoption(false)}
+        data={currFood}
+        addToCart={addToCart}
+        renderSignInPage={() => {
+          history.push("sign-in");
+        }}
+      />
       <Grid className="list-food__container" item container xs={12}>
         <Grid className="list-food__category" item xs={3}>
           <span>THỰC ĐƠN</span>
@@ -215,8 +237,9 @@ const ListFood = () => {
               setCurrentCategory("all");
             }}
           />
-          {listFoodFilter.map((category) => (
+          {listFoodFilter.map((category, index) => (
             <ItemMenu
+              key={index}
               category={category}
               currentCategory={currentCategory}
               onClick={() => {
@@ -239,7 +262,7 @@ const ListFood = () => {
                   restaurantId={cart.infoRestaurant.id}
                   categoryId={item.id}
                   addToCart={addToCart}
-                  onChangeOption={onChangeOption}
+                  onChooseOption={onChooseOption}
                 />
               </div>
             );
@@ -250,7 +273,7 @@ const ListFood = () => {
           <Cart
             listOrder={listOrder}
             changeQuantity={changeQuantity}
-            callbackCheckout={() => setOpenDialogCheckout(true)}
+            callbackCheckout={() => onCheckOrder()}
           />
         </Grid>
       </Grid>

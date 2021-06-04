@@ -2,22 +2,47 @@ import React from "react";
 import "./styles.css";
 import StrUtils from "../../../utils/StrUtils";
 
-const ItemFood = ({ Avatar, Name, OriginalPrice, _id, data }) => {
+const ItemFood = ({ Avatar, Name, data }) => {
+  var price = data.Price;
+  var describe = "";
+  for (var i = 0; i < data.Options.length; i++) {
+    var option = data.Options[i];
+    for (var j = 0; j < option.Items.length; j++) {
+      var item = option.Items[j];
+      price += item.Price;
+      describe += item.Name + ", ";
+    }
+  }
+
+  if (describe.length > 2) {
+    describe = describe.substr(0, describe.length - 2);
+  }
+
   return (
     <>
-    <div className="dialog-order-item-food__container">
-      <div className="dialog-order-item-food__food">
-        <div className="dialog-order-item-food__thumbnail">
-          <img className="dialog-order-item-food__avatar" src="https://images.foody.vn/res/g11/100592/prof/s750x400/foody-upload-api-foody-mobile-9-200116144432.jpg" alt="" />
-        </div>
-        <div className="dialog-order-item-food__info">
-          <div className="dialog-order-item-food__info-name">{"Trà sữa TocoToco"}</div>
-          <div className="dialog-order-item-food__info-option">Size lớn, 100% đường, 100% đá, Size lớn, 100% đường, 100% đá</div>
-          <div className="dialog-order-item-food__info-amount">Số lượng: 3</div>
-          <div className="dialog-order-item-food__info-price">{StrUtils.formatMoneyString(30000)}đ</div>
+      <div className="dialog-order-item-food__container">
+        <div className="dialog-order-item-food__food">
+          <div className="dialog-order-item-food__thumbnail">
+            <img
+              className="dialog-order-item-food__avatar"
+              src={Avatar}
+              alt=""
+            />
+          </div>
+          <div className="dialog-order-item-food__info">
+            <div className="dialog-order-item-food__info-name">{Name}</div>
+            <div className="dialog-order-item-food__info-option">
+              {describe}
+            </div>
+            <div className="dialog-order-item-food__info-amount">
+              Số lượng: {data.Quantity}
+            </div>
+            <div className="dialog-order-item-food__info-price">
+              {StrUtils.formatMoneyString(price)}đ
+            </div>
+          </div>
         </div>
       </div>
-    </div>
     </>
   );
 };

@@ -48,7 +48,6 @@ export const geoConvertAddressToLatLong = async (address) => {
     const res = await Geocode.fromAddress(address);
     const { lat, lng } = res.results[0].geometry.location;
     return { lat, lng };
-    return res;
   } catch (e) {
     console.log(`[Geo_ConvertAddressToLatLong]: ${e.message}`);
     return { lat: 0, lng: 0 };

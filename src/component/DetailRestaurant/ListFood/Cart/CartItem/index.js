@@ -13,10 +13,11 @@ const CartItem = ({
   note,
   changeQuantity,
   Avatar,
+  index
 }) => {
-  const increaseQuantity = () => changeQuantity(id, quantity + 1);
+  const increaseQuantity = () => changeQuantity(index, quantity + 1);
   const decreaseQuantity = () => {
-    if (quantity > 0) changeQuantity(id, quantity - 1);
+    if (quantity > 0) changeQuantity(index, quantity - 1);
   };
 
   var strOptions = "";
