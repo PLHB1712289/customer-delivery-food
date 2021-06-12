@@ -7,6 +7,7 @@ import EnglandFlag from "../assets/img/England_Flag.png";
 import Logo from "../assets/img/app-logo.png";
 import LogoElip from "../assets/img/Logo-Elip.png";
 import Seals from "../assets/img/gov_seals.jpg";
+import ZaloPayLogo from "../assets/img/zalopay-logo.png";
 // app download logo
 import GooglePlay from "../assets/img/google-play.png";
 import AppStore from "../assets/img/app-store.png";
@@ -48,6 +49,10 @@ ImageUtils.getAppStore = function () {
 
 ImageUtils.getResultNotFound = function () {
     return ResultNotFound;
+};
+
+ImageUtils.getZaloPayLogo = function () {
+    return ZaloPayLogo;
 };
 
 export default ImageUtils;

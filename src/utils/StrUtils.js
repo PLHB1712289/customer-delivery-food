@@ -71,4 +71,12 @@ StrUtils.formatMoneyString = function (money) {
     .replace(new RegExp(regex, "g"), `$&${characterSplit}`);
 };
 
+StrUtils.getValueQRFromUrl = function (url) {
+    const start_index = url.indexOf("order=");
+    const temp = url.substr(start_index + 6);
+    const result = temp.substr(0, temp.length - 20);
+    console.log("qr: " + result);
+    return result;
+};
+
 export default StrUtils;

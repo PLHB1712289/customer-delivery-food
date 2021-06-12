@@ -9,7 +9,7 @@ import {
   DialogContentText,
   DialogTitle,
   IconButton,
-  makeStyles,
+  makeStyles
 } from "@material-ui/core";
 import clsx from "clsx";
 import CloseIcon from "@material-ui/icons/Close";

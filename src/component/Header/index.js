@@ -31,10 +31,14 @@ const Navbar = ({ onChangeLanguage }) => {
   // Token
   let { token } = useSelector((state) => state.token);
   if (token === null) {
-    token = localStorage.getItem('token');
+    token = localStorage.getItem("token");
   }
 
   const [keyword, setKeyword] = useState("");
+
+  React.useEffect(() => {
+ 
+  }, [token]);
 
   const onChangeKeyWord = (e) => {
     setKeyword(e.target.value);
@@ -49,30 +53,6 @@ const Navbar = ({ onChangeLanguage }) => {
         state: {keyword: keyword}
       });
   };
-
-  // Sync account
-  // useEffect(() => {
-  //   // IIFE tech
-  //   (async () => {
-  //     // 1. Get token from localStorage:
-  //     const token = localStorage.getItem('token');
-
-  //     try {
-  //       // 2. If token is exist, send request for get account from server API:
-  //       const { success, data } = await APIService.syncAccount(token);
-
-  //       if (success) {
-  //         // 3. Dispatch data to save user:
-  //         dispatch(tokenAction.signIn(token, data.user));
-  //       } else {
-  //         // 3.1 Remove token:
-  //         localStorage.removeItem("token");
-  //       }
-  //     } catch (e) {
-  //       console.log(`[SYNC_ACCOUNT_FAILED]: ${e.message}`);
-  //     }
-  //   })();
-  // }, []);
 
   return (
     <>

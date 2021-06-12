@@ -4,9 +4,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import IconButton from "@material-ui/core/IconButton";
 import Slide from "@material-ui/core/Slide";
 import CloseIcon from "@material-ui/icons/Close";
-import SearchIcon from "@material-ui/icons/Search";
-import MyLocationIcon from "@material-ui/icons/MyLocation";
-import CancelIcon from "@material-ui/icons/Cancel";
+import ShipperAvatar from "../../assets/img/avatar-shipper.png";
 import React, { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Map from "./Map";
@@ -24,14 +22,13 @@ import { useHistory } from "react-router-dom";
 import ListItemFood from "./ListItemFood";
 import TimeLineCancel from "./TimeLineCancel";
 import TimeLine from "./Timeline";
+import ReactLoading from "react-loading";
 import apiService from "./apiService";
 import { ORDER_STATUS } from "../../socket/TAG_EVENT";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
-
-const tileAlertLocation = "Vui lòng cấp quyền truy cập vị trí cho flashfood";
 
 export default function DialogOrder({ open, onClose, renderSignInPage }) {
   const history = useHistory();
@@ -76,6 +73,10 @@ export default function DialogOrder({ open, onClose, renderSignInPage }) {
         }
       } catch (e) {}
     })();
+
+    if (order === ORDER_STATUS.WAITING_PAYMENT) {
+      onClose();
+    }
   }, [order]);
 
   function errors(err) {
@@ -96,7 +97,6 @@ export default function DialogOrder({ open, onClose, renderSignInPage }) {
       transitionDuration={{ appear: 400, enter: 500, exit: 300 }}
       TransitionComponent={Transition}
       maxWidth="md"
-      keepMounted
       aria-describedby="alert-dialog-slide-description"
       aria-labelledby="form-dialog-title"
       fullWidth
@@ -134,6 +134,37 @@ export default function DialogOrder({ open, onClose, renderSignInPage }) {
               />
             </div>
 
+            <div className="dialog-order__shipper">
+              <img
+                src={
+                  order.shipperInfo ? order.shipperInfo.Avatar : ShipperAvatar
+                }
+                className="dialog-order__shipper-avatar"
+              ></img>
+              <div className="dialog-order__shipper-info">
+                {!order.shipperInfo ? (
+                  <div>
+                    <div style={{ fontWeight: "bold" }}>Đang tìm shiper</div>
+                    <div>
+                      <ReactLoading
+                        type="balls"
+                        color="#cf2127"
+                        height={"25%"}
+                        width={"25%"}
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    <div style={{ fontWeight: "bold" }}>
+                      {order.shipperInfo.FullName}
+                    </div>
+                    <div>{order.shipperInfo.Phone}</div>
+                  </div>
+                )}
+              </div>
+            </div>
+
             <div className="dialog-order__address">
               <div className="dialog-order__address-item">
                 <div className="dialog-order__address-item-lable">Từ: </div>
@@ -146,9 +177,9 @@ export default function DialogOrder({ open, onClose, renderSignInPage }) {
               </div>
               <div className="dialog-order__address-item">
                 <div className="dialog-order__address-item-lable">Đến: </div>
-                <div className="dialog-order__address-item-name-restaurant">
+                <div className="dialog-order__address-item-name-restaurant"  style={{marginTop: "0.3vh"}}>
                   {location === null ? (
-                    <span style={{ color: "red" }}>
+                    <span>
                       {order.dataOrder ? order.dataOrder.Address : ""}
                     </span>
                   ) : (
@@ -159,7 +190,7 @@ export default function DialogOrder({ open, onClose, renderSignInPage }) {
               </div>
             </div>
           </div>
-          
+
           <div className="dialog-order__item dialog-order__merchain-and-food">
             <div className="dialog-order__merchain-and-status">
               <img

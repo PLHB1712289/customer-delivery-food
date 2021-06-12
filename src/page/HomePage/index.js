@@ -57,7 +57,7 @@ const Footer = () => {
             <Address />
             <FilterRestaurant />
             <ListRestaurantBestSeller />
-            <ListVoucher />
+            {/* <ListVoucher /> */}
           </Grid>
         </Grid>
       </Grid>

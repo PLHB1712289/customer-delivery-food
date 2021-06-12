@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 
 const displayPrice = StrUtils.formatMoneyString;
 
-const Cart = ({ listOrder, changeQuantity, callbackCheckout }) => {
+const Cart = ({ listOrder, changeQuantity, callbackCheckout, openPayment }) => {
 
   for (var k = 0; k < listOrder.length; k++) {
     var totalPrice = listOrder[k].OriginalPrice;
@@ -81,7 +81,8 @@ const Cart = ({ listOrder, changeQuantity, callbackCheckout }) => {
       <button
         className="detail-restaurant__cart-submit-order"
         onClick={() => {
-          if (listOrder.length) callbackCheckout();
+         if (listOrder.length) callbackCheckout();
+        //  openPayment()
         }}
       >
         Đặt hàng

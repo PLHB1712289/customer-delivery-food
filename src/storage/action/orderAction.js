@@ -11,6 +11,11 @@ const action = {
         payload: { status: status}
     }),
 
+    updateShipperInfo: (shipper) => ({
+        type: TAG.ORDER.SHIPPER,
+        payload: { shipperInfo: shipper }
+    }),
+
     reset: () => ({
         type: TAG.ORDER.RESET
     })

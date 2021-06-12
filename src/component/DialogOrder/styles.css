@@ -18,6 +18,7 @@
   grid-template-columns: 4fr 6fr;
   padding: 0 !important;
   margin: 0;
+  height: 75vh;
 }
 
 .dialog-order__item {
@@ -35,14 +36,22 @@
 .dialog-order__merchain-and-food {
   margin: 10px 5px 5px 0;
   background-color: rgb(230, 230, 230);
-
   display: flex;
   flex-direction: column;
 }
 
 .dialog-order__address {
-  margin: 0 0 10px 5px;
+  margin: 2px 0 10px 5px;
   background-color: white;
+  height: 13vh;
+}
+
+.dialog-order__shipper {
+  margin: 0px 0 5px 5px;
+  background-color: white;
+  display: flex;
+  float: left;
+  height: 8vh;
 }
 
 .dialog-order__chat {
@@ -54,12 +63,11 @@
   text-align: center;
   font-weight: bold;
   font-size: 1rem;
-  margin: 3px 0px;
+  margin: 10px 0px;
 }
 
 .dialog-order__chatbox {
   width: 95%;
-  height: 20vh;
   border: 1px solid black;
   text-align: center;
   margin: 10px 2.5%;
@@ -67,8 +75,6 @@
 
 .dialog-order__order {
   background-color: white;
-  height: 100%;
-
   padding: 10px;
 }
 .dialog-order__order > span {
@@ -125,17 +131,17 @@
 
 .dialog-order__merchain-avatar {
   width: 100%;
-  height: 33vh;
+  height: 33vh !important;
   border: 1px solid black;
 }
 
 .dialog-order__order-info {
     width: 99.1%;
-    height: 20vh;
     background-color: white;
     margin-left: 0.9%;
     margin-top: -9vh;
     border-radius: 15px 15px 0px 0px;
+    height: 19vh;
 }
 
 .dialog-order__order-info-title {
@@ -159,20 +165,22 @@
     line-height: 1.5;
     font-weight: bold;
     font-size: 0.9rem;
+    height: 10vh;
 }
 
 .dialog-order__list-item {
-    margin: 5px 0 10px 5px;
+    margin: 5px 0 0px 5px !important;
     background-color: white;
-    height: 100%;
+    height: 17vh;
+    position: relative;
   }
 
   .dialog-order__list-item-food {
     margin: 5px 0 0px 5px;
     background-color: white;
-    height: 100%;
+    height: 65%;
     width: 95%;
-    max-height: 16vh;
+    max-height: 65%;
     margin-left: 2.5%;
     overflow-y: auto;
   }
@@ -185,8 +193,7 @@
 .dialog-order__address-item {
   display: grid;
   grid-template-columns: 2fr 12fr;
-  margin: 0px 0px 5px 5px;
-  padding: 10px 0;
+  margin: 1.5vh 0px 5px 5px;
 }
 .dialog-order__address-item-lable {
   grid-column-start: 1;
@@ -195,7 +202,7 @@
   grid-row-end: 3;
 
   font-weight: 800;
-  font-size: 1rem;
+  font-size: 2vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -207,7 +214,7 @@
   grid-row-end: 1;
 
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 1.8vh;
 }
 
 .dialog-order__address-item-address-restaurant {
@@ -215,7 +222,7 @@
   grid-column-end: 2;
   grid-row-start: 2;
   grid-row-end: 2;
-  font-size: 0.7rem;
+  font-size: 1.5vh;
 }
 
 
@@ -239,4 +246,18 @@
     border-radius: 5px;
     color: white;
     font-weight: normal;
+}
+
+.dialog-order__shipper-avatar {
+  border-radius: 50%;
+  width: 6vh;
+  height: 6vh;
+  margin-left: 15px;
+  margin-top: 1vh;
+  margin-bottom: 10px;
+}
+
+.dialog-order__shipper-info {
+  margin: 1vh 0px 0px 2vh;
+  line-height: 1.6;
 }

@@ -5,6 +5,7 @@ import ItemMenu from "./ItemMenu";
 import "./styles.css";
 import DialogCheckout from "../DialogCheckout";
 import DialogOption from "../DialogOption";
+import DialogPayment from "../DialogPayment";
 import { useDispatch, useSelector } from "react-redux";
 import cartAction from "../../../storage/action/cartAction";
 import apiService from "./apiService";
@@ -20,8 +21,10 @@ const ListFood = () => {
   const [listFoodFilter, setListFoodFilter] = useState(data);
   const [openDialogCheckout, setOpenDialogCheckout] = useState(false);
   const [openDialogOption, setOpenDialogoption] = useState(false);
+  const [openDialogPayment, setOpenDialogPayment] = useState(false);
   const [listFood, setListFood] = useState([]);
   const [currFood, setCurrFood] = useState(null);
+  const [paymentInfo, setPaymentInfo] = useState(null);
 
   const history = useHistory();
   const dispatch = useDispatch();
@@ -152,53 +155,6 @@ const ListFood = () => {
     setListFood((prev) => prev.concat(foods));
   };
 
-  // const onChangeOption = (event, foodId, optionId, itemId, type) => {
-  //   // set list food
-  //   const listFood_indexItemOrder = listFood
-  //     .map((item) => item.id)
-  //     .indexOf(foodId);
-  //   if (listFood_indexItemOrder <= -1) return;
-  //   const newListFood = listFood.slice();
-  //   const listFood_indexOption = newListFood[
-  //     listFood_indexItemOrder
-  //   ].Options.map((item) => item.id).indexOf(optionId);
-  //   if (listFood_indexOption <= -1) return;
-  //   const listFood_indexItem = newListFood[listFood_indexItemOrder].Options[
-  //     listFood_indexOption
-  //   ].Items.map((item) => item.id).indexOf(itemId);
-  //   if (listFood_indexItem <= -1) return;
-  //   if (type === "radio") {
-  //     for (
-  //       var i = 0;
-  //       i <
-  //       newListFood[listFood_indexItemOrder].Options[listFood_indexOption].Items
-  //         .length;
-  //       i++
-  //     ) {
-  //       newListFood[listFood_indexItemOrder].Options[
-  //         listFood_indexOption
-  //       ].Items[i].IsDefault = false;
-  //       newListFood[listFood_indexItemOrder].Options[
-  //         listFood_indexOption
-  //       ].Items[i].Quantity = 1;
-  //     }
-  //     newListFood[listFood_indexItemOrder].Options[listFood_indexOption].Items[
-  //       listFood_indexItem
-  //     ].IsDefault = true;
-  //     newListFood[listFood_indexItemOrder].Options[listFood_indexOption].Items[
-  //       listFood_indexItem
-  //     ].Quantity = 1;
-  //   } else {
-  //     newListFood[listFood_indexItemOrder].Options[listFood_indexOption].Items[
-  //       listFood_indexItem
-  //     ].IsDefault = event.target.checked;
-  //     newListFood[listFood_indexItemOrder].Options[listFood_indexOption].Items[
-  //       listFood_indexItem
-  //     ].Quantity = 1;
-  //   }
-  //   setListFood(newListFood);
-  // };
-
   const onChooseOption = (food) => {
     setCurrFood(food);
     setOpenDialogoption(true);
@@ -217,12 +173,22 @@ const ListFood = () => {
         renderSignInPage={() => {
           history.push("sign-in");
         }}
+        openDialogPayment={() => setOpenDialogPayment(true)}
+        setDataPayment={setPaymentInfo}
       />
       <DialogOption
         open={openDialogOption}
         onClose={() => setOpenDialogoption(false)}
         data={currFood}
         addToCart={addToCart}
+        renderSignInPage={() => {
+          history.push("sign-in");
+        }}
+      />
+      <DialogPayment
+        open={openDialogPayment}
+        onClose={() => setOpenDialogPayment(false)}
+        data={paymentInfo}
         renderSignInPage={() => {
           history.push("sign-in");
         }}
@@ -274,6 +240,7 @@ const ListFood = () => {
             listOrder={listOrder}
             changeQuantity={changeQuantity}
             callbackCheckout={() => onCheckOrder()}
+            openPayment={() => setOpenDialogPayment(true)}
           />
         </Grid>
       </Grid>

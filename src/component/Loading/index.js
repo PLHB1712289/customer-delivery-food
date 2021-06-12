@@ -53,7 +53,7 @@ const Loading = () => {
             <ReactLoading
               type="spinningBubbles"
               color="#cf2127"
-              eight={"30%"}
+              height={"30%"}
               width={"30%"}
             />
           </div>

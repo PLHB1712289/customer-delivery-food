@@ -61,6 +61,12 @@ const Socket = class {
         case ORDER_STATUS.MERCHANT_CONFIRM:
           break;
         case ORDER_STATUS.DURING_GET:
+          const shipper = {
+            Avatar: "https://gravatar.com/avatar/a839d991c3428ec1c3f65a3959b8770c?s=400&d=robohash&r=x",
+            FullName: "Giàng A Sử",
+            Phone: "0776250197"
+          }
+          store.dispatch(action.orderAction.updateShipperInfo(shipper));
           break;
         case ORDER_STATUS.DURING_SHIP:
           break;

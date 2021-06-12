@@ -251,7 +251,7 @@ const Footer = () => {
             
             // login normal
             if (data.token !== null) {
-              // dispatch(action.tokenAction.signIn(data.token));
+              dispatch(action.tokenAction.signIn(data.token));
               localStorage.setItem("token", data.token);
               handleGetUserInfo(data.token);
               return;
