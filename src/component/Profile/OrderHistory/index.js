@@ -5,17 +5,21 @@ import { Grid } from "@material-ui/core";
 
 // custom component
 import Pagination from "./Pagination";
-
+import RestaurantItem from "./RestaurantItem";
+import Rating from "./Rating";
 // serivce
 import "./styles.css";
 import action from "../../../storage/action";
 import service from "./service";
+import apiService from "./apiService";
 // config
 import OrderConfig from "../../../config/OrderConfig";
 import Localization from "../../../config/Localization";
+import { ORDER_STATUS } from "../../../socket/TAG_EVENT";
 // utils
 import DataUtils from "../../../utils/DataUtils";
 import StrUtils from "../../../utils/StrUtils";
+import ArrayUtils from "../../../utils/ArrayUtils";
 
 const SideBar = () => {
   // React router hook
@@ -25,7 +29,7 @@ const SideBar = () => {
   const dispatch = useDispatch();
 
   // use state
-  const [statusOrder, setStatusOrder] = useState(0);
+  const [statusOrder, setStatusOrder] = useState([]);
   const [fDay, setFDay] = useState(null);
   const [tDay, setTDay] = useState(null);
   const [page, setPage] = useState(1);
@@ -33,12 +37,13 @@ const SideBar = () => {
   const [countItem, setCountItem] = useState(0);
   const [reload, setReload] = useState(false);
 
+  // real
   useEffect(() => {
     dispatch(action.loadingAction.turnOn());
 
     (async () => {
       try {
-        const { status, message, data } = await service.getListorder(
+        const { errorCode, data, pagingInfo } = await apiService.getOrders(
           page,
           statusOrder,
           fDay,
@@ -46,11 +51,10 @@ const SideBar = () => {
         );
 
         dispatch(action.loadingAction.turnOff());
-        if (status === 0) {
-          setListOrder(data.listOrder);
-          setCountItem(data.countItem);
+        if (errorCode === 0) {
+          setListOrder(data);
+          setCountItem(pagingInfo.total);
         } else {
-          alert(message);
         }
       } catch (e) {
         alert("Không thể kết nối với server.");
@@ -61,9 +65,9 @@ const SideBar = () => {
 
   // handle change filter
   const onChangeStatus = (e) => {
-    const value = e.target.value;
-    if (value !== statusOrder) {
-      setStatusOrder(value);
+    const value = StatusArray[e.target.value];
+    if (!ArrayUtils.compareTwoArray(value.status, statusOrder)) {
+      setStatusOrder(value.status);
     }
   };
 
@@ -104,25 +108,33 @@ const SideBar = () => {
   // handle search
   const onSearchOrder = (e) => {
     e.preventDefault();
+    setPage(1);
     setReload(!reload);
+  };
+
+  const onViewDetailRestaurant = (id) => {
+    history.push("restaurant/" + id);
   };
 
   const data = listOrder.map((value, key) => {
     return (
       <tr key={key}>
-        <td style={{ width: "5%" }}>{9 * (page - 1) + key + 1}</td>
-        <td style={{ width: "15%" }}>{value.id}</td>
-        <td style={{ width: "15%" }}>{value.time}</td>
-        <td style={{ width: "25%", textAlign: "left" }}>{value.address}</td>
+        <td style={{ width: "5%", fontWeight: "bold", fontSize: "1rem" }}>
+          {7 * (page - 1) + key + 1}
+        </td>
+        <td style={{ width: "30%", textAlign: "center" }}>
+          <RestaurantItem restaurant={value.Restaurant}></RestaurantItem>
+        </td>
+        <td style={{ width: "25%", textAlign: "left" }}>{value.Address}</td>
         <td style={{ width: "15%" }}>
-          {StrUtils.formatMoneyString(value.money) + " đ"}
+          {StrUtils.formatMoneyString(value.Total) + " đ"}
         </td>
         <td style={{ width: "10%" }}>
-          {Localization.text("txt_order_status_" + value.status)}
+          {getStatus(value.Status).text}
         </td>
         <td style={{ width: "15%" }}>
-          {value.status === 1 ? (
-            <button className="profile_orderHistory_buttonRed">
+          {value.Status === ORDER_STATUS.DELIVERED ? (
+            <button className="profile_orderHistory_buttonRed" onClick={() => onViewDetailRestaurant(value.Restaurant._id)}>
               {Localization.text("txt_reorder")}
             </button>
           ) : (
@@ -159,7 +171,7 @@ const SideBar = () => {
               id="status"
               onChange={onChangeStatus}
             >
-              {DataUtils.mapOrderStatus()}
+              {mapOrderStatus()}
             </select>
             <label for="fday">{Localization.text("txt_from_day")}:</label>
             <input
@@ -193,8 +205,7 @@ const SideBar = () => {
           <table className="profile_orderHistory_table">
             <tr>
               <th>{Localization.text("txt_stt")}</th>
-              <th>{Localization.text("txt_order_code")}</th>
-              <th>{Localization.text("txt_time")}</th>
+              <th>{Localization.text("text_restaurant")}</th>
               <th>{Localization.text("txt_area")}</th>
               <th>{Localization.text("txt_total_money")}</th>
               <th>{Localization.text("txt_status")}</th>
@@ -222,3 +233,56 @@ const SideBar = () => {
 };
 
 export default SideBar;
+
+const StatusArray = [
+  {
+    text: Localization.text("txt_order_status_all"),
+    status: [],
+  },
+  {
+    text: Localization.text("txt_order_status_1"),
+    status: [0],
+  },
+  {
+    text: Localization.text("txt_order_status_2"),
+    status: [1, 2],
+  },
+  {
+    text: Localization.text("txt_order_status_4"),
+    status: [3],
+  },
+  {
+    text: Localization.text("txt_order_status_5"),
+    status: [4],
+  },
+  {
+    text: Localization.text("txt_order_status_6"),
+    status: [5],
+  },
+  {
+    text: Localization.text("txt_order_status_7"),
+    status: [6, 7, 8],
+  },
+];
+
+const getStatus = (status) => {
+  for (var i = 0; i < StatusArray.length; i++) {
+    const element = StatusArray[i];
+    for (var j = 0; j < element.status.length; j++) {
+      if (status === element.status[j]) return element;
+    }
+  }
+  return { text: "", status: [] };
+};
+
+const mapOrderStatus =  () => {
+  const data = StatusArray.map((value, key) => {
+    return (
+      <option value={key}>
+        {value.text}
+      </option>
+    );
+  });
+
+  return data;
+};

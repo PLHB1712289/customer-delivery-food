@@ -75,7 +75,7 @@ const Map = ({
   const fakeCenter = { lat: 10, lng: 10};
   return (
     // Important! Always set the container height explicitly
-    <div style={{ height: "50vh" }}>
+    <div style={{ height: "56.7vh" }}>
       <GoogleMapReact
         bootstrapURLKeys={{ key: "AIzaSyD6SYKhvIlFDEehwE1iJU7Sjjhueb4PsmQ" }}
         defaultCenter={center}

@@ -30,7 +30,8 @@ const _url = {
 
     ORDER: {
       GET_SHIP_FEE: "/orders/shippingfee",
-      SEND_ORDER: "/orders"
+      SEND_ORDER: "/orders",
+      GET_ORDERS: "/orders"
     }
 };
 

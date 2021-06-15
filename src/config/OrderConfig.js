@@ -8,7 +8,7 @@ OrderConfig.STATUS = {
     4: "Đã hủy"
 };
 
-OrderConfig.ITEM_PER_PAGE = 9;
-OrderConfig.DISPLAY_RANGE_PAGE = 3;
+OrderConfig.ITEM_PER_PAGE = 7;
+OrderConfig.DISPLAY_RANGE_PAGE = 6  ;
 
 export default OrderConfig;

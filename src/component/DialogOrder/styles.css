@@ -18,7 +18,7 @@
   grid-template-columns: 4fr 6fr;
   padding: 0 !important;
   margin: 0;
-  height: 75vh;
+  height: 82vh;
 }
 
 .dialog-order__item {
@@ -171,16 +171,16 @@
 .dialog-order__list-item {
     margin: 5px 0 0px 5px !important;
     background-color: white;
-    height: 17vh;
+    height: 24vh;
     position: relative;
   }
 
   .dialog-order__list-item-food {
     margin: 5px 0 0px 5px;
     background-color: white;
-    height: 65%;
+    height: 17vh;
     width: 95%;
-    max-height: 65%;
+    max-height: 17vh;
     margin-left: 2.5%;
     overflow-y: auto;
   }

@@ -47,6 +47,13 @@ const Socket = class {
       });
     });
 
+    // Shipper info
+    this.socket.on(TAG_EVENT.RESPONSE_UPDATE_SHIPPER, (res) => {
+      const data = res.data;
+      console.log("shiper info: " + JSON.stringify(data));
+      store.dispatch(action.orderAction.updateShipperInfo(data));
+    });
+
     // KH -> chi tiet don hang -> JOIN this.socket.emit(TAG.REQUEST_JOIN_ROOM)
     this.socket.on(TAG_EVENT.RESPONSE_CHANGE_STATUS_ROOM, (res) => {
       // check order is canceled
@@ -62,10 +69,11 @@ const Socket = class {
           break;
         case ORDER_STATUS.DURING_GET:
           const shipper = {
-            Avatar: "https://gravatar.com/avatar/a839d991c3428ec1c3f65a3959b8770c?s=400&d=robohash&r=x",
+            Avatar:
+              "https://gravatar.com/avatar/a839d991c3428ec1c3f65a3959b8770c?s=400&d=robohash&r=x",
             FullName: "Giàng A Sử",
-            Phone: "0776250197"
-          }
+            Phone: "0776250197",
+          };
           store.dispatch(action.orderAction.updateShipperInfo(shipper));
           break;
         case ORDER_STATUS.DURING_SHIP:
