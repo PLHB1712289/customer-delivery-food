@@ -114,7 +114,7 @@ export default function DialogCheckout({
     setLocation(address);
     setLat(latitude);
     setLng(longitude);
-    handleGetShipFee();
+    onGetFeeShip();
     dispatch(
       action.addressDeliveryAction.updateCoordinate(latitude, longitude)
     );
@@ -145,7 +145,6 @@ export default function DialogCheckout({
 
   const handleChangeLocation = (e) => {
     setLocation(e.target.value);
-    handleGetShipFee();
 
     if (typingTimeoutRef.current) {
       clearTimeout(typingTimeoutRef.current);
@@ -155,6 +154,7 @@ export default function DialogCheckout({
       const { lat, lng } = await geoConvertAddressToLatLong(e.target.value);
       setLat(lat);
       setLng(lng);
+      onGetFeeShip();
       dispatch(action.addressDeliveryAction.updateCoordinate(lat, lng));
     }, 1000);
   };
@@ -234,7 +234,9 @@ export default function DialogCheckout({
             setDataPayment(dataPayment);
             onClose();
             openDialogPayment();
-            dispatch(action.orderAction.updateStatus(ORDER_STATUS.WAITING_PAYMENT));
+            dispatch(
+              action.orderAction.updateStatus(ORDER_STATUS.WAITING_PAYMENT)
+            );
           } else {
             dispatch(action.orderAction.updateStatus(ORDER_STATUS.WAITING));
             history.push("/");
@@ -246,19 +248,24 @@ export default function DialogCheckout({
     })();
   };
 
+  const onGetFeeShip = () => {
+    if (typingTimeoutRef.current) {
+      clearTimeout(typingTimeoutRef.current);
+    }
+
+    typingTimeoutRef.current = setTimeout(handleGetShipFee, 700);
+  };
+
   const handleGetShipFee = function () {
     (async () => {
       try {
         // request to server
-        const { errorCode, data } = await apiService.getShipFee(
+        const object = await apiService.getShipFee(
           cart.infoRestaurant.id,
-          lng,
-          lat
+          location
         );
 
-        if (errorCode === 0) {
-          setFeeShip(data);
-        }
+        setFeeShip(object.fee);
       } catch (e) {
         console.log(`[HANDLE_GET_SHIP_FEE]: ${e.message}`);
       }
@@ -559,7 +566,7 @@ const fakeOrderData = {
   phone: "0331234567",
   longitude: 100.1234567,
   latitude: 10.1234567,
-  method: 0
+  method: 0,
 };
 
 const useStyles = makeStyles({
