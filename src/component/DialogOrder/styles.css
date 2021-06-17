@@ -246,6 +246,7 @@
     border-radius: 5px;
     color: white;
     font-weight: normal;
+    cursor: pointer;
 }
 
 .dialog-order__shipper-avatar {

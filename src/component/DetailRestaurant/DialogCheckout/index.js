@@ -221,10 +221,12 @@ export default function DialogCheckout({
     (async () => {
       try {
         // request to server
-        // const { errorCode, data } = await apiService.sendOrder(dataOrder);
-        const { errorCode, data } = await apiService.sendOrder(fakeOrderData);
+        console.log("send order: " + JSON.stringify(dataOrder));
+        const { errorCode, data } = await apiService.sendOrder(dataOrder);
+        // const { errorCode, data } = await apiService.sendOrder(fakeOrderData);
 
         if (errorCode === 0) {
+          console.log("response order: " + JSON.stringify(data));
           dispatch(action.orderAction.create(data));
           if (data.paymentInfo !== null) {
             var dataPayment = { ...data.paymentInfo };
@@ -237,7 +239,6 @@ export default function DialogCheckout({
             dispatch(action.orderAction.updateStatus(ORDER_STATUS.WAITING));
             history.push("/");
           }
-          console.log("[OrderResponse]: " + JSON.stringify(data));
         }
       } catch (e) {
         console.log(`[HANDLE_SEND_ORDER]: ${e.message}`);

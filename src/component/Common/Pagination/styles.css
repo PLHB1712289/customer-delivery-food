@@ -6,6 +6,7 @@
     font-weight: 700;
     font-size: 14px;
     display: inline;
+    cursor: pointer;
 }
 
 .index-card:hover {
@@ -30,6 +31,7 @@
     height: 35px;
     transform: translateY(10%);
     text-align: center;
+    cursor: pointer;
 }
 
 .icon:hover {
