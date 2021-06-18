@@ -519,10 +519,10 @@ const useStyles = makeStyles({
   dialog: {
     position: "absolute",
     top: "100px",
-    maxWidth: "45%",
-    minWidth: "45%",
-    maxHeight: "45%",
-    minHeight: "45%",
+    maxWidth: "50%",
+    minWidth: "50%",
+    maxHeight: "60%",
+    minHeight: "60%",
   },
   dialog_title: {
     color: "red",

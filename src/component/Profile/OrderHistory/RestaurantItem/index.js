@@ -12,7 +12,7 @@ const RestaurantItem = ({ restaurant }) => {
   };
 
   return (
-    <div style={{ display: "flex", float: "left" }} onClick={onViewDetailRestaurant}>
+    <div style={{ display: "flex", float: "left", cursor: "pointer" }} onClick={onViewDetailRestaurant}>
       <img src={restaurant.Avatar} width="80px" height="49px"></img>
       <div style={{ marginLeft: "10px" }}>
         <div

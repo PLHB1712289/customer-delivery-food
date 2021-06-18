@@ -89,7 +89,7 @@ export default function PopupSignInWithPhone(props) {
 
           if (errorCode === 0) {
             const token = data.token;
-            // dispatch(action.tokenAction.signIn(token));
+            dispatch(action.tokenAction.signIn(data.token));
             localStorage.setItem("token", token);
             handleGetUserInfo(token);
           } else {

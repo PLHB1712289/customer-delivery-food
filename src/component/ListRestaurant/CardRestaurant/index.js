@@ -7,21 +7,17 @@ import {} from "@material-ui/core";
 
 // UI icon
 import { LocalOffer, VerifiedUser } from "@material-ui/icons";
-
 // UI custom
 import SpanLike from "../../Common/SpanLike";
-
 // Utils
 import StrUtils from "../../../utils/StrUtils";
-
-// action
-import action from "../../../storage/action";
-// import apiService from "./apiService";
+import ImgUtils from "../../../utils/ImageUtils";
 
 // config
 import Localization from "../../../config/Localization";
 
 import "./styles.css";
+import ImageUtils from "../../../utils/ImageUtils";
 
 const Card = (props) => {
   const { data } = props;
@@ -54,7 +50,7 @@ const Card = (props) => {
       <div className="listRes_card-custom" onClick={onViewDetailRestaurant}>
         <div className={classReddot}>{statusText}</div>
         <img
-          src={data.Avatar}
+          src={data.Avatar !== "" ? data.Avatar : ImageUtils.getLogo()}
           alt="image"
         ></img>
         <div className="listRes_span-like">
@@ -66,7 +62,7 @@ const Card = (props) => {
         </div>
         <p className="listRes_address">{StrUtils.formatAdressRestaurantCart(data.FullAddress)}</p>
         <hr className="listRes_break-line-card"></hr>
-        <LocalOffer className="listRes_icon-offer" />
+        {/* <LocalOffer className="listRes_icon-offer" /> */}
         <div className="listRes_text-offer">{data.voucher}</div>
       </div>
     </>

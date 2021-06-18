@@ -38,7 +38,7 @@ export const geoConvertLatLongToAddress = async (lat, lng) => {
     return address;
   } catch (e) {
     console.log(`[Geo_ConvertLatLongToAddress]: ${e.message}`);
-    return "";
+    return "Ho Chi Minh";
   }
 };
 

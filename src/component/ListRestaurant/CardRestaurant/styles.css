@@ -43,7 +43,7 @@
 }
 
 .listRes_card-custom img {
-  width: 101%;
+  width: 101% !important;
   height: 65% !important;
   border-radius: 5px 5px 0px 0px;
   padding: 0px;

@@ -32,6 +32,7 @@
     color: black;
     background-color: red;
     position: relative;
+    cursor: pointer;
 }
 
 .profile_sidebar_item_active {

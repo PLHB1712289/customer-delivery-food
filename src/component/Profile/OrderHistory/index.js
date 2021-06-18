@@ -122,10 +122,10 @@ const SideBar = () => {
         <td style={{ width: "5%", fontWeight: "bold", fontSize: "1rem" }}>
           {7 * (page - 1) + key + 1}
         </td>
-        <td style={{ width: "30%", textAlign: "center" }}>
+        <td style={{ width: "35%", textAlign: "center" }}>
           <RestaurantItem restaurant={value.Restaurant}></RestaurantItem>
         </td>
-        <td style={{ width: "25%", textAlign: "left" }}>{value.Address}</td>
+        <td style={{ width: "20%", textAlign: "left" }}>{value.Address}</td>
         <td style={{ width: "15%" }}>
           {StrUtils.formatMoneyString(value.Total) + " đ"}
         </td>

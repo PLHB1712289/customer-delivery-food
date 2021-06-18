@@ -41,6 +41,7 @@
     border: 1px solid black;
     margin-right: 6%;
     margin-left: 2%;
+    cursor: pointer;
 }
 
 .profile_orderHistory_button {
@@ -50,6 +51,7 @@
     border-radius: 5px;
     color: white;
     background-color: #2196F3;
+    cursor: pointer;
 }
 
 .profile_orderHistory_table {
@@ -77,6 +79,7 @@
     border: none;
     border-radius: 5px;
     margin: auto;
+    cursor: pointer;
 }
 
 .profile_orderHistory_pagination {

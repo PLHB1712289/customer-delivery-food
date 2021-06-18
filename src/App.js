@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, Provider } from "react-redux";
 import { ToastProvider } from "react-toast-notifications";
-import { Provider } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import NotFound from "./component/Error/404";
 import Footer from "./component/Footer";
@@ -21,10 +21,15 @@ import "./libs/fontawesome";
 import socket from "./socket";
 
 function App() {
-  // useEffect(() => {
-  //     socket.connect();
-  //     return () => socket.disconnect();
-  // }, []);
+  // Token
+  var token = localStorage.getItem("token");
+
+  useEffect(() => {
+    if (token) {
+      socket.connect();
+      return () => socket.disconnect();
+    }
+  }, []);
 
   let current_language = localStorage.getItem("langType");
   current_language =
@@ -48,44 +53,44 @@ function App() {
       <Loading />
       <Router>
         <Header onChangeLanguage={onChangeLanguage} />
-          <Switch>
-            <Route path="/sign-in">
-              <SignIn />
-            </Route>
+        <Switch>
+          <Route path="/sign-in">
+            <SignIn />
+          </Route>
 
-            <Route path="/vertify-phone">
-              <VertifyPhonge />
-            </Route>
+          <Route path="/vertify-phone">
+            <VertifyPhonge />
+          </Route>
 
-            <Route path="/restaurant/:id">
+          <Route path="/restaurant/:id">
             <ToastProvider placement="bottom-right">
               <DetailRestaurant />
-              </ToastProvider>
-            </Route>
+            </ToastProvider>
+          </Route>
 
-            <Route path="/input-otp">
-              <InputOTP />
-            </Route>
+          <Route path="/input-otp">
+            <InputOTP />
+          </Route>
 
-            <Route path="/restaurants">
-              <ListRestaurant />
-            </Route>
+          <Route path="/restaurants">
+            <ListRestaurant />
+          </Route>
 
-            <Route path="/profile">
-              <Profile />
-            </Route>
+          <Route path="/profile">
+            <Profile />
+          </Route>
 
-            <Route path="/my-order">
-              <Order />
-            </Route>
+          <Route path="/my-order">
+            <Order />
+          </Route>
 
-            <Route exact path="/">
-              <HomePage />
-            </Route>
+          <Route exact path="/">
+            <HomePage />
+          </Route>
 
-            <Route path="*" component={NotFound} />
-          </Switch>
-          <Footer />
+          <Route path="*" component={NotFound} />
+        </Switch>
+        <Footer />
       </Router>
     </Provider>
   );

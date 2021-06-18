@@ -1,9 +1,15 @@
 const StrUtils = {};
 
 StrUtils.formatUsernameUI = function (name) {
-  const indexSplit = name.toString().lastIndexOf(" ");
+  var indexSplit = StrUtils.getNearLastSpaceIndex(name);
   if (indexSplit > 0) {
-    name = name.substr(indexSplit + 1);
+    return name.substr(0, indexSplit);
+  }
+  console.log(indexSplit);
+
+  indexSplit = name.toString().lastIndexOf(" ");
+  if (indexSplit > 0) {
+    return name.substr(indexSplit + 1);
   }
 
   return name;
@@ -50,19 +56,6 @@ StrUtils.formatNameVoucherCard = function (name) {
 };
 
 StrUtils.formatMoneyString = function (money) {
-  // var str = money.toString();
-  // var count = 0;
-
-  // for (var i = str.length - 1; i >= 0; i--) {
-  //   count++;
-  //   if (count === 3) {
-  //     str = str.substr(0, i) + "." + str.substr(i);
-  //     count = 0;
-  //     i--;
-  //   }
-  // }
-
-  // return str;
   const characterSplit = ",";
 
   const regex = "\\d(?=(\\d{" + 3 + "})+" + "$" + ")";
@@ -72,11 +65,26 @@ StrUtils.formatMoneyString = function (money) {
 };
 
 StrUtils.getValueQRFromUrl = function (url) {
-    const start_index = url.indexOf("order=");
-    const temp = url.substr(start_index + 6);
-    const result = temp.substr(0, temp.length - 20);
-    console.log("qr: " + result);
-    return result;
+  const start_index = url.indexOf("order=");
+  const temp = url.substr(start_index + 6);
+  const result = temp.substr(0, temp.length - 20);
+  console.log("qr: " + result);
+  return result;
+};
+
+StrUtils.getNearLastSpaceIndex = function (str) {
+  var count = 0;
+
+  for (var i = 0; i < str.length; i++) {
+    if (str[i] === ' ') {
+      count++;
+    }
+    if (count === 2) {
+      return i;
+    }
+  }
+
+  return -1;
 };
 
 export default StrUtils;

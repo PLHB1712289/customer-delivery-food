@@ -30,7 +30,7 @@ const orderReducer = (order = INITIAL_STATE, action) => {
     case TAG.ORDER.SHIPPER:
       return {
         ...order,
-        shipperInfo: action.payload.shipperInfo,
+        shipperInfo: action.payload.shipperInfo.infoShipper,
       };
     default:
       return order;

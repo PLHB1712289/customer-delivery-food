@@ -41,16 +41,12 @@ const Socket = class {
 
     this.socket.on(TAG_EVENT.RESPONSE_CUSTOMER_RECONNECT, (res) => {
       const listOrder = res.data.listOrder;
-      console.log(res.data);
-      listOrder.forEach((order) => {
-        // store.dispatch(newOrder(order));
-      });
+      console.log("---------: " + JSON.stringify(res.data));
     });
 
     // Shipper info
     this.socket.on(TAG_EVENT.RESPONSE_UPDATE_SHIPPER, (res) => {
       const data = res.data;
-      console.log("shiper info: " + JSON.stringify(data));
       store.dispatch(action.orderAction.updateShipperInfo(data));
     });
 
