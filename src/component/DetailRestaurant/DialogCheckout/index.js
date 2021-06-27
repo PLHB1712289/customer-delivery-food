@@ -95,12 +95,11 @@ export default function DialogCheckout({
         // request to server
         const { errorCode, data } = await apiService.getShipFee(
           cart.infoRestaurant.id,
-          lng,
-          lat
+          location
         );
 
         if (errorCode === 0) {
-          setFeeShip(data);
+          setFeeShip(data.fee);
         }
       } catch (e) {
         console.log(`[HANDLE_GET_SHIP_FEE]: ${e.message}`);
@@ -221,12 +220,11 @@ export default function DialogCheckout({
     (async () => {
       try {
         // request to server
-        console.log("send order: " + JSON.stringify(dataOrder));
         const { errorCode, data } = await apiService.sendOrder(dataOrder);
         // const { errorCode, data } = await apiService.sendOrder(fakeOrderData);
 
         if (errorCode === 0) {
-          console.log("response order: " + JSON.stringify(data));
+
           dispatch(action.orderAction.create(data));
           if (data.paymentInfo !== null) {
             var dataPayment = { ...data.paymentInfo };
@@ -264,8 +262,11 @@ export default function DialogCheckout({
           cart.infoRestaurant.id,
           location
         );
-
-        setFeeShip(object.fee);
+        
+        console.log("shipppppp: " + JSON.stringify(object.data));
+        if (object.errorCode === 0) {
+         setFeeShip(object.data.fee);
+        }
       } catch (e) {
         console.log(`[HANDLE_GET_SHIP_FEE]: ${e.message}`);
       }

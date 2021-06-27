@@ -1,0 +1,85 @@
+.dialog-option__container {
+    background-color: white;
+    padding: 0;
+  }
+  
+  .dialog-res__review-info {
+    background-color: white;
+  }
+  
+  .dialog-res__review {
+    display: flex;
+  }
+  
+  .dialog-review__divider {
+    border-bottom: 1px solid #ebebeb;
+    margin-top: 10px;
+  }
+  
+  .dialog-res__review__thumbnail {
+    margin-right: 10px;
+  
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    position: relative;
+  }
+  .dialog-res__review__thumbnail > img {
+    min-width: 100%;
+    min-height: 100%;
+  
+    max-width: 150px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+  }
+  
+  .dialog-res__review-info {
+    padding: 0px 0px;
+    margin-left: 15px;
+  }
+  
+  .dialog-res__review-info__name {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #464646;
+  }
+  
+  .dialog-res__review-info__address  {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: #464646;
+  }
+
+  .dialog-res__review-info__count-review {
+    background-color: #ffc107;
+    padding: 1px 2px;
+    border-radius: 5px;
+    color: white;
+    margin-right: 5px;
+    font-size: 0.9rem;
+  }
+
+  .dialog-review__action {
+    display: flex !important;
+    justify-content: end;
+    align-items: center;
+    width: 100%;
+    background-color: white;
+    padding: 5px 0px !important;
+  }
+
+  .dialog-review__btn-close {
+    width: 120px;
+    height: 30px;
+    font-size: 16px;
+    color: white;
+    background-color: #d80000;
+    border: none;
+    border-radius: 5px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }

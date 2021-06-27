@@ -156,8 +156,9 @@ export default function DialogOrder({ open, onClose, renderSignInPage }) {
                   </div>
                 ) : (
                   <div>
-                    <div style={{ fontWeight: "bold" }}>
+                    <div style={{ fontWeight: "bold", display: "flex", float: "left"}}>
                       {order.shipperInfo.FullName}
+                      <div style={{marginTop: "3px", marginLeft: "5px"}}><Rating rate={4}></Rating></div>
                     </div>
                     <div>{order.shipperInfo.Phone}</div>
                   </div>
