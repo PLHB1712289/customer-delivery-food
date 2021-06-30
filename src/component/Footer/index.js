@@ -47,10 +47,6 @@ const Footer = () => {
                           <Grid item  md={2}>
                               <div className={classes.companyTitle}><b>Now App</b></div>
                               <div className={classes.spanLink}>
-                                  <FontAwesomeIcon icon={["fab", "apple"]} className={classes.spanIcon} size="2x"/>
-                                  <div style={{marginTop: "10px", marginLeft: "20px"}}>iOS</div>
-                              </div>
-                              <div className={classes.spanLink}>
                                   <FontAwesomeIcon icon={["fab", "android"]} className={classes.spanIcon}  size="2x"/>
                                   <div style={{marginTop: "10px", marginLeft: "20px"}}>Android</div>
                               </div>
@@ -69,16 +65,13 @@ const Footer = () => {
 
                           <Grid item md={4}>
                               <div className={classes.companyAddressTitle}><b>Company Address</b></div>
-                              <div className={classes.companyAddress}>Công Ty Cổ Phần Foody<br />
-                              Lầu G, Tòa nhà Jabes 1,<br />
-                              số 244 đường Cống Quỳnh, phường Phạm Ngũ Lão, Quận 1, TPHCM<br />
-                              Giấy CN ĐKDN số: 0311828036<br />
-                              do Sở Kế hoạch và Đầu tư TP.HCM cấp ngày 11/6/2012,<br />
-                              sửa đổi lần thứ 23, ngày 10/12/2020<br />
-                              Số điện thoại: 1900 2042<br />
+                              <div className={classes.companyAddress}>Trường đại học Khoa học Tự nhiên<br />
+                              Khoa Công Nghệ Thông Tin,<br />
+                              227 Đ. Nguyễn Văn Cừ, Phường 4, Quận 5, Thành phố Hồ Chí Minh<br />
+                              VNUHCM-University of Science<br />
+                              Số điện thoại: 028 6288 4499<br />
                               </div>
-                              <div className={classes.companyAddress}>Email: <a href="#" className={classes.link}>info@now.com.vn</a></div>
-                              <img className={classes.seal} src={ImageUtils.getSeal()}></img>
+                              <div className={classes.companyAddress}>Website: <a href="https://www.hcmus.edu.vn" className={classes.link}>https://www.hcmus.edu.vn</a></div>
                           </Grid>
                       </Grid>
                       <Grid item md={1}></Grid>

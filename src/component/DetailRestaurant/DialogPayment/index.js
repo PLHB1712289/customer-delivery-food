@@ -89,7 +89,7 @@ export default function DialogPayment({ open, onClose, data }) {
             <Grid container item md={4} className="dialog-payment__info">
               <Grid item md={12} className="dialog_payment__expire">
                 <div style={{ fontSize: "1rem" }}>Đơn hàng hết hạn sau</div>
-                <Countdown date={Date.now() + 900000} renderer={rendererTime} />
+                <Countdown date={Date.now() + 180000} renderer={rendererTime} />
                 {/* <div style={{ fontSize: "1.8rem", lineHeight: 1.7 }}>10:00</div> */}
               </Grid>
               <Grid item md={12}>

@@ -69,15 +69,6 @@ const SideBar = () => {
             <ArrowForwardRounded className="profile_sidebar_icon_2"></ArrowForwardRounded>
           </div>
         </Grid>
-        <Grid item md={12}>
-          <div className={itemStyle[2]} onClick={() => handleSelect(2)}>
-            <Person className="profile_sidebar_icon"></Person>
-            <div className="profile_sidebar_item_title">
-              {Localization.text("txt_payment_type")}
-            </div>
-            <ArrowForwardRounded className="profile_sidebar_icon_2"></ArrowForwardRounded>
-          </div>
-        </Grid>
       </Grid>
     </div>
   );

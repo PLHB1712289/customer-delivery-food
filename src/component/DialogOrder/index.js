@@ -239,14 +239,14 @@ export default function DialogOrder({ open, onClose, renderSignInPage }) {
                   ? StrUtils.formatMoneyString(order.dataOrder.Subtotal)
                   : 0}
                 d ({order.dataOrder ? order.dataOrder.Foods.length : 0} phần) -
-                tiền mặt
+                  {order.dataOrder.paymentInfo === null ? " Tiền mặt" : " zalo pay"}
               </div>
               <div>
                 Tiền ship:{" "}
                 {order.dataOrder
                   ? StrUtils.formatMoneyString(order.dataOrder.ShippingFee)
                   : 0}
-                d - {order.dataOrder ? order.dataOrder.Distance : 0}km
+                d - 2.5km
               </div>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <div>

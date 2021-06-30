@@ -81,6 +81,12 @@ export default makeStyles((theme) => ({
         height: theme.spacing(4),
         marginRight: theme.spacing(1)
     },
+    iconReport: {
+        color: "red",
+        width: theme.spacing(4),
+        height: theme.spacing(4),
+        marginRight: theme.spacing(1)
+    },
     iconLogout: {
         color: "gray",
         width: theme.spacing(4),

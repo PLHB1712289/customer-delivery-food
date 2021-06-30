@@ -13,6 +13,7 @@ const DetailRestaurant = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.loading);
+  const [data, setData] = useState({});
 
   // fake
   // useEffect(() => {
@@ -44,6 +45,7 @@ const DetailRestaurant = () => {
         const { errorCode, data } = await apiService.getRestaurant(id);
 
         if (errorCode === 0 ) {
+          setData(data);
           dispatch(cartAction.createCart(data));
         }
       } catch (e) {}
@@ -63,7 +65,7 @@ const DetailRestaurant = () => {
       <Grid item container xs={12} md={10}>
         {!loading ? (
           <>
-            <InformationRestaurant />
+            <InformationRestaurant data={data}/>
             <ListFood />
           </>
         ) : (

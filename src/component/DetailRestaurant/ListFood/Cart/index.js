@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles.css";
 import AvatarUserDefault from "../../../../assets/img/user-default.png";
 import CartItem from "./CartItem";
@@ -8,6 +8,10 @@ import { useSelector } from "react-redux";
 const displayPrice = StrUtils.formatMoneyString;
 
 const Cart = ({ listOrder, changeQuantity, callbackCheckout, openPayment }) => {
+
+  useEffect(() => {
+
+  }, [listOrder]);
 
   for (var k = 0; k < listOrder.length; k++) {
     var totalPrice = listOrder[k].OriginalPrice;

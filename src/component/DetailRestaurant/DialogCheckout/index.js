@@ -100,6 +100,7 @@ export default function DialogCheckout({
 
         if (errorCode === 0) {
           setFeeShip(data.fee);
+          setDistance(2.5);
         }
       } catch (e) {
         console.log(`[HANDLE_GET_SHIP_FEE]: ${e.message}`);
@@ -167,6 +168,7 @@ export default function DialogCheckout({
       });
       return;
     }
+
     if (!location) return;
 
     var dataOrder = {};
@@ -222,9 +224,10 @@ export default function DialogCheckout({
         // request to server
         const { errorCode, data } = await apiService.sendOrder(dataOrder);
         // const { errorCode, data } = await apiService.sendOrder(fakeOrderData);
-
+        console.log("send order");
         if (errorCode === 0) {
-
+          console.log("receive order: " + JSON.stringify(data));
+          localStorage.removeItem("cart_" + cart.infoRestaurant.id);
           dispatch(action.orderAction.create(data));
           if (data.paymentInfo !== null) {
             var dataPayment = { ...data.paymentInfo };
@@ -234,6 +237,9 @@ export default function DialogCheckout({
             openDialogPayment();
             dispatch(
               action.orderAction.updateStatus(ORDER_STATUS.WAITING_PAYMENT)
+            );
+            dispatch(
+              action.cartAction.updateCart([])
             );
           } else {
             dispatch(action.orderAction.updateStatus(ORDER_STATUS.WAITING));
@@ -263,9 +269,9 @@ export default function DialogCheckout({
           location
         );
         
-        console.log("shipppppp: " + JSON.stringify(object.data));
         if (object.errorCode === 0) {
          setFeeShip(object.data.fee);
+         setDistance(2.5);
         }
       } catch (e) {
         console.log(`[HANDLE_GET_SHIP_FEE]: ${e.message}`);

@@ -193,6 +193,7 @@ const FilterRestaurant = () => {
               minPrice={restaurant.OpenHours[0]}
               avgPrice={restaurant.OpenHours[1]}
               voucher={"Giảm giá"}
+              isPartner={restaurant.IsPartner}
             />
           );
         })}

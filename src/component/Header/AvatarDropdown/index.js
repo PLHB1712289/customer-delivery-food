@@ -14,6 +14,7 @@ import {
 } from "@material-ui/core";
 import classNames from "classnames";
 import { AccountCircle, History, Reorder, ExitToApp } from "@material-ui/icons";
+import ReportIcon from "@material-ui/icons/Report";
 
 // service
 import socket from "../../../socket";
@@ -98,7 +99,7 @@ export default function SimpleMenu(props) {
         break;
     }
   };
-  
+
   useEffect(() => {
     if (order.status > 0) {
       setOpenDialogCheckout(true);
@@ -185,6 +186,16 @@ export default function SimpleMenu(props) {
                   ) : (
                     <span></span>
                   )}
+
+                  <MenuItem
+                    className={classes.item}
+                    onClick={() =>
+                      window.open("https://forms.gle/vxA4c2uyn8HCGxwQ7", "_blank")
+                    }
+                  >
+                    <ReportIcon className={classes.iconReport} />
+                    Khiếu nại
+                  </MenuItem>
 
                   <MenuItem className={classes.item} onClick={handleLogout}>
                     <ExitToApp className={classes.iconLogout} />

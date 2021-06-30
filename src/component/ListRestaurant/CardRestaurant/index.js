@@ -9,6 +9,7 @@ import {} from "@material-ui/core";
 import { LocalOffer, VerifiedUser } from "@material-ui/icons";
 // UI custom
 import SpanLike from "../../Common/SpanLike";
+import Rating from "../Rating";
 // Utils
 import StrUtils from "../../../utils/StrUtils";
 import ImgUtils from "../../../utils/ImageUtils";
@@ -50,18 +51,18 @@ const Card = (props) => {
       <div className="listRes_card-custom" onClick={onViewDetailRestaurant}>
         <div className={classReddot}>{statusText}</div>
         <img
-          src={data.Avatar !== "" ? data.Avatar : ImageUtils.getLogo()}
+          src={data.Avatar !== null ? data.Avatar : "https://images.foody.vn/res/g4/37576/prof/s750x400/foody-mobile-hmb-f-jpg-811-635780121292133127.jpg"}
           alt="image"
         ></img>
         <div className="listRes_span-like">
           <SpanLike />
         </div>
         <div>
-          <VerifiedUser className="listRes_vertify-icon" />
+          {data.IsPartner ? <VerifiedUser className="listRes_vertify-icon" /> : <></>}
           <h3 className="listRes_title">{StrUtils.formatNameRestaurantCart(data.Name)}</h3>
         </div>
         <p className="listRes_address">{StrUtils.formatAdressRestaurantCart(data.FullAddress)}</p>
-        <hr className="listRes_break-line-card"></hr>
+        <div style={{marginLeft: "8px"}}><Rating rate={data.Rating}></Rating></div>
         {/* <LocalOffer className="listRes_icon-offer" /> */}
         <div className="listRes_text-offer">{data.voucher}</div>
       </div>

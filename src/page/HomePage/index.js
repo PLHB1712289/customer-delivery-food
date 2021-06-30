@@ -37,7 +37,7 @@ const Footer = () => {
                 {Localization.text("title_order_homepage")}
               </div>
               <div className="orderTut">
-                {Localization.text("title_order_intro_homepage")}
+              Luôn mạng trải nghiệm tốt nhất đến cho khách hàng
               </div>
             </div>
 
@@ -49,7 +49,6 @@ const Footer = () => {
 
             <div className="list-app-image">
               <img className="app-image" src={ImageUtils.getGooglePlay()}></img>
-              <img className="app-image" src={ImageUtils.getAppStore()}></img>
             </div>
           </Grid>
 

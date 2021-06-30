@@ -15,6 +15,7 @@ const RestaurantItem = ({
   minPrice,
   avgPrice,
   voucher,
+  isPartner,
 }) => {
   const history = useHistory();
 
@@ -28,10 +29,14 @@ const RestaurantItem = ({
       </div>
       <div className="restaurant-item__information">
         <div className="restaurant-item__name-restaurant">
-          <Icon
-            icon={shieldIcon}
-            style={{ color: "#ffc107", fontSize: "20px" }}
-          />
+          {isPartner ? (
+            <Icon
+              icon={shieldIcon}
+              style={{ color: "#ffc107", fontSize: "20px" }}
+            />
+          ) : (
+            <></>
+          )}
           {nameRestaurant}
         </div>
         <div className="restaurant-item__address-restaurant">

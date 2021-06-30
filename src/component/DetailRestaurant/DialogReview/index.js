@@ -23,27 +23,28 @@ import { useHistory } from "react-router-dom";
 import Rating from "../InformationRestaurant/Rating";
 import CardReview from "./ReviewCard";
 
-export default function DialogOption({ open, onClose, dataRestaurant }) {
+export default function DialogOption({ open, onClose, dataRestaurant, rating, totalReviews }) {
   var classes = useStyles();
   var history = useHistory();
   var dispatch = useDispatch();
 
   const [listReview, setListReview] = useState(fakeData);
 
-  //   useEffect(() => {
-  //     // (async () => {
-  //     //     try {
-  //     //       // request to server
-  //     //       const { errorCode, data } = await apiService.getListReview(dataRestaurant.id);
+    useEffect(() => {
+      (async () => {
+          try {
+            // request to server
+            const { errorCode, data } = await apiService.getListReview(dataRestaurant.id);
 
-  //     //       if (errorCode === 0) {
-  //     //         setListReview(data);
-  //     //       }
-  //     //     } catch (e) {
-  //     //       console.log(`[HANDLE_GET_REVIEWS]: ${e.message}`);
-  //     //     }
-  //     //   })();
-  //   }, []);
+            if (errorCode === 0) {
+              setListReview(data.concat(fakeData));
+            }
+          } catch (e) {
+            console.log(`[HANDLE_GET_REVIEWS]: ${e.message}`);
+          }
+        })();
+    }, []);
+
 
   return (
     <div>
@@ -69,9 +70,9 @@ export default function DialogOption({ open, onClose, dataRestaurant }) {
                 {dataRestaurant.FullAddress}
               </div>
               <div style={{ display: "flex", marginLeft: "-3px" }}>
-                <Rating rate={4}></Rating>
+                <Rating rate={dataRestaurant.rating}></Rating>
                 <span className="dialog-res__review-info__count-review">
-                  100+
+                  {dataRestaurant.totalReviews + 4}+ lượt dánh giá
                 </span>
               </div>
             </div>

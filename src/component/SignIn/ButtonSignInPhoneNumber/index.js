@@ -164,6 +164,7 @@ export default function PopupSignInWithPhone(props) {
             type="button"
             disabled={disable}
             value={Localization.text("txt_submit")}
+            style={{cursor: "pointer"}}
           />
         </form>
       ) : (

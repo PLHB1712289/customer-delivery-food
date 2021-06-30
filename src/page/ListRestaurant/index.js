@@ -234,9 +234,9 @@ const ListRestaurant = () => {
   };
 
   let globalClass = "listRes_global ";
-  if (listRes.length !== 0) {
-    globalClass += "listRes_haveResult";
-  }
+  // if (listRes.length !== 0) {
+  //   globalClass += "listRes_haveResult";
+  // }
 
   const count_area = DataUtils.getFilterAreaRestaurant(filterArea, city).length;
   const count_type = DataUtils.getFilterTypeRestaurant(filterType).length;

@@ -6,8 +6,10 @@ import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import RestaurantConfig from "../../../config/RestaurantConfig";
 import { useSelector } from "react-redux";
 import DialogReview from "../DialogReview";
+import shieldIcon from "@iconify/icons-entypo/shield";
+import { Icon } from "@iconify/react";
 
-const InformationRestaurant = () => {
+const InformationRestaurant = (props) => {
   const {
     Avatar,
     location,
@@ -21,6 +23,8 @@ const InformationRestaurant = () => {
     id
   } = useSelector((state) => state.cart.infoRestaurant);
 
+  const { data } = props;
+
   const city = useSelector((state) => state.city);
   const [openDialogReview, setOpenDialogReivew] = useState(false);
 
@@ -29,7 +33,14 @@ const InformationRestaurant = () => {
       <DialogReview
         open={openDialogReview}
         onClose={() => setOpenDialogReivew(false)}
-        dataRestaurant={{Avatar: Avatar, Name: Name, FullAddress: FullAddress, id: id}}
+        dataRestaurant={{
+          Avatar: Avatar,
+          Name: Name,
+          FullAddress: FullAddress,
+          id: id,
+          rating: data.Rating,
+          totalReviews: data.TotalReviews
+        }}
       />
       <Grid
         item
@@ -47,21 +58,46 @@ const InformationRestaurant = () => {
           <div className="information-restaurant__location">
             {RestaurantConfig.CITY[city].name + " >> " + Name}
           </div>
-          <div className="information-restaurant__like">
-            <ThumbUpAltIcon style={{ width: 20, marginRight: 5 }} />
-            Yêu thích
+          <div style={{ display: "flex", float: "left" }}>
+            <div className="information-restaurant__like">
+              <ThumbUpAltIcon style={{ width: 20, marginRight: 5 }} />
+              Yêu thích
+            </div>
+            {data.IsPartner ? (
+              <div className="information-restaurant__partner">
+                <Icon
+                  icon={shieldIcon}
+                  style={{
+                    color: "#ffffff",
+                    fontSize: "20px",
+                    marginRight: "5px",
+                  }}
+                />
+                Quán đối tác
+              </div>
+            ) : (
+              <></>
+            )}
           </div>
-          <div className="information-restaurant__name-restaurant">{Name}</div>
+          <div
+            className="information-restaurant__name-restaurant"
+            style={{ display: "block", float: "none", clear: "both" }}
+          >
+            {Name}
+          </div>
           <div className="information-restaurant__address-restaurant">
             {FullAddress}
           </div>
           <div className="information-restaurant__vote-and-review-restaurant">
-            <Rating rate={4} />
+            <Rating rate={data.Rating} />
             <div className="information-restaurant__review-restaurant">
               <div className="information-restaurant__count-review">
-                {"100+ lượt đánh giá"}
+                { (data.TotalReviews + 4)  + "+ lượt đánh giá"}
               </div>
-              <div style={{ cursor: "pointer", color: "#0044CC" }} onClick={() => setOpenDialogReivew(true)}>
+              <div
+                style={{ cursor: "pointer", color: "#0044CC" }}
+                onClick={() => setOpenDialogReivew(true)}
+              >
                 <i>
                   <u>Xem chi tiết</u>
                 </i>
@@ -72,7 +108,7 @@ const InformationRestaurant = () => {
             <span>Mở cửa:</span> {OpenHours[0] + " - " + OpenHours[1]}
           </div>
           <div className="information-restaurant__price-restaurant">
-            <span>Thông báo:</span> {Anouncement}
+            {/* <span>Thông báo:</span> {Anouncement} */}
           </div>
         </Grid>
       </Grid>

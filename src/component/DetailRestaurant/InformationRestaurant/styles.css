@@ -37,6 +37,23 @@
   align-items: center;
 }
 
+
+.information-restaurant__partner {
+  background-color: #f8c11d;
+  color: white;
+
+  width: 150px;
+  height: 30px;
+  margin: 10px 10px;
+
+  font-weight: 600;
+  border-radius: 4px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .information-restaurant__name-restaurant {
   font-size: 2.5rem;
   font-weight: bold;

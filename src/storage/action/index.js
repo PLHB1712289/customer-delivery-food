@@ -6,6 +6,7 @@ import indexProfileAction from "./indexProfileAction";
 import searchAction from "./searchAction";
 import addressDeliveryAction from "./addressDeliveryAction";
 import orderAction from "./orderAction";
+import cartAction from "./cartAction";
 
 const ReduxAction = {
   searchAction,
@@ -15,7 +16,8 @@ const ReduxAction = {
   loadingAction,
   cityAction,
   indexProfileAction,
-  orderAction
+  orderAction,
+  cartAction
 };
 
 export default ReduxAction;

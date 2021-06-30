@@ -26,7 +26,7 @@ const _url = {
         GET_BY_ID: "/restaurants/",
         GET_CATEGORIES: "/restaurants/resId/foodcategories",
         GET_FOODS: "restaurants/resId/foodcategories/catId/foods",
-        GET_REVIEWS: "restaurants/resId/revires",
+        GET_REVIEWS: "restaurants/resId/reviews",
     },
 
     ORDER: {
