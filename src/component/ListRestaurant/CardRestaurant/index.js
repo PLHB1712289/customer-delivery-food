@@ -43,7 +43,7 @@ const Card = (props) => {
   }
 
   const onViewDetailRestaurant = () => {
-      history.push("restaurant/" + data.id)
+    history.push("restaurant/" + data.id);
   };
 
   return (
@@ -51,18 +51,26 @@ const Card = (props) => {
       <div className="listRes_card-custom" onClick={onViewDetailRestaurant}>
         <div className={classReddot}>{statusText}</div>
         <img
-          src={data.Avatar !== null ? data.Avatar : "https://images.foody.vn/res/g4/37576/prof/s750x400/foody-mobile-hmb-f-jpg-811-635780121292133127.jpg"}
+          src={
+            data.Avatar !== null
+              ? data.Avatar
+              : "https://images.foody.vn/res/g4/37576/prof/s750x400/foody-mobile-hmb-f-jpg-811-635780121292133127.jpg"
+          }
           alt="image"
         ></img>
-        <div className="listRes_span-like">
-          <SpanLike />
-        </div>
+        <div className="listRes_span-like">{/* <SpanLike /> */}</div>
         <div>
-          {data.IsPartner ? <VerifiedUser className="listRes_vertify-icon" /> : <></>}
-          <h3 className="listRes_title">{StrUtils.formatNameRestaurantCart(data.Name)}</h3>
+          {data.IsPartner ? (
+            <VerifiedUser className="listRes_vertify-icon" />
+          ) : (
+            <></>
+          )}
+          <h3 className="listRes_title">{data.Name}</h3>
         </div>
-        <p className="listRes_address">{StrUtils.formatAdressRestaurantCart(data.FullAddress)}</p>
-        <div style={{marginLeft: "8px"}}><Rating rate={data.Rating}></Rating></div>
+        <p className="listRes_address">{data.FullAddress}</p>
+        <div style={{ marginLeft: "8px" }}>
+          <Rating rate={data.Rating}></Rating>
+        </div>
         {/* <LocalOffer className="listRes_icon-offer" /> */}
         <div className="listRes_text-offer">{data.voucher}</div>
       </div>

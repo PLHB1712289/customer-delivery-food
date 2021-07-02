@@ -57,6 +57,10 @@
   text-align: left;
   padding: 0px;
   font-weight: 700;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .listRes_card-custom .listRes_address {
@@ -65,6 +69,10 @@
   font-weight: lighter;
   line-height: 1.5;
   font-family: "Arial, sans-serif";
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .listRes_break-line-card {
@@ -87,11 +95,11 @@
   transform: translateY(-15%);
 }
 
-.listRes_vertify-icon  {
-    float: left;
-    margin: 0px 3px 0px 7px;
-    color: #ffc107;
-    width: 1rem !important;
-    height: 1rem !important;
-    transform: translateY(20%);
+.listRes_vertify-icon {
+  float: left;
+  margin: 0px 3px 0px 7px;
+  color: #ffc107;
+  width: 1rem !important;
+  height: 1rem !important;
+  transform: translateY(20%);
 }
