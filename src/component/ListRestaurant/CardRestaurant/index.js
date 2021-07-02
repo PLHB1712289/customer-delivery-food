@@ -55,7 +55,7 @@ const Card = (props) => {
           alt="image"
         ></img>
         <div className="listRes_span-like">
-          <SpanLike />
+          {data.Rating >= 4 ? <SpanLike /> : <></>}
         </div>
         <div>
           {data.IsPartner ? <VerifiedUser className="listRes_vertify-icon" /> : <></>}

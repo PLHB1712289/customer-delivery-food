@@ -41,8 +41,9 @@ const Cart = ({ listOrder, changeQuantity, callbackCheckout, openPayment }) => {
     fullName = localStorage.getItem("fullName");
   }
 
-  const Avatar = token === null ? AvatarUserDefault : avatarUrl;
-  const Fullname = token === null ? "" : fullName;
+  var Avatar = token === null ? AvatarUserDefault : avatarUrl;
+  var Fullname = token === null ? "" : fullName;
+  Avatar = Avatar === "" ? AvatarUserDefault : Avatar;
 
   return (
     <div className="detail-restaurant__cart-container">

@@ -20,7 +20,7 @@ const InformationRestaurant = (props) => {
     OpenHours,
     Anouncement,
     priceAvg,
-    id
+    id,
   } = useSelector((state) => state.cart.infoRestaurant);
 
   const { data } = props;
@@ -39,7 +39,7 @@ const InformationRestaurant = (props) => {
           FullAddress: FullAddress,
           id: id,
           rating: data.Rating,
-          totalReviews: data.TotalReviews
+          totalReviews: data.TotalReviews,
         }}
       />
       <Grid
@@ -59,10 +59,14 @@ const InformationRestaurant = (props) => {
             {RestaurantConfig.CITY[city].name + " >> " + Name}
           </div>
           <div style={{ display: "flex", float: "left" }}>
-            <div className="information-restaurant__like">
-              <ThumbUpAltIcon style={{ width: 20, marginRight: 5 }} />
-              Yêu thích
-            </div>
+            {data.Rating >= 4 ? (
+              <div className="information-restaurant__like">
+                <ThumbUpAltIcon style={{ width: 20, marginRight: 5 }} />
+                Yêu thích
+              </div>
+            ) : (
+              <></>
+            )}
             {data.IsPartner ? (
               <div className="information-restaurant__partner">
                 <Icon
@@ -92,7 +96,7 @@ const InformationRestaurant = (props) => {
             <Rating rate={data.Rating} />
             <div className="information-restaurant__review-restaurant">
               <div className="information-restaurant__count-review">
-                { (data.TotalReviews + 4)  + "+ lượt đánh giá"}
+                {data.TotalReviews + 4 + "+ lượt đánh giá"}
               </div>
               <div
                 style={{ cursor: "pointer", color: "#0044CC" }}

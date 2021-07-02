@@ -3,6 +3,8 @@ import "./styles.css";
 import { Icon } from "@iconify/react";
 import labelAlt from "@iconify/icons-uil/label-alt";
 import coinsLine from "@iconify/icons-ri/coins-line";
+import open from "@iconify/icons-ri/open-source-line"
+import close from "@iconify/icons-ri/close-circle-line";
 import labelPercent from "@iconify/icons-mdi/label-percent";
 import shieldIcon from "@iconify/icons-entypo/shield";
 import { useHistory } from "react-router-dom";
@@ -45,25 +47,21 @@ const RestaurantItem = ({
         <div className="restaurant-item__quick-info-restaurant">
           <div className="restaurant-item__min-price-restaurant">
             <Icon
-              icon={labelAlt}
-              style={{ color: "#ffc107", fontSize: "20px" }}
+              icon={open}
+              style={{ color: "green", fontSize: "20px", marginRight: "4px"  }}
             />
             Mở cửa {minPrice}
           </div>
           <div className="restaurant-item__price-restaurant">
-            <Icon
-              icon={coinsLine}
-              style={{ color: "#ffc107", fontSize: "20px" }}
-            />
-            Đóng cửa {avgPrice}
+      
           </div>
         </div>
         <div className="restaurant-item__deal-restaurant">
-          <Icon
-            icon={labelPercent}
-            style={{ color: "#ff0000", fontSize: "20px" }}
-          />
-          {voucher}
+        <Icon
+              icon={close}
+              style={{ color: "red", fontSize: "20px", marginRight: "4px" }}
+            />
+            {"Đóng cửa"} {avgPrice}
         </div>
       </div>
     </div>

@@ -4,6 +4,7 @@ import React from "react";
 import "./styles.css";
 import StrUtils from "../../../../utils/StrUtils";
 import { useHistory } from "react-router-dom";
+import Rating from "../Rating";
 
 const CardRestaurant = ({
   id,
@@ -12,6 +13,7 @@ const CardRestaurant = ({
   nameRestaurant,
   addressRestaurant,
   voucher,
+  rating
 }) => {
   const history = useHistory();
 
@@ -24,7 +26,7 @@ const CardRestaurant = ({
     >
       <div className="card-restaurant__custom">
         <div className="card-restaurant__thumbnail">
-          {isOpen && <div className="status">Đang mở</div>}
+          {isOpen ? <div className="status" style={{backgroundColor: "green"}}>Đang mở</div> :  <div className="status">Đóng cửa</div>}
           <img src={urlImg} alt="image" />
         </div>
 
@@ -38,11 +40,7 @@ const CardRestaurant = ({
             </div>
           </div>
           <div className="card-restaurant__voucher">
-            <Icon
-              icon={labelPercent}
-              style={{ color: "#ff0000", fontSize: "30px", margin: "0 5px" }}
-            />
-            {voucher}
+            <Rating rate={rating}></Rating>
           </div>
         </div>
       </div>

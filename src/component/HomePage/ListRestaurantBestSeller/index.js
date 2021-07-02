@@ -125,6 +125,7 @@ const ListRestaurantBestSeller = () => {
               nameRestaurant={restaurant.Name}
               addressRestaurant={restaurant.FullAddress}
               voucher={"Giảm giá"}
+              rating={restaurant.Rating}
             />
           </Grid>
         );
