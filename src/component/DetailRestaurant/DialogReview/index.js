@@ -37,7 +37,7 @@ export default function DialogOption({ open, onClose, dataRestaurant, rating, to
             const { errorCode, data } = await apiService.getListReview(dataRestaurant.id);
 
             if (errorCode === 0) {
-              setListReview(data.concat(fakeData));
+              setListReview(data);
             }
           } catch (e) {
             console.log(`[HANDLE_GET_REVIEWS]: ${e.message}`);

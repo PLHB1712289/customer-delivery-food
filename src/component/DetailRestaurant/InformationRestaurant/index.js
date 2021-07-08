@@ -96,7 +96,7 @@ const InformationRestaurant = (props) => {
             <Rating rate={data.Rating} />
             <div className="information-restaurant__review-restaurant">
               <div className="information-restaurant__count-review">
-                {data.TotalReviews + 4 + "+ lượt đánh giá"}
+                {data.TotalReviews + "+ lượt đánh giá"}
               </div>
               <div
                 style={{ cursor: "pointer", color: "#0044CC" }}
